@@ -514,9 +514,17 @@ def internal_error(error):
     return render_template("coming_soon.html", message="Server Error (500)"), 500
 
 
-# ------------------ Run App ------------------ #
+import socket
+
+def find_free_port(default_port=5000):
+    port = default_port
+    while True:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            if s.connect_ex(("127.0.0.1", port)) != 0:  # port is free
+                return port
+            port += 1  # try next port
+
 if __name__ == "__main__":
-    # Optional: create tables if running without migrations in dev
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
+    free_port = find_free_port(5000)
+    print(f"✅ Starting Flask on port {free_port}")
+    app.run(debug=True, port=free_port)

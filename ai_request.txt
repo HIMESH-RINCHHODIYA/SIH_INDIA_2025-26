@@ -3,9 +3,10 @@ ENABLE: profile, attendance, grades, assignments
 ASSIGNMENTS: allow_create
 THEME: light
 
-Add a new page "Leaderboard" that shows top 10 students with their name, score, and profile picture.
+ROLE: student
+ENABLE: profile, attendance, grades, assignments
+ASSIGNMENTS: view_only
+THEME: light
 
-- Add a Flask route `/leaderboard`
-- Create a template `leaderboard.html`
-- UI should look like a table with Rank, Name, Score, and Photo
-- Link this page in the main dashboard menu
+ASSIGNMENTS: allow_create is the key that makes the Add Assignment button visible.
+👉 Students only get view_only.
