@@ -9,6 +9,14 @@ from werkzeug.utils import secure_filename
 from flask_migrate import Migrate
 import os, random, uuid
 
+# ------------------ Logging Setup ------------------ #
+import logging
+logging.basicConfig(
+    filename="app.log",   # all errors will go here
+    level=logging.ERROR,  # only log errors (not info/debug)
+    format="%(asctime)s %(levelname)s %(message)s"
+)
+
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
@@ -488,6 +496,23 @@ def superadmin_logs():
                            user=current_user,
                            title="📂 Super Admin - System Logs",
                            content="View system logs and activities.")
+    
+    # ------------------ Error Handlers ------------------ #
+@app.errorhandler(403)
+def forbidden_error(error):
+    logging.error(f"403 Forbidden: {error}")
+    return render_template("coming_soon.html", message="Access Forbidden (403)"), 403
+
+@app.errorhandler(404)
+def not_found_error(error):
+    logging.error(f"404 Not Found: {error}")
+    return render_template("coming_soon.html", message="Page Not Found (404)"), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    logging.error(f"500 Internal Server Error: {error}")
+    return render_template("coming_soon.html", message="Server Error (500)"), 500
+
 
 # ------------------ Run App ------------------ #
 if __name__ == "__main__":

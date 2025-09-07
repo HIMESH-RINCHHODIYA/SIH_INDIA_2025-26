@@ -1,0 +1,39 @@
+2025-09-07 17:36:48,372 WARNING  * Debugger is active!
+2025-09-07 17:36:48,372 INFO  * Debugger PIN: 479-369-492
+2025-09-07 17:46:12,288 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/scripts/ai_fixer.py', reloading
+2025-09-07 17:46:12,833 WARNING  * Debugger is active!
+2025-09-07 17:46:12,833 INFO  * Debugger PIN: 479-369-492
+2025-09-07 17:47:40,179 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-07 17:47:40,179 INFO [33mPress CTRL+C to quit[0m
+2025-09-07 17:47:40,179 INFO  * Restarting with stat
+2025-09-07 17:47:40,647 WARNING  * Debugger is active!
+2025-09-07 17:47:40,647 INFO  * Debugger PIN: 479-369-492
+2025-09-07 17:48:28,861 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-07 17:48:28,861 INFO [33mPress CTRL+C to quit[0m
+2025-09-07 17:48:28,862 INFO  * Restarting with stat
+2025-09-07 17:48:29,346 WARNING  * Debugger is active!
+2025-09-07 17:48:29,347 INFO  * Debugger PIN: 479-369-492
+2025-09-07 17:49:46,440 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/scripts/ai_fixer.py', reloading
+2025-09-07 17:49:46,511 INFO  * Restarting with stat
+2025-09-07 17:49:47,031 WARNING  * Debugger is active!
+2025-09-07 17:49:47,031 INFO  * Debugger PIN: 479-369-492
+2025-09-07 17:54:02,854 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-07 17:54:02,854 INFO [33mPress CTRL+C to quit[0m
+2025-09-07 17:54:02,855 INFO  * Restarting with stat
+2025-09-07 17:54:03,377 WARNING  * Debugger is active!
+2025-09-07 17:54:03,377 INFO  * Debugger PIN: 479-369-492
+2025-09-07 17:58:26,142 INFO 127.0.0.1 - - [07/Sep/2025 17:58:26] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-07 17:58:26,279 INFO 127.0.0.1 - - [07/Sep/2025 17:58:26] "GET /login HTTP/1.1" 200 -
+2025-09-07 17:58:26,553 ERROR 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-09-07 17:58:26,555 INFO 127.0.0.1 - - [07/Sep/2025 17:58:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-07 17:58:34,816 INFO 127.0.0.1 - - [07/Sep/2025 17:58:34] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-07 17:58:34,980 INFO 127.0.0.1 - - [07/Sep/2025 17:58:34] "GET /dashboard HTTP/1.1" 200 -
+2025-09-07 18:13:18,493 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-07 18:13:18,493 INFO [33mPress CTRL+C to quit[0m
+2025-09-07 18:13:18,494 INFO  * Restarting with stat
+2025-09-07 18:13:18,987 WARNING  * Debugger is active!
+2025-09-07 18:13:18,987 INFO  * Debugger PIN: 479-369-492
