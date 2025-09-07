@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .profile-container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.1);
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .profile-header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .profile-header h2 {
+    font-weight: bold;
+    color: #185a9d;
+  }
+
+  .form-label {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .btn-theme {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+    color: white;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s ease;
+  }
+  .btn-theme:hover {
+    background: linear-gradient(135deg, #185a9d, #43cea2);
+    transform: scale(1.05);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="profile-container">
+  <div class="profile-header">
+    <h2>📋 Student Profile</h2>
+    <p class="text-muted">Update your personal and academic details</p>
+  </div>
+
+  <form method="POST" enctype="multipart/form-data">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Full Name</label>
+        <input type="text" name="name" class="form-control" value="{{ user.name }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" name="dob" class="form-control" value="{{ user.dob }}">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Contact</label>
+        <input type="text" name="contact" class="form-control" value="{{ user.contact }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Program</label>
+        <input type="text" name="program" class="form-control" value="{{ user.program }}">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Year</label>
+        <input type="text" name="year" class="form-control" value="{{ user.year }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Branch</label>
+        <input type="text" name="branch" class="form-control" value="{{ user.branch }}">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Roll No</label>
+        <input type="text" name="roll_no" class="form-control" value="{{ user.roll_no }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Admission Date</label>
+        <input type="date" name="admission_date" class="form-control" value="{{ user.admission_date }}">
+      </div>
+    </div>
+
+    <hr>
+    <h5 class="mb-3">📂 Upload Documents</h5>
+
+    <div class="mb-3">
+      <label class="form-label">Profile Photo</label>
+      <input type="file" name="photo" class="form-control">
+      {% if user.photo %}
+        <img src="{{ url_for('static', filename=user.photo.split('static/')[-1]) }}" 
+             alt="Profile Photo" class="img-thumbnail mt-2" style="max-height: 120px;">
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">ID Card</label>
+      <input type="file" name="id_card" class="form-control">
+      {% if user.id_card %}
+        <a href="{{ url_for('static', filename=user.id_card.split('static/')[-1]) }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">View Uploaded</a>
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Certificate</label>
+      <input type="file" name="certificate" class="form-control">
+      {% if user.certificate %}
+        <a href="{{ url_for('static', filename=user.certificate.split('static/')[-1]) }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">View Uploaded</a>
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Transcript</label>
+      <input type="file" name="transcript" class="form-control">
+      {% if user.transcript %}
+        <a href="{{ url_for('static', filename=user.transcript.split('static/')[-1]) }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">View Uploaded</a>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-theme w-100">💾 Save Profile</button>
+  </form>
+</div>
+{% endblock %}

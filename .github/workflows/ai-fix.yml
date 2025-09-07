@@ -1,0 +1,35 @@
+name: AI Self-Healing Bot
+
+on:
+  workflow_dispatch: {}   # allow admin to trigger manually
+  schedule:
+    - cron: '0 * * * *'   # run every 1 hour
+  workflow_run:
+    workflows: ["Deploy"] # runs after your Deploy workflow completes
+    types: [completed]
+
+jobs:
+  run-ai-fixer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run AI fixer
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/ai_fixer.py

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .register-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #FF9A9E, #FAD0C4);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .register-container input, .register-container select {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  .register-container input:focus, .register-container select:focus {
+    border-color: #ff758c;
+    box-shadow: 0px 0px 8px rgba(255,117,140,0.6);
+  }
+
+  .register-container button {
+    width: 100%;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background-color 0.3s;
+  }
+  .register-container button:hover {
+    transform: scale(1.05);
+    background-color: #c94b5b;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="register-container">
+  <h2 class="text-center text-dark mb-4">📝 Register</h2>
+  <form method="POST" id="registerForm">
+    <div class="mb-3">
+      <label class="form-label">Full Name</label>
+      <input type="text" name="name" class="form-control" placeholder="Enter full name" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">College Email</label>
+      <input type="email" name="email" class="form-control" placeholder="e.g. student@medicaps.ac.in" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Role</label>
+      <select name="role" class="form-select">
+        <option value="Student">Student</option>
+        <option value="Faculty">Faculty</option>
+        <option value="Admin">Admin</option>
+        <option value="SuperAdmin">Super Admin</option>
+      </select>
+    </div>
+    <div class="form-check mb-3">
+      <input type="checkbox" class="form-check-input" id="showPassword">
+      <label class="form-check-label" for="showPassword">Show Password</label>
+    </div>
+    <button type="submit" class="btn btn-danger">Register</button>
+  </form>
+</div>
+
+<script>
+  // Show/Hide Password
+  document.getElementById("showPassword").addEventListener("change", function() {
+    const pwd = document.getElementById("password");
+    pwd.type = this.checked ? "text" : "password";
+  });
+
+  // Loading animation on submit
+  document.getElementById("registerForm").addEventListener("submit", function(e) {
+    const btn = this.querySelector("button");
+    btn.innerHTML = "⏳ Registering...";
+    btn.disabled = true;
+  });
+</script>
+{% endblock %}

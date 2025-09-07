@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart College ERP — Module Blueprint</title>
+  <meta name="description" content="Smart-Automation College ERP modules and features blueprint (static page with search, dark mode, print, and JSON export)." />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111833;
+      --muted:#7e8bb6;
+      --text:#e9edff;
+      --brand:#6c8cff;
+      --brand-2:#22d3ee;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --chip:#1b2347;
+      --border:#22305c;
+      --shadow:0 6px 24px rgba(0,0,0,.25), 0 2px 8px rgba(0,0,0,.2);
+    }
+    :root.light{
+      --bg:#f6f7fb;
+      --panel:#ffffff;
+      --muted:#5b6b86;
+      --text:#0f172a;
+      --brand:#4f46e5;
+      --brand-2:#0891b2;
+      --chip:#eef2ff;
+      --border:#e5e7eb;
+      --shadow:0 8px 28px rgba(27, 38, 49, .12), 0 2px 6px rgba(27, 38, 49, .06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:var(--bg);
+      color:var(--text);
+    }
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .app{
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:20px;
+      padding:20px;
+      max-width:1400px;
+      margin:0 auto;
+    }
+    @media (max-width: 980px){
+      .app{grid-template-columns:1fr}
+      aside{position:static; top:auto; height:auto}
+    }
+
+    header.hero{
+      grid-column:1/-1;
+      background:linear-gradient(135deg, rgba(108,140,255,.18), rgba(34,211,238,.14));
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+    .hero h1{
+      margin:0 0 6px;
+      font-size: clamp(22px, 3vw, 36px);
+      letter-spacing:.2px;
+    }
+    .hero p{margin:6px 0 14px;color:var(--muted)}
+    .toolbar{
+      display:flex; flex-wrap:wrap; gap:10px;
+    }
+    .toolbar .field{
+      display:flex; align-items:center; gap:8px; background:var(--panel);
+      border:1px solid var(--border); border-radius:12px; padding:8px 12px;
+    }
+    .toolbar input[type="search"]{
+      width:280px; max-width:60vw; border:none; outline:none; background:transparent; color:var(--text)
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border);
+      background:var(--panel); color:var(--text); padding:8px 12px; border-radius:12px;
+      cursor:pointer; box-shadow:var(--shadow); transition:.2s transform, .2s opacity, .2s background;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); border-color:transparent; color:white}
+    .btn.ghost{background:transparent}
+    .btn.small{padding:6px 10px; font-size:.9rem}
+
+    aside{
+      position:sticky; top:16px; height:calc(100dvh - 32px);
+      border:1px solid var(--border); border-radius:14px; background:var(--panel); box-shadow:var(--shadow); padding:14px;
+      overflow:auto;
+    }
+    .nav-title{font-weight:700; margin:6px 0 8px}
+    .nav{list-style:none;margin:0;padding:0}
+    .nav a{
+      display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:10px; color:var(--text)
+    }
+    .nav a:hover{background:var(--chip)}
+    .chip{
+      display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:999px; background:var(--chip); border:1px solid var(--border); color:var(--text); font-size:.85rem
+    }
+    .chip .dot{width:8px;height:8px;border-radius:50%}
+    .chip.ok .dot{background:var(--ok)}
+    .chip.warn .dot{background:var(--warn)}
+    .chip.new .dot{background:var(--brand-2)}
+    .chip.ai .dot{background:var(--brand)}
+
+    main{
+      display:grid; gap:16px;
+    }
+    section.card{
+      background:var(--panel); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:0;
+    }
+    .card-header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; border-bottom:1px solid var(--border);
+    }
+    .card-header h2{margin:0; font-size:1.1rem}
+    .card-body{padding:16px}
+
+    .badge{
+      display:inline-block; font-size:.8rem; padding:4px 8px; border-radius:8px; color:white; background:var(--brand);
+    }
+    .tag{display:inline-flex; align-items:center; padding:4px 8px; background:var(--chip); border:1px solid var(--border); border-radius:999px; font-size:.8rem; color:var(--muted); margin:4px 6px 0 0}
+
+    /* Accordion */
+    details.module{border-top:1px dashed var(--border)}
+    details.module:first-child{border-top:none}
+    details.module summary{
+      list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px 8px; border-radius:10px;
+    }
+    details.module summary::-webkit-details-marker{display:none}
+    .sum-left{display:flex; align-items:center; gap:10px}
+    .sum-title{font-weight:700}
+    .sum-desc{color:var(--muted); font-size:.95rem}
+    .caret{transition:transform .2s ease}
+    details[open] .caret{transform:rotate(90deg)}
+
+    ul.feature-list{margin:0 0 8px 0; padding:0 0 0 18px}
+    ul.feature-list li{margin:6px 0}
+    .note{color:var(--muted); font-size:.95rem}
+
+    /* Timetable preview */
+    .grid{
+      display:grid; gap:12px;
+    }
+    .grid.two{grid-template-columns:1fr 1fr}
+    @media (max-width: 780px){.grid.two{grid-template-columns:1fr}}
+
+    table{
+      width:100%; border-collapse:collapse; font-size:.95rem; border:1px solid var(--border); overflow:hidden; border-radius:10px;
+    }
+    th, td{border-bottom:1px solid var(--border); padding:10px}
+    thead th{background:linear-gradient(180deg, rgba(108,140,255,.18), transparent)}
+    tbody tr:nth-child(even){background:rgba(108,140,255,.06)}
+    .kpi{
+      display:grid; grid-template-columns: repeat(4, 1fr); gap:10px;
+    }
+    .kpi .box{
+      background:var(--chip); border:1px solid var(--border); border-radius:12px; padding:12px; text-align:center
+    }
+    .muted{color:var(--muted)}
+    .float-top{
+      position:fixed; right:16px; bottom:16px; z-index:5;
+    }
+
+    /* Print tweaks */
+    @media print{
+      aside, .toolbar, .float-top { display:none !important; }
+      header.hero{box-shadow:none}
+      .card{break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="hero">
+      <h1>Smart College ERP — Modules & Features</h1>
+      <p>Blueprint of a modern, SIH-ready, NEP 2020–aligned ERP for colleges. This is a static starter page—wire it up later with your backend of choice.</p>
+      <div class="toolbar">
+        <div class="field" title="Search modules & features">
+
+
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('home') }}">College ERP</a>
+
+    <div class="d-flex">
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light me-2">Dashboard</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn btn-success">Login</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+          <!-- magnifier -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.2-4.2M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="search" type="search" placeholder="Search: e.g. timetable, hostel, AI, fees…" />
+        </div>
+        <button class="btn" id="expandAll" title="Expand all">⤢ Expand All</button>
+        <button class="btn" id="collapseAll" title="Collapse all">⤡ Collapse All</button>
+        <button class="btn" id="toggleTheme" title="Toggle dark/light">🌗 Theme</button>
+        <button class="btn" id="printPage" title="Print / Save PDF">🖨️ Print</button>
+        <button class="btn primary" id="exportJson" title="Export JSON skeleton of modules">⬇️ Export JSON</button>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside aria-label="Section Navigation">
+      <div class="nav-title">Quick Navigation</div>
+      <ul class="nav" id="sideNav">
+        <!-- Will be populated by JS -->
+      </ul>
+      <hr style="border-color:var(--border); opacity:.4; margin:12px 0">
+      <div class="chip ai"><span class="dot"></span> AI Features Included</div>
+      <div class="chip ok" style="margin-top:8px;"><span class="dot"></span> NEP 2020 Ready</div>
+      <div class="chip warn" style="margin-top:8px;"><span class="dot"></span> Mock / Non-functional</div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="content">
+
+      <!-- 0. Tech Stack -->
+      <section class="card" id="tech-stack">
+        <div class="card-header">
+          <h2>Suggested Tech Stack</h2>
+          <span class="badge">Starter</span>
+        </div>
+        <div class="card-body">
+          <div class="grid two">
+            <div>
+              <h3 style="margin-top:0">Frontend</h3>
+              <p class="note">HTML, CSS, JS, (Bootstrap/Tailwind optional), React (optional)</p>
+              <span class="tag">Responsive</span>
+              <span class="tag">A11y</span>
+              <span class="tag">PWA-ready</span>
+            </div>
+            <div>
+              <h3 style="margin-top:0">Backend & Infra</h3>
+              <p class="note">Flask/Django or Node.js; DB: MySQL/PostgreSQL; Auth: JWT / Flask-Login / Firebase.</p>
+              <span class="tag">Render/Railway</span>
+              <span class="tag">Docker Ready</span>
+              <span class="tag">JWT</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. Authentication & Onboarding -->
+      <section class="card module-card" id="auth">
+        <div class="card-header">
+          <h2>1) Authentication & Onboarding</h2>
+          <div>
+            <span class="tag">Login</span>
+            <span class="tag">RBAC</span>
+            <span class="tag">College Email</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary>
+              <div class="sum-left">
+                <span class="sum-title">Core</span>
+                <span class="sum-desc">Students, Faculty, Admin, Super Admin</span>
+              </div>
+              <span class="caret">▶</span>
+            </summary>
+            <ul class="feature-list">
+              <li>Student registration (email/phone verification).</li>
+              <li>Role-based login (Student, Faculty, Admin, Super Admin).</li>
+              <li>College domain email-based registration (e.g., <code>@medicaps.ac.in</code>).</li>
+              <li>Forgot / Reset password flow.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 2. Student Profile Management -->
+      <section class="card module-card" id="profile">
+        <div class="card-header">
+          <h2>2) Student Profile Management</h2>
+          <div><span class="tag">KYC</span><span class="tag">Docs</span><span class="tag">360° View</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Personal & Academic</span><span class="sum-desc">All details in one place</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Personal details (name, DOB, contact, photo).</li>
+              <li>Academic details (program, year, branch, roll no, admission date).</li>
+              <li>Documents upload (ID card, certificates, transcripts).</li>
+              <li>Dashboard snapshot: attendance, grades, fee status.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 3. School/Department Selection -->
+      <section class="card module-card" id="school">
+        <div class="card-header">
+          <h2>3) School / Department Selection</h2>
+          <div><span class="tag">Routing</span><span class="tag">Dynamic</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Post-Registration Choice</span><span class="sum-desc">AI / Engineering / Management …</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Pick school/department/faculty after signup.</li>
+              <li>Dynamic allocation of courses, faculty, notices, fee rules based on selection.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 4. Academics Management -->
+      <section class="card module-card" id="academics">
+        <div class="card-header">
+          <h2>4) Academics Management</h2>
+          <div><span class="tag">Registration</span><span class="tag">Timetable</span><span class="tag">Grades</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Courses & Exams</span><span class="sum-desc">End-to-end flow</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Course registration (add/drop subjects).</li>
+              <li>Timetable management (auto-generated + downloadable PDF).</li>
+              <li>Attendance tracking (student view + faculty entry).</li>
+              <li>Internal marks & grade card system.</li>
+              <li>Exam schedule + admit card download.</li>
+            </ul>
+          </details>
+
+          <details class="module" open id="nep-timetable">
+            <summary><div class="sum-left"><span class="sum-title">NEP 2020 — Multidisciplinary</span><span class="sum-desc">AI-based timetable generation + Check Timetable</span></div><span class="caret">▶</span></summary>
+            <div class="grid two">
+              <div>
+                <ul class="feature-list">
+                  <li>AI-based Timetable Generation (conflict-free; considers faculty & room availability).</li>
+                  <li>Supports multidisciplinary electives across Schools/Departments.</li>
+                  <li>Detects free slots for clubs/sports/events; auto-updates on add/drop.</li>
+                </ul>
+                <button class="btn small" id="generateTimetable">⚙️ Generate Sample Timetable</button>
+                <span class="note" style="display:block;margin-top:8px;">Mock generator for demo; replace with your real engine later.</span>
+              </div>
+              <div>
+                <div class="kpi" style="margin-bottom:10px">
+                  <div class="box"><div class="muted">Conflicts</div><div id="kpiConflicts" style="font-weight:800">—</div></div>
+                  <div class="box"><div class="muted">Rooms Used</div><div id="kpiRooms" style="font-weight:800">—</div></div>
+                  <div class="box"><div class="muted">Faculty Slots</div><div id="kpiFaculty" style="font-weight:800">—</div></div>
+                  <div class="box"><div class="muted">Free Blocks</div><div id="kpiFree" style="font-weight:800">—</div></div>
+                </div>
+                <table id="ttTable" aria-label="Weekly Timetable Preview">
+                  <thead>
+                    <tr><th>Day</th><th>9–10</th><th>10–11</th><th>11–12</th><th>12–1</th><th>2–3</th><th>3–4</th></tr>
+                  </thead>
+                  <tbody>
+                    <!-- Will fill via JS -->
+                  </tbody>
+                </table>
+                <button class="btn small" id="downloadTT" style="margin-top:8px">⬇️ Download as CSV</button>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 5. Fee & Finance -->
+      <section class="card module-card" id="finance">
+        <div class="card-header">
+          <h2>5) Fee & Finance Management</h2>
+          <div><span class="tag">UPI</span><span class="tag">Invoices</span><span class="tag">Reminders</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Payments</span><span class="sum-desc">Online & automated</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Fee structure by course/year.</li>
+              <li>Online fee payment (UPI, NetBanking, Card).</li>
+              <li>Auto-generated receipts & invoices.</li>
+              <li>Pending dues reminders.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 6. Hostel & Transport -->
+      <section class="card module-card" id="hostel">
+        <div class="card-header">
+          <h2>6) Hostel & Transport</h2>
+          <div><span class="tag">Allocation</span><span class="tag">Routes</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Accommodation & Travel</span><span class="sum-desc">Rooms, mess, buses</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Hostel room allocation, mess registration.</li>
+              <li>Bus routes, seat booking.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 7. Library -->
+      <section class="card module-card" id="library">
+        <div class="card-header">
+          <h2>7) Library Management</h2>
+          <div><span class="tag">OPAC</span><span class="tag">E-Library</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Books & E-Resources</span><span class="sum-desc">Search, borrow, history</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Book search & availability.</li>
+              <li>Borrow/return history.</li>
+              <li>E-library (PDFs, journals, research papers).</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 8. Smart Automation (SIH) -->
+      <section class="card module-card" id="smart">
+        <div class="card-header">
+          <h2>8) Smart Automation (SIH)</h2>
+          <div><span class="tag">Chatbot</span><span class="tag">Notifications</span><span class="tag">FaceID (opt.)</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">AI Chatbot & Notifications</span><span class="sum-desc">Timetable, fees, results</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Chatbot for student queries (leave, timetable, fees, results).</li>
+              <li>Auto-notifications (exam alerts, attendance shortage, fee reminders).</li>
+              <li>AI Attendance via Face Recognition (optional advanced feature).</li>
+              <li>Smart Leave Request: student → faculty → approval/rejection (auto-routing).</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 9. Placement & Career -->
+      <section class="card module-card" id="placement">
+        <div class="card-header">
+          <h2>9) Placement & Career Services</h2>
+          <div><span class="tag">Internships</span><span class="tag">Resume</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Career Stack</span><span class="sum-desc">Portal + tracker</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Internship/placement portal.</li>
+              <li>Resume builder.</li>
+              <li>Job posting & application tracker.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 10. Admin/Faculty Dashboard -->
+      <section class="card module-card" id="dashboards">
+        <div class="card-header">
+          <h2>10) Admin & Faculty Dashboards</h2>
+          <div><span class="tag">Analytics</span><span class="tag">Reports</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Faculty Tools</span><span class="sum-desc">Attendance, assignments, grading</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Mark attendance, upload assignments, grade submissions.</li>
+              <li>Admin: approve admissions, manage users, generate reports.</li>
+              <li>Analytics dashboard (attendance %, pass rates, fee collection graphs).</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 11. Communication -->
+      <section class="card module-card" id="comm">
+        <div class="card-header">
+          <h2>11) Communication System</h2>
+          <div><span class="tag">Notices</span><span class="tag">Chat</span><span class="tag">Email/SMS/WA</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Channels</span><span class="sum-desc">College & Dept level</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Notice board (college-wide + department-level).</li>
+              <li>Student–teacher chat/forum.</li>
+              <li>Email/SMS/WhatsApp integration for alerts.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- 12. Extra Modules -->
+      <section class="card module-card" id="extra">
+        <div class="card-header">
+          <h2>12) Extra Modules</h2>
+          <div><span class="tag">Optional</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Good-to-have</span><span class="sum-desc">Clubs, events, alumni</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Hostel mess food ordering.</li>
+              <li>Event/club registration.</li>
+              <li>Alumni portal.</li>
+              <li>Grievance redressal system.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- Extended: Remote Classroom -->
+      <section class="card module-card" id="remote">
+        <div class="card-header">
+          <h2>Remote Classroom for Rural Colleges</h2>
+          <div><span class="tag">WebRTC</span><span class="tag">Low Bandwidth</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Live + Recorded</span><span class="sum-desc">Inclusive delivery</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Live classes via Zoom/Google Meet/in-house WebRTC.</li>
+              <li>Recorded lecture library with offline-friendly sizes.</li>
+              <li>Low-bandwidth mode + multi-language subtitles.</li>
+              <li>Virtual whiteboard & file sharing.</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- Extended: AI Drop-out Prediction -->
+      <section class="card module-card" id="dropout">
+        <div class="card-header">
+          <h2>AI-based Drop-out Prediction & Counseling</h2>
+          <div><span class="tag">ML</span><span class="tag">Early Warning</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Risk & Support</span><span class="sum-desc">Attendance, grades, dues</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Model features: attendance %, grades, fees, participation, socio-economic context.</li>
+              <li>Early warning flags + counseling slot booking.</li>
+              <li>Personalized nudges (“You missed 30% classes this month”).</li>
+            </ul>
+          </details>
+        </div>
+      </section>
+
+      <!-- Extended: Online Assessment with camera detection -->
+      <section class="card module-card" id="assessment">
+        <div class="card-header">
+          <h2>Online Assessment (AI Proctoring)</h2>
+          <div><span class="tag">Face Detection</span><span class="tag">Anti-Cheat</span></div>
+        </div>
+        <div class="card-body">
+          <details class="module" open>
+            <summary><div class="sum-left"><span class="sum-title">Proctoring</span><span class="sum-desc">Face, eye-movement, noise</span></div><span class="caret">▶</span></summary>
+            <ul class="feature-list">
+              <li>Attempt tests online (MCQ auto-grading; essays manual + plagiarism).</li>
+              <li>AI camera monitoring (face in frame; single-person check).</li>
+              <li>Eye movement & background noise alerts.</li>
+              <li>Randomized question sets.</li>
+            </ul>
+          </details>
+          <div class="grid two" style="margin-top:10px">
+            <div>
+              <div class="note">Proctor Preview (mock)</div>
+              <div style="aspect-ratio:16/9; background:linear-gradient(135deg, rgba(108,140,255,.18), rgba(34,211,238,.14)); border:1px dashed var(--border); border-radius:12px; display:grid; place-items:center;">
+                <div class="muted">Camera Stream Placeholder</div>
+              </div>
+            </div>
+            <div>
+              <table>
+                <thead><tr><th>Check</th><th>Status</th></tr></thead>
+                <tbody id="proctorTable">
+                  <tr><td>Face Detected</td><td>—</td></tr>
+                  <tr><td>Single Person</td><td>—</td></tr>
+                  <tr><td>Eye Movement</td><td>—</td></tr>
+                  <tr><td>Noise Level</td><td>—</td></tr>
+                </tbody>
+              </table>
+              <button class="btn small" id="runProctorMock">▶️ Run Mock Checks</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="float-top">
+      <button class="btn" id="toTop">⬆️ Top</button>
+    </div>
+  </div>
+
+  <script>
+    // --- Utility DOM helpers ---
+    const $ = (sel, ctx=document)=>ctx.querySelector(sel);
+    const $$ = (sel, ctx=document)=>Array.from(ctx.querySelectorAll(sel));
+
+    // Theme
+    const themeBtn = $('#toggleTheme');
+    const root = document.documentElement;
+    (function initTheme(){
+      const saved = localStorage.getItem('theme') || 'dark';
+      if(saved === 'light') root.classList.add('light');
+    })();
+    themeBtn.addEventListener('click', ()=>{
+      root.classList.toggle('light');
+      localStorage.setItem('theme', root.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // Print
+    $('#printPage').addEventListener('click', ()=> window.print());
+
+    // Expand/Collapse all
+    $('#expandAll').addEventListener('click', ()=> $$('details.module').forEach(d=> d.open = true));
+    $('#collapseAll').addEventListener('click', ()=> $$('details.module').forEach(d=> d.open = false));
+
+    // Back to top
+    $('#toTop').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Build sidebar nav
+    (function buildNav(){
+      const sideNav = $('#sideNav');
+      const modules = $$('.module-card');
+      modules.forEach(card=>{
+        const title = card.querySelector('.card-header h2').textContent.trim();
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#'+card.id;
+        a.textContent = title;
+        li.appendChild(a);
+        sideNav.appendChild(li);
+      });
+    })();
+
+    // Search filter across cards & list items
+    const search = $('#search');
+    search.addEventListener('input', ()=>{
+      const q = search.value.toLowerCase().trim();
+      const cards = $$('.module-card, #tech-stack');
+      cards.forEach(card=>{
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+
+    // Timetable mock generator (conflict-free-ish sample)
+    const days = ['Mon','Tue','Wed','Thu','Fri'];
+    const slots = ['9-10','10-11','11-12','12-1','2-3','3-4'];
+    const subjects = [
+      { code:'CSE101', name:'DSA', room:'A-201', faculty:'Dr. Rao' },
+      { code:'AIML210', name:'ML', room:'AI-1', faculty:'Prof. Iyer' },
+      { code:'HUM110', name:'Psych', room:'HB-3', faculty:'Dr. Mehta' },
+      { code:'MTH120', name:'Linear Algebra', room:'M-2', faculty:'Dr. Bose' },
+      { code:'MGT105', name:'Design Thinking', room:'MG-4', faculty:'Prof. Nair' },
+      { code:'ELE390', name:'Open Elective', room:'E-5', faculty:'Guest' },
+    ];
+
+    function shuffle(arr){
+      return arr.map(v=>[Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+    }
+    function genTimetable(){
+      const tbody = $('#ttTable tbody');
+      tbody.innerHTML = '';
+      let conflicts = 0, rooms = new Set(), facultySlots = 0, free = 0;
+      days.forEach(day=>{
+        const tr = document.createElement('tr');
+        tr.appendChild(Object.assign(document.createElement('td'),{textContent:day}));
+        const todays = shuffle(subjects);
+        slots.forEach((slot, i)=>{
+          const td = document.createElement('td');
+          // Keep lunch (12-1) mostly free 50% of the time
+          const isLunch = slot==='12-1';
+          const take = Math.random() > (isLunch ? 0.5 : 0.25);
+          if(take){
+            const s = todays[(i + days.indexOf(day)) % todays.length];
+            td.innerHTML = `<strong>${s.name}</strong><div class="muted">${s.code} • ${s.room} • ${s.faculty}</div>`;
+            rooms.add(s.room); facultySlots++;
+          } else {
+            td.innerHTML = `<span class="muted">Free</span>`;
+            free++;
+          }
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      // Mock "conflicts" as small random number to visualize KPI
+      conflicts = Math.random() < 0.2 ? 1 : 0;
+
+      $('#kpiConflicts').textContent = conflicts;
+      $('#kpiRooms').textContent = rooms.size;
+      $('#kpiFaculty').textContent = facultySlots;
+      $('#kpiFree').textContent = free;
+    }
+    $('#generateTimetable').addEventListener('click', genTimetable);
+    // Initial fill
+    genTimetable();
+
+    // Download timetable as CSV
+    function tableToCSV(table){
+      const rows = $$('tr', table);
+      return rows.map(row => $$( 'th,td', row).map(cell=>{
+        const t = cell.textContent.replace(/\s+/g,' ').trim();
+        return /[",\n]/.test(t) ? `"${t.replace(/"/g,'""')}"` : t;
+      }).join(',')).join('\n');
+    }
+    $('#downloadTT').addEventListener('click', ()=>{
+      const csv = tableToCSV($('#ttTable'));
+      const blob = new Blob([csv], {type:'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'timetable.csv';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    // Proctoring mock checks (just toggles statuses)
+    $('#runProctorMock').addEventListener('click', ()=>{
+      const rows = $$('#proctorTable tr');
+      const statuses = ['✅ OK','✅ OK','⚠️ Mild Movement','🔈 Normal'];
+      rows.forEach((r, i)=> r.lastElementChild.textContent = statuses[i] || '—');
+    });
+
+    // Export JSON skeleton of modules & features
+    const JSON_SKELETON = {
+      system: "Smart College ERP",
+      version: "blueprint-1.0",
+      modules: [
+        { key:"auth", title:"Authentication & Onboarding", features:[
+          "Student registration (email/phone verification)",
+          "Role-based login (Student, Faculty, Admin, Super Admin)",
+          "College domain email-based registration",
+          "Forgot/Reset password"
+        ]},
+        { key:"profile", title:"Student Profile Management", features:[
+          "Personal details","Academic details","Documents upload","Attendance/Grades/Fee snapshot"
+        ]},
+        { key:"school", title:"School/Department Selection", features:[
+          "Post-registration school selection",
+          "Dynamic allocation: courses, faculty, notices, fees"
+        ]},
+        { key:"academics", title:"Academics Management", features:[
+          "Course registration (add/drop)","Timetable management","Attendance tracking",
+          "Internal marks & grade card","Exam schedule + admit card"
+        ]},
+        { key:"nep", title:"NEP 2020 Timetable (AI)", features:[
+          "Conflict-free AI timetable","Multidisciplinary electives","Free-slot detection","Auto-update on add/drop"
+        ]},
+        { key:"finance", title:"Fee & Finance", features:[
+          "Fee structure by course/year","Online payments (UPI/Card/NetBanking)","Receipts & invoices","Dues reminders"
+        ]},
+        { key:"hostel", title:"Hostel & Transport", features:[
+          "Hostel room allocation, mess registration","Bus routes & seat booking"
+        ]},
+        { key:"library", title:"Library", features:[
+          "Search & availability","Borrow/return history","E-library"
+        ]},
+        { key:"smart", title:"Smart Automation (SIH)", features:[
+          "Chatbot","Auto-notifications","AI face attendance (optional)","Smart leave workflow"
+        ]},
+        { key:"placement", title:"Placement & Career", features:[
+          "Internship/placement portal","Resume builder","Job posting & application tracker"
+        ]},
+        { key:"dashboards", title:"Admin/Faculty Dashboards", features:[
+          "Faculty: attendance/assignments/grading","Admin: admissions/users/reports","Analytics"
+        ]},
+        { key:"comm", title:"Communication", features:[
+          "Notices","Student–teacher chat/forum","Email/SMS/WhatsApp alerts"
+        ]},
+        { key:"extra", title:"Extra Modules", features:[
+          "Mess ordering","Event/club registration","Alumni portal","Grievances"
+        ]},
+        { key:"remote", title:"Remote Classroom", features:[
+          "Live classes (Zoom/Meet/WebRTC)","Recorded lectures","Low-bandwidth mode","Subtitles","Whiteboard & file sharing"
+        ]},
+        { key:"dropout", title:"AI Drop-out Prediction", features:[
+          "Risk model","Early warning flags","Counseling booking","Personalized nudges"
+        ]},
+        { key:"assessment", title:"Online Assessment (Proctoring)", features:[
+          "MCQ auto-grading & essay review","Face & single-person checks","Eye/noise alerts","Randomized papers","Plagiarism checks"
+        ]}
+      ],
+      tech:{
+        frontend:["HTML","CSS","JS","Bootstrap/Tailwind (opt)","React (opt)"],
+        backend:["Flask/Django","Node.js"],
+        db:["MySQL","PostgreSQL"],
+        auth:["JWT","Flask-Login","Firebase Auth"],
+        hosting:["Render","Railway","Local"]
+      }
+    };
+
+    $('#exportJson').addEventListener('click', ()=>{
+      const blob = new Blob([JSON.stringify(JSON_SKELETON, null, 2)],{type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'erp-blueprint.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    // Accessibility: keyboard open/close on summary
+    $$('.module summary').forEach(s => {
+      s.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); s.parentElement.open = !s.parentElement.open; }
+      });
+      s.tabIndex = 0;
+      s.setAttribute('role','button');
+      s.setAttribute('aria-expanded', s.parentElement.open ? 'true' : 'false');
+      s.parentElement.addEventListener('toggle', ()=> s.setAttribute('aria-expanded', s.parentElement.open ? 'true':'false'));
+    });
+  </script>
+</body>
+</html>

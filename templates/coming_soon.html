@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .coming-soon-container {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+        margin-top: 20px;
+        text-align: center;
+        animation: fadeIn 0.5s ease-in-out;
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .coming-soon-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        opacity: 0.7;
+    }
+    
+    .back-btn {
+        background: linear-gradient(135deg, #43cea2, #185a9d);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 30px;
+        transition: all 0.3s;
+    }
+    
+    .back-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+        color: white;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="coming-soon-container">
+        <div class="coming-soon-icon">🚧</div>
+        <h2 class="mb-3">Coming Soon</h2>
+        <p class="lead">This feature is currently under development.</p>
+        <p class="text-muted">Our team is working hard to bring you this functionality soon.</p>
+        <a href="{{ url_for('dashboard') }}" class="back-btn">
+            ← Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

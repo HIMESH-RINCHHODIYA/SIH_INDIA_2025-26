@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* Center form */
+  .login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  /* Input styles */
+  .login-container input {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  .login-container input:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 8px rgba(0,123,255,0.6);
+  }
+
+  /* Button */
+  .login-container button {
+    width: 100%;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background-color 0.3s;
+  }
+  .login-container button:hover {
+    transform: scale(1.05);
+    background-color: #0056b3;
+  }
+
+  /* Fade animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="login-container">
+  <h2 class="text-center text-white mb-4">🔐 Login</h2>
+  <form method="POST" id="loginForm">
+    <div class="mb-3">
+      <label class="form-label text-white">Email</label>
+      <input type="email" name="email" class="form-control" placeholder="Enter your college email" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label text-white">Password</label>
+      <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
+    </div>
+    <div class="form-check mb-3">
+      <input type="checkbox" class="form-check-input" id="showPassword">
+      <label class="form-check-label text-white" for="showPassword">Show Password</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+</div>
+
+<script>
+  // Show/Hide Password
+  document.getElementById("showPassword").addEventListener("change", function() {
+    const pwd = document.getElementById("password");
+    pwd.type = this.checked ? "text" : "password";
+  });
+
+  // Small login animation effect
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    const btn = this.querySelector("button");
+    btn.innerHTML = "⏳ Logging in...";
+    btn.disabled = true;
+  });
+</script>
+{% endblock %}
