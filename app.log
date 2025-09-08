@@ -37,3 +37,29 @@
 2025-09-07 18:13:18,494 INFO  * Restarting with stat
 2025-09-07 18:13:18,987 WARNING  * Debugger is active!
 2025-09-07 18:13:18,987 INFO  * Debugger PIN: 479-369-492
+2025-09-07 18:18:04,849 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-07 18:18:04,849 INFO [33mPress CTRL+C to quit[0m
+2025-09-07 18:18:04,850 INFO  * Restarting with stat
+2025-09-07 18:18:05,359 WARNING  * Debugger is active!
+2025-09-07 18:18:05,359 INFO  * Debugger PIN: 479-369-492
+2025-09-07 18:20:02,658 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-07 18:20:02,743 INFO  * Restarting with stat
+2025-09-07 18:20:03,234 WARNING  * Debugger is active!
+2025-09-07 18:20:03,234 INFO  * Debugger PIN: 479-369-492
+2025-09-07 18:20:11,962 INFO 127.0.0.1 - - [07/Sep/2025 18:20:11] "GET /dashboard HTTP/1.1" 200 -
+2025-09-07 18:20:14,630 INFO 127.0.0.1 - - [07/Sep/2025 18:20:14] "GET /assignments HTTP/1.1" 200 -
+2025-09-07 18:20:17,369 INFO 127.0.0.1 - - [07/Sep/2025 18:20:17] "GET /dashboard HTTP/1.1" 200 -
+2025-09-07 18:20:19,606 INFO 127.0.0.1 - - [07/Sep/2025 18:20:19] "GET /assignments HTTP/1.1" 200 -
+2025-09-07 18:20:29,918 INFO 127.0.0.1 - - [07/Sep/2025 18:20:29] "GET /dashboard HTTP/1.1" 200 -
+2025-09-07 18:20:32,021 INFO 127.0.0.1 - - [07/Sep/2025 18:20:32] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-07 18:20:32,217 INFO 127.0.0.1 - - [07/Sep/2025 18:20:32] "GET /login HTTP/1.1" 200 -
+2025-09-07 18:20:41,353 INFO 127.0.0.1 - - [07/Sep/2025 18:20:41] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-07 18:20:41,444 INFO 127.0.0.1 - - [07/Sep/2025 18:20:41] "GET /dashboard HTTP/1.1" 200 -
+2025-09-07 18:20:43,181 INFO 127.0.0.1 - - [07/Sep/2025 18:20:43] "GET /faculty/assignments HTTP/1.1" 200 -
+2025-09-07 18:21:11,460 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-07 18:21:11,460 INFO [33mPress CTRL+C to quit[0m
+2025-09-07 18:21:11,461 INFO  * Restarting with stat
+2025-09-07 18:21:11,940 WARNING  * Debugger is active!
+2025-09-07 18:21:11,940 INFO  * Debugger PIN: 479-369-492
