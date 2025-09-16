@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>📝 Upload Student Grades</h2>
+
+    <form method="POST" class="mb-3">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Student:</label>
+                <select name="student_id" class="form-control" required>
+                    <option value="">-- Select Student --</option>
+                    {% for s in students %}
+                        <option value="{{ s.id }}">{{ s.name }} ({{ s.roll_no }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Course Code:</label>
+                <input type="text" name="course_code" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+                <label>Course Name:</label>
+                <input type="text" name="course_name" class="form-control" required>
+            </div>
+            <div class="col-md-2">
+                <label>Semester:</label>
+                <input type="text" name="semester" class="form-control" required>
+            </div>
+            <div class="col-md-2">
+                <label>Marks:</label>
+                <input type="number" name="marks" class="form-control" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Upload</button>
+    </form>
+</div>
+{% endblock %}

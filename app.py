@@ -1,530 +1,581 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, abort
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import (
-    LoginManager, UserMixin, login_user, login_required,
-    logout_user, current_user
-)
+# app.py
+import os
+import random
+import uuid
+import datetime
+import socket
+from flask import Flask, render_template, request, redirect, url_for, flash, session, abort, send_from_directory
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from flask_migrate import Migrate
-import os, random, uuid
+from functools import wraps
 
-# ------------------ Logging Setup ------------------ #
-import logging
-logging.basicConfig(
-    filename="app.log",   # all errors will go here
-    level=logging.ERROR,  # only log errors (not info/debug)
-    format="%(asctime)s %(levelname)s %(message)s"
-)
+from extensions import db
+from models import User, Attendance, FeePayment, FeeConfig, College
+from utils import save_uploaded_file, role_required
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
-app = Flask(__name__)
-app.secret_key = "supersecretkey"
+# ------------------ App Setup ------------------ #
+app = Flask(__name__, template_folder="templates")
 
 # ------------------ Paths & Folders ------------------ #
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-INSTANCE_DIR = os.path.join(BASE_DIR, "instance")
-os.makedirs(INSTANCE_DIR, exist_ok=True)
-
-UPLOAD_FOLDER = os.path.join("static", "uploads")
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # ------------------ App Config ------------------ #
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(INSTANCE_DIR, 'database.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", "supersecretkey")
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sqlite3'  # main database
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB upload cap (optional)
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB
 
-# ------------------ DB & Migrate ------------------ #
-db = SQLAlchemy(app)
+# Allowed extensions for uploads
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "svg"}
+
+# ------------------ Initialize Extensions ------------------ #
+db.init_app(app)
 migrate = Migrate(app, db)
 
-# ------------------ Login Manager ------------------ #
+# ------------------ Flask-Login ------------------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "warning"
 
-# ------------------ User Model ------------------ #
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150))
-    email = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(256), nullable=False)
-    role = db.Column(db.String(50), default="Student")   # Student, Faculty, Admin, SuperAdmin
-    verified = db.Column(db.Boolean, default=False)
-
-    # Student Profile Fields
-    dob = db.Column(db.String(20))
-    contact = db.Column(db.String(20))
-    program = db.Column(db.String(100))
-    year = db.Column(db.String(10))
-    branch = db.Column(db.String(100))
-    roll_no = db.Column(db.String(50))
-    admission_date = db.Column(db.String(20))
-    photo = db.Column(db.String(200))      # File path
-    id_card = db.Column(db.String(200))
-    certificate = db.Column(db.String(200))
-    transcript = db.Column(db.String(200))
-
-
 @login_manager.user_loader
 def load_user(user_id):
-    try:
-        return User.query.get(int(user_id))
-    except Exception:
-        return None
+    return User.query.get(int(user_id))
 
-# ------------------ Helpers ------------------ #
-def unique_filename(original: str, prefix: str = "") -> str:
-    """
-    Make a filename unique to avoid overwrites:
-    <prefix>_<uuid4>_<secure_base.ext>
-    """
-    base = secure_filename(original)
-    name, ext = os.path.splitext(base)
-    token = uuid.uuid4().hex
-    if prefix:
-        return f"{prefix}_{token}_{name}{ext}"
-    return f"{token}_{name}{ext}"
+# ------------------ Ensure DB Tables Exist ------------------ #
+with app.app_context():
+    db.create_all()
+    print("✅ All tables created or already exist")
+    print("✅ All database tables ensured!")
 
-def save_uploaded_file(field_name: str, owner_prefix: str = ""):
-    """
-    Save a file from request.files[field_name] if present; return relative path or None.
-    """
-    file = request.files.get(field_name)
-    if not file or file.filename == "":
-        return None
-    filename = unique_filename(file.filename, prefix=owner_prefix)
-    filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-    file.save(filepath)
-    # Store as relative path so it works on any machine
-    return os.path.join("static", "uploads", filename)
+# ------------------ Blueprints ------------------ #
+# (Your existing blueprints - left unchanged)
+from student_att import student_bp
+from faculty_attendance import faculty_stud_bp
+from student_fee import student_fee_bp
+from admin_fee import admin_fee
+from dropdowns import dropdown_bp
+from grades_bp import grades_bp
+from superadmin_routes import superadmin_bp
+from course_routes import course_bp
+from profile import profile_bp # new import
 
-def role_required(*roles):
-    """
-    Simple decorator to restrict routes to specific roles.
-    Usage: @role_required("Admin", "SuperAdmin")
-    """
-    def decorator(func):
-        from functools import wraps
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            if not current_user.is_authenticated:
-                return login_manager.unauthorized()
-            if current_user.role not in roles:
-                abort(403)  # Forbidden
-            return func(*args, **kwargs)
-        return wrapper
-    return decorator
+app.register_blueprint(student_bp)        # /student/attendance
+app.register_blueprint(faculty_stud_bp)   # /faculty/attendance
+app.register_blueprint(student_fee_bp)    # /student/fees
+app.register_blueprint(admin_fee)         # /admin/fees
+app.register_blueprint(dropdown_bp)       # /dropdowns for dynamic dropdowns
+app.register_blueprint(grades_bp)         # /student/grades, /faculty/grades/upload, /admin/grades/approve
+app.register_blueprint(superadmin_bp)
+app.register_blueprint(course_bp, url_prefix="/courses")
+app.register_blueprint(profile_bp, url_prefix="/profile")  # ✅ use profile_bp
 
 # ------------------ Routes ------------------ #
-
 @app.route("/")
 def home():
-    # Send authenticated users to the dashboard
-    if current_user.is_authenticated:
-        return redirect(url_for("dashboard"))
-    return redirect(url_for("login"))
+    return redirect(url_for("dashboard") if current_user.is_authenticated else url_for("login"))
 
-# ----------- Registration with OTP ----------- #
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    """
+    Pass college_logo (if any) so templates can display:
+    In template: <img src="{{ url_for('static', filename=college_logo) }}"> when college_logo is not None
+    """
+    college_logo = None
+    if current_user.college_id:
+        college = College.query.get(current_user.college_id)
+        if college and college.logo:
+            # college.logo stored as "uploads/filename.ext"
+            college_logo = college.logo
+    # Optionally, SuperAdmin might want a global logo or none.
+    return render_template("dashboard.html", name=current_user.name, role=current_user.role, college_logo=college_logo)
+
+# ------------------ Registration & OTP ------------------ #
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    colleges = College.query.order_by(College.name).all()
+
     if request.method == "POST":
         name = request.form.get("name", "").strip()
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
         role = request.form.get("role", "Student")
+        college_id = request.form.get("college_id")
 
-        if not email.endswith("@medicaps.ac.in"):
-            flash("Only college domain emails are allowed!", "danger")
-            return redirect(url_for("register"))
+        college = None
+        if role != "SuperAdmin":
+            # For Students/Admins, a college must be selected
+            college = College.query.get(int(college_id)) if college_id else None
+            if not college:
+                flash("Please select a valid college.", "danger")
+                return redirect(url_for("register"))
 
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
+            # Validate email domain matches selected college
+            allowed_domain = college.domain.lower()
+            if not email.endswith(f"@{allowed_domain}"):
+                flash(f"Email must end with @{allowed_domain}", "danger")
+                return redirect(url_for("register"))
+
+        # Check if email already exists
+        if User.query.filter_by(email=email).first():
             flash("Email already registered!", "danger")
             return redirect(url_for("register"))
 
-        new_user = User(
+        # Create user
+        user = User(
             name=name or email.split("@")[0],
             email=email,
             password=generate_password_hash(password, method="pbkdf2:sha256"),
             role=role,
+            college_id=college.id if college else None,
             verified=False
         )
-        db.session.add(new_user)
+        db.session.add(user)
         db.session.commit()
 
         otp = str(random.randint(1000, 9999))
         session["otp"] = otp
-        session["user_id"] = new_user.id
-        flash(f"Your OTP (for demo): {otp}", "info")
+        session["user_id"] = user.id
+        flash(f"OTP for demo: {otp}", "info")
         return redirect(url_for("verify_otp"))
 
-    return render_template("register.html")
+    return render_template("register.html", colleges=colleges)
 
 @app.route("/verify", methods=["GET", "POST"])
 def verify_otp():
-    # If already verified/logged in, go to dashboard
     if current_user.is_authenticated and current_user.verified:
         return redirect(url_for("dashboard"))
 
     if request.method == "POST":
-        entered_otp = request.form.get("otp")
-        if entered_otp == session.get("otp"):
-            uid = session.get("user_id")
-            user = User.query.get(uid)
+        entered = request.form.get("otp")
+        if entered == session.get("otp"):
+            user = User.query.get(session.get("user_id"))
             if user:
                 user.verified = True
                 db.session.commit()
-            # Clean up session values safely
             session.pop("otp", None)
             session.pop("user_id", None)
-            flash("Email verified successfully! Please log in.", "success")
+            flash("Email verified successfully!", "success")
             return redirect(url_for("login"))
-        else:
-            flash("Invalid OTP!", "danger")
+        flash("Invalid OTP!", "danger")
     return render_template("verify.html")
 
-# ----------- Login ----------- #
+# ----------- Login -----------
+# ----------- Login -----------
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    colleges = College.query.order_by(College.name).all()
+
     if request.method == "POST":
+        college_id = request.form.get("college_id")
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
 
+        # get user by email only
         user = User.query.filter_by(email=email).first()
+
         if not user or not check_password_hash(user.password, password):
             flash("Invalid credentials!", "danger")
             return redirect(url_for("login"))
 
+        # If not superadmin, require college selection and validate
+        if user.role != "SuperAdmin":
+            if not college_id:
+                flash("Please select a college!", "danger")
+                return redirect(url_for("login"))
+            if str(user.college_id) != str(college_id):
+                flash("Invalid college selected!", "danger")
+                return redirect(url_for("login"))
+
+            # ✅ Fetch the correct college
+            college = College.query.get(int(college_id))
+        else:
+            college = None
+
         if not user.verified:
-            # store for convenience in verification flow
             session["user_id"] = user.id
-            flash("Please verify your email before logging in.", "warning")
+            flash("Verify your email first.", "warning")
             return redirect(url_for("verify_otp"))
 
         login_user(user)
+
+        # ✅ Store correct college info in session
+        if user.role == "SuperAdmin":
+            session["college_logo"] = None
+            session["college_name"] = "College ERP"
+        else:
+             # ✅ Always use the college assigned to the user in DB
+          college = College.query.get(user.college_id)
+        if college:
+            session["college_logo"] = college.logo
+            session["college_name"] = college.name
+        else:
+            session["college_logo"] = None
+            session["college_name"] = "College ERP"
+
         return redirect(url_for("dashboard"))
 
-    return render_template("login.html")
+    return render_template("login.html", colleges=colleges)
 
-# ----------- Dashboard ----------- #
-@app.route("/dashboard")
-@login_required
-def dashboard():
-    return render_template("dashboard.html", name=current_user.name, role=current_user.role)
+# ----------- Logout ----------- #
+@app.route("/logout")
+def logout():
+    logout_user()
 
-# ----------- Profile Management ----------- #
+    # ✅ Clear college-specific session data
+    session.pop("college_logo", None)
+    session.pop("college_name", None)
+
+    flash("Logged out.", "info")
+    return redirect(url_for("login"))
+
+# ----------- Profile ----------- #
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
     if request.method == "POST":
-        current_user.dob = request.form.get("dob")
-        current_user.contact = request.form.get("contact")
-        current_user.program = request.form.get("program")
-        current_user.year = request.form.get("year")
-        current_user.branch = request.form.get("branch")
-        current_user.roll_no = request.form.get("roll_no")
-        current_user.admission_date = request.form.get("admission_date")
-
-        # File uploads (unique names per user)
+        for field in ["dob","contact","program","year","branch","roll_no","admission_date"]:
+            setattr(current_user, field, request.form.get(field))
         owner = f"user{current_user.id}"
-        for field in ["photo", "id_card", "certificate", "transcript"]:
+        for field in ["photo","id_card","certificate","transcript"]:
             saved = save_uploaded_file(field, owner_prefix=owner)
-            if saved:
-                setattr(current_user, field, saved)
-
+            if saved: setattr(current_user, field, saved)
         db.session.commit()
         flash("Profile updated successfully!", "success")
         return redirect(url_for("profile"))
-
     return render_template("profile.html", user=current_user)
 
-# ----------- Forgot & Reset Password ----------- #
-@app.route("/forgot", methods=["GET", "POST"])
+# ----------- Forgot / Reset ----------- #
+@app.route("/forgot", methods=["GET","POST"])
 def forgot_password():
     if request.method == "POST":
-        email = request.form.get("email", "").strip().lower()
+        email = request.form.get("email","").strip().lower()
         user = User.query.filter_by(email=email).first()
         if not user:
             flash("No account with this email!", "danger")
             return redirect(url_for("forgot_password"))
-
-        otp = str(random.randint(1000, 9999))
+        otp = str(random.randint(1000,9999))
         session["reset_otp"] = otp
         session["reset_user"] = user.id
-        flash(f"Password reset OTP (for demo): {otp}", "info")
+        flash(f"Reset OTP for demo: {otp}","info")
         return redirect(url_for("reset_password"))
-
     return render_template("forgot.html")
 
-@app.route("/reset", methods=["GET", "POST"])
+@app.route("/reset", methods=["GET","POST"])
 def reset_password():
-    if request.method == "POST":
-        otp = request.form.get("otp")
-        new_password = request.form.get("password", "")
-
-        if otp == session.get("reset_otp"):
-            user = User.query.get(session.get("reset_user"))
+    if request.method=="POST":
+        otp=request.form.get("otp")
+        pwd=request.form.get("password","")
+        if otp==session.get("reset_otp"):
+            user=User.query.get(session.get("reset_user"))
             if user:
-                user.password = generate_password_hash(new_password, method="pbkdf2:sha256")
+                user.password=generate_password_hash(pwd, method="pbkdf2:sha256")
                 db.session.commit()
-            session.pop("reset_otp", None)
-            session.pop("reset_user", None)
-            flash("Password reset successful! Please login.", "success")
+            session.pop("reset_otp",None)
+            session.pop("reset_user",None)
+            flash("Password reset successfully!", "success")
             return redirect(url_for("login"))
-        else:
-            flash("Invalid OTP!", "danger")
-
+        flash("Invalid OTP!", "danger")
     return render_template("reset.html")
 
-# ----------- Logout ----------- #
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    flash("You have been logged out.", "info")
-    return redirect(url_for("login"))
 
-# ----------- Student Profile ----------- #
-@app.route("/student-profile", methods=["GET", "POST"])
-@login_required
-def student_profile():
-    if request.method == "POST":
-        # Personal details
-        current_user.name = request.form.get("name") or current_user.name
-        current_user.dob = request.form.get("dob")
-        current_user.contact = request.form.get("contact")
-
-        # Academic details
-        current_user.program = request.form.get("program")
-        current_user.year = request.form.get("year")
-        current_user.branch = request.form.get("branch")
-        current_user.roll_no = request.form.get("roll_no")
-        current_user.admission_date = request.form.get("admission_date")
-
-        # Document uploads
-        owner = f"user{current_user.id}"
-        for field in ["photo", "id_card", "certificate", "transcript"]:
-            saved = save_uploaded_file(field, owner_prefix=owner)
-            if saved:
-                setattr(current_user, field, saved)
-
-        db.session.commit()
-        flash("Profile details saved successfully!", "success")
-        return redirect(url_for("student_profile"))
-
-    return render_template("student_profile.html", user=current_user)
-
-# ================== NEW FEATURES FROM THE IMAGE ================== #
-
-# ================== COMING SOON FEATURES ================== #
-
-# ----------- Jobs ----------- #
+# ------------------ Coming Soon Features ------------------ #
 @app.route("/jobs")
-@login_required
-def jobs():
-    return render_template("coming_soon.html")
-
-# ----------- Webinars ----------- #
 @app.route("/webinars")
-@login_required
-def webinars():
-    return render_template("coming_soon.html")
-
-# ----------- Forums ----------- #
 @app.route("/forums")
-@login_required
-def forums():
-    return render_template("coming_soon.html")
-
-# ----------- People ----------- #
 @app.route("/people")
-@login_required
-def people():
-    return render_template("coming_soon.html")
-
-# ----------- Assessments ----------- #
 @app.route("/assessments")
-@login_required
-def assessments():
-    return render_template("coming_soon.html")
-
-# ----------- Practice Tests ----------- #
 @app.route("/practice-tests")
-@login_required
-def practice_tests():
-    return render_template("coming_soon.html")
-
-# ----------- Assignments ----------- #
 @app.route("/assignments")
-@login_required
-def assignments():
-    return render_template("coming_soon.html")
-
-# ----------- Resumes ----------- #
 @app.route("/resumes")
-@login_required
-def resumes():
-    return render_template("coming_soon.html")
-
-# ----------- Academics ----------- #
 @app.route("/academics")
-@login_required
-def academics():
-    return render_template("coming_soon.html")
-
-# ----------- Cohorts ----------- #
 @app.route("/cohorts")
-@login_required
-def cohorts():
-    return render_template("coming_soon.html")
-
-# ----------- My Program ----------- #
 @app.route("/my-program")
 @login_required
-def my_program():
+def coming_soon():
     return render_template("coming_soon.html")
 
-# ================== EXISTING DASHBOARD ROUTES ================== #
-
-# ----------- Student ----------- #
-@app.route("/student/attendance")
+# ------------------ Student Dashboard Pages ------------------ #
+@app.route("/student/<path>")
 @login_required
-def student_attendance():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="📚 Student Attendance",
-                           content="Here you can view your attendance records.")
+def student_pages(path):
+    if current_user.role != "student":
+        return redirect(url_for("dashboard"))
 
-@app.route("/student/grades")
-@login_required
-def student_grades():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="📊 Student Grades",
-                           content="Here you can check your academic grades.")
+    title_map = {
+        "attendance": "📚 Student Attendance",
+        "grades": "📊 Student Grades",
+        "fees": "💰 Student Fees"
+    }
+    content_map = {
+        "attendance": "View attendance records",
+        "grades": "Check academic grades",
+        "fees": "Check/pay fees"
+    }
 
-@app.route("/student/fees")
-@login_required
-def student_fees():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="💰 Student Fees",
-                           content="Here you can check and pay your fees.")
+    if path not in title_map:
+        abort(404)
 
-# ----------- Faculty ----------- #
-@app.route("/faculty/courses")
-@login_required
-@role_required("Faculty", "Admin", "SuperAdmin")
-def faculty_courses():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="📖 Faculty Courses",
-                           content="Manage your courses here.")
+    # 📌 Attendance Page
+    if path == "attendance":
+        attendance_records = Attendance.query.filter_by(student_id=current_user.id).all()
 
-@app.route("/faculty/assignments")
-@login_required
-@role_required("Faculty", "Admin", "SuperAdmin")
-def faculty_assignments():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="📝 Faculty Assignments",
-                           content="Upload and manage assignments.")
+        total_classes = len(attendance_records)
+        present_count = sum(1 for a in attendance_records if a.status.lower() == "present")
+        absent_count = total_classes - present_count
 
-@app.route("/faculty/attendance")
+        percentage = round((present_count / total_classes) * 100, 2) if total_classes > 0 else 0.0
+
+        return render_template(
+            "student_attendance.html",
+            user=current_user,
+            title=title_map[path],
+            content=content_map[path],
+            attendance=attendance_records,
+            total_classes=total_classes,
+            present_count=present_count,
+            absent_count=absent_count,
+            percentage=percentage
+        )
+
+    # 📌 Other Pages (grades, fees)
+    return render_template(
+        "dashboard_page.html",
+        user=current_user,
+        title=title_map[path],
+        content=content_map[path]
+    )
+
+# ------------------ Faculty Dashboard Pages ------------------ #
+@app.route("/faculty/<path>")
 @login_required
-@role_required("Faculty", "Admin", "SuperAdmin")
+@role_required("Faculty","Admin","SuperAdmin")
+def faculty_pages(path):
+    title_map = {
+        "courses": "📖 Faculty Courses",
+        "assignments": "📝 Faculty Assignments",
+        "attendance": "🗓 Faculty Attendance"
+    }
+    content_map = {
+        "courses": "Manage courses",
+        "assignments": "Upload/manage assignments",
+        "attendance": "Mark and manage student attendance"
+    }
+
+    if path not in title_map:
+        abort(404)
+
+    return render_template(
+        "dashboard_page.html",
+        user=current_user,
+        title=title_map[path],
+        content=content_map[path]
+    )
+
+# ------------------ Faculty Attendance (core feature) ------------------ #
+@app.route("/faculty/attendance", methods=["GET","POST"])
+@login_required
+@role_required("Faculty","Admin","SuperAdmin")
 def faculty_attendance():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="✅ Faculty Attendance",
-                           content="Mark and manage student attendance.")
+    students = []
+    selected_class = request.args.get("class") or request.args.get("class_")  # support both query keys
+    selected_branch = request.args.get("branch")
+    selected_date = request.args.get("date", datetime.datetime.today().strftime("%Y-%m-%d"))
 
-# ----------- Admin ----------- #
-@app.route("/admin/admissions")
-@login_required
-@role_required("Admin", "SuperAdmin")
-def admin_admissions():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="🛠️ Admin Admissions",
-                           content="Approve or reject student admissions.")
+    # Build lists for dropdowns
+    classes_query = db.session.query(User.year).filter_by(role="Student").distinct().all()
+    classes = [c[0] for c in classes_query if c[0]]
+    branches_query = db.session.query(User.branch).filter_by(role="Student").distinct().all()
+    branches = [b[0] for b in branches_query if b[0]]
 
-@app.route("/admin/reports")
-@login_required
-@role_required("Admin", "SuperAdmin")
-def admin_reports():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="📑 Admin Reports",
-                           content="Generate and view reports.")
+    if request.method == "POST":
+        selected_class = request.form.get("class")
+        selected_branch = request.form.get("branch")
+        selected_date = request.form.get("date")
+        try:
+            selected_date_obj = datetime.datetime.strptime(selected_date, "%Y-%m-%d").date()
+        except Exception:
+            flash("Invalid date!", "danger")
+            return redirect(url_for("faculty_attendance"))
 
-@app.route("/admin/users")
-@login_required
-@role_required("Admin", "SuperAdmin")
-def admin_users():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="👥 Admin Users",
-                           content="Manage user accounts and roles.")
+        # fetch students for the chosen class+branch
+        students = User.query.filter_by(role="Student", year=selected_class, branch=selected_branch).order_by(User.roll_no).all()
 
-# ----------- SuperAdmin ----------- #
-@app.route("/superadmin/manage")
+        # remove existing attendance rows for same date/class/branch (for those students) to avoid duplicates
+        student_ids = [s.id for s in students]
+        if student_ids:
+            db.session.query(Attendance).filter(
+                Attendance.student_id.in_(student_ids),
+                Attendance.date == selected_date_obj,
+                Attendance.branch == selected_branch,
+                Attendance.class_name == selected_class
+            ).delete(synchronize_session=False)
+
+        # create records from submitted form
+        for s in students:
+            present = request.form.get(f"attendance_{s.id}") == "on"
+            rec = Attendance(
+                student_id=s.id,
+                date=selected_date_obj,
+                branch=selected_branch,
+                class_name=selected_class,
+                status="Present" if present else "Absent"
+            )
+            db.session.add(rec)
+
+        db.session.commit()
+        flash("Attendance saved!", "success")
+        # redirect with query params to show the selected list
+        return redirect(url_for("faculty_attendance", branch=selected_branch, class_=selected_class, date=selected_date))
+
+    # if it's a GET with query params, show students for the selected class/branch
+    if selected_class and selected_branch:
+        students = User.query.filter_by(role="Student", year=selected_class, branch=selected_branch).order_by(User.roll_no).all()
+
+    # fetch existing attendance for display (if any)
+    existing_attendance = []
+    try:
+        date_obj = datetime.datetime.strptime(selected_date, "%Y-%m-%d").date()
+        if students:
+            existing_attendance = Attendance.query.filter(
+                Attendance.student_id.in_([s.id for s in students]),
+                Attendance.date == date_obj,
+                Attendance.branch == selected_branch,
+                Attendance.class_name == selected_class
+            ).all()
+    except Exception:
+        existing_attendance = []
+
+    # build a quick lookup for status per student
+    attendance_map = {a.student_id: a.status for a in existing_attendance}
+
+    return render_template(
+        "faculty_stud.html",
+        user=current_user,
+        classes=classes,
+        branches=branches,
+        students=students,
+        selected_class=selected_class,
+        selected_branch=selected_branch,
+        selected_date=selected_date,
+        attendance_map=attendance_map
+    )
+
+# ------------------ SuperAdmin: College Management (CRUD) ------------------ #
+@app.route("/superadmin/colleges", methods=["GET", "POST"])
 @login_required
 @role_required("SuperAdmin")
-def superadmin_manage():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="🌍 Super Admin - ERP Management",
-                           content="Manage the entire ERP system.")
+def superadmin_colleges():
+    """
+    List all colleges and allow creation via POST.
+    POST params: name, domain, logo (file)
+    """
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        domain = request.form.get("domain", "").strip().lower()
+        if not name or not domain:
+            flash("Name and domain are required.", "danger")
+            return redirect(url_for("superadmin_colleges"))
 
-@app.route("/superadmin/roles")
+        if College.query.filter(db.or_(College.name == name, College.domain == domain)).first():
+            flash("College with same name or domain exists.", "danger")
+            return redirect(url_for("superadmin_colleges"))
+
+        # handle logo upload
+        logo_saved = save_uploaded_file("logo", owner_prefix=f"college_{secure_filename(name)}")
+        logo_db_path = None
+        if logo_saved:
+            # stored as "uploads/filename" — map to "uploads/filename" for DB and url_for('static', filename=...)
+            logo_db_path = logo_saved
+
+        new_college = College(name=name, domain=domain, logo=logo_db_path)
+        db.session.add(new_college)
+        db.session.commit()
+        flash("College added successfully.", "success")
+        return redirect(url_for("superadmin_colleges"))
+
+    colleges = College.query.order_by(College.name).all()
+    return render_template("superadmin/manage_colleges.html", colleges=colleges)
+
+@app.route("/superadmin/colleges/<int:college_id>/edit", methods=["GET", "POST"])
 @login_required
 @role_required("SuperAdmin")
-def superadmin_roles():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="🔑 Super Admin - Roles",
-                           content="Manage user roles and permissions.")
+def edit_college(college_id):
+    college = College.query.get_or_404(college_id)
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        domain = request.form.get("domain", "").strip().lower()
+        remove_logo = request.form.get("remove_logo") == "on"
 
-@app.route("/superadmin/logs")
+        if not name or not domain:
+            flash("Name and domain are required.", "danger")
+            return redirect(url_for("edit_college", college_id=college_id))
+
+        # check uniqueness excluding current
+        exists = College.query.filter(db.or_(College.name == name, College.domain == domain)).filter(College.id != college.id).first()
+        if exists:
+            flash("Another college with same name or domain exists.", "danger")
+            return redirect(url_for("edit_college", college_id=college_id))
+
+        college.name = name
+        college.domain = domain
+
+        # handle logo file
+        logo_saved = save_uploaded_file("logo", owner_prefix=f"college_{secure_filename(name)}")
+        if logo_saved:
+            college.logo = logo_saved
+        elif remove_logo:
+            college.logo = None
+
+        db.session.commit()
+        flash("College updated successfully.", "success")
+        return redirect(url_for("superadmin_colleges"))
+    return render_template("superadmin/edit_college.html", college=college)
+
+@app.route("/superadmin/colleges/<int:college_id>/delete", methods=["POST"])
 @login_required
 @role_required("SuperAdmin")
-def superadmin_logs():
-    return render_template("dashboard_page.html",
-                           user=current_user,
-                           title="📂 Super Admin - System Logs",
-                           content="View system logs and activities.")
-    
-    # ------------------ Error Handlers ------------------ #
+def delete_college(college_id):
+    college = College.query.get_or_404(college_id)
+    # Optional: unlink logo file from disk if you want to remove physical file
+    if college.logo:
+        try:
+            logo_full_path = os.path.join(app.static_folder, college.logo)  # static/uploads/...
+            if os.path.exists(logo_full_path):
+                os.remove(logo_full_path)
+        except Exception:
+            # fail silently for file deletion; DB deletion will still proceed
+            pass
+    # If there are dependent users, you might want to reassign or block deletion — currently this will attempt to delete
+    db.session.delete(college)
+    db.session.commit()
+    flash("College deleted.", "info")
+    return redirect(url_for("superadmin_colleges"))
+
+# ------------------ Error Handlers ------------------ #
 @app.errorhandler(403)
-def forbidden_error(error):
-    logging.error(f"403 Forbidden: {error}")
-    return render_template("coming_soon.html", message="Access Forbidden (403)"), 403
-
+def forbidden(error): return render_template("coming_soon.html", message="403 Forbidden"),403
 @app.errorhandler(404)
-def not_found_error(error):
-    logging.error(f"404 Not Found: {error}")
-    return render_template("coming_soon.html", message="Page Not Found (404)"), 404
-
+def not_found(error): return render_template("coming_soon.html", message="404 Not Found"),404
 @app.errorhandler(500)
-def internal_error(error):
-    logging.error(f"500 Internal Server Error: {error}")
-    return render_template("coming_soon.html", message="Server Error (500)"), 500
+def server_error(error): return render_template("coming_soon.html", message="500 Server Error"),500
 
-
-import socket
-
-def find_free_port(default_port=5000):
-    port = default_port
+# ------------------ Run App ------------------ #
+def find_free_port(default=5000):
+    port = default
     while True:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            if s.connect_ex(("127.0.0.1", port)) != 0:  # port is free
+            if s.connect_ex(("127.0.0.1", port)) != 0:
                 return port
-            port += 1  # try next port
+            port += 1
 
 if __name__ == "__main__":
     free_port = find_free_port(5000)
-    print(f"✅ Starting Flask on port {free_port}")
+    print(f"Starting Flask on port {free_port}")
     app.run(debug=True, port=free_port)

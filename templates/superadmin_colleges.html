@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">🌍 Manage Colleges</h2>
+
+<!-- Add College Form -->
+<form method="POST" action="{{ url_for('superadmin.colleges') }}" enctype="multipart/form-data" class="mb-4">
+  <div class="mb-3">
+    <label class="form-label">College Name</label>
+    <input type="text" name="name" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Domain</label>
+    <input type="text" name="domain" class="form-control" placeholder="e.g. medicaps.ac.in" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Logo (optional)</label>
+    <input type="file" name="logo" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-success">➕ Add College</button>
+</form>
+
+<hr>
+
+<!-- College List -->
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Logo</th>
+      <th>Name</th>
+      <th>Domain</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for college in colleges %}
+      <tr>
+        <td>
+          {% if college.logo %}
+            <img src="{{ url_for('static', filename=college.logo) }}" 
+                 alt="Logo" width="50">
+          {% else %}
+            ❌
+          {% endif %}
+        </td>
+        <td>{{ college.name }}</td>
+        <td>{{ college.domain }}</td>
+        <td>
+          <a href="{{ url_for('superadmin.update_college', college_id=college.id) }}" class="btn btn-warning btn-sm">✏️ Edit</a>
+          <form action="{{ url_for('superadmin.delete_college', college_id=college.id) }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

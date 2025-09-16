@@ -39,31 +39,54 @@
 <div class="register-container">
   <h2 class="text-center text-dark mb-4">📝 Register</h2>
   <form method="POST" id="registerForm">
+    <!-- Name -->
     <div class="mb-3">
       <label class="form-label">Full Name</label>
       <input type="text" name="name" class="form-control" placeholder="Enter full name" required>
     </div>
+
+    <!-- College (optional for SuperAdmin) -->
+    <div class="mb-3" id="collegeField">
+      <label class="form-label">Select College / School 
+        <small class="text-muted">(Skip if SuperAdmin)</small>
+      </label>
+      <select name="college_id" id="college_id" class="form-select">
+        <option value="">-- Select College --</option>
+        {% for college in colleges %}
+          <option value="{{ college.id }}">{{ college.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Email -->
     <div class="mb-3">
       <label class="form-label">College Email</label>
       <input type="email" name="email" class="form-control" placeholder="e.g. student@medicaps.ac.in" required>
     </div>
+
+    <!-- Password -->
     <div class="mb-3">
       <label class="form-label">Password</label>
       <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
     </div>
+
+    <!-- Role -->
     <div class="mb-3">
       <label class="form-label">Role</label>
-      <select name="role" class="form-select">
+      <select name="role" id="role" class="form-select" required>
         <option value="Student">Student</option>
         <option value="Faculty">Faculty</option>
         <option value="Admin">Admin</option>
         <option value="SuperAdmin">Super Admin</option>
       </select>
     </div>
+
+    <!-- Show Password -->
     <div class="form-check mb-3">
       <input type="checkbox" class="form-check-input" id="showPassword">
       <label class="form-check-label" for="showPassword">Show Password</label>
     </div>
+
     <button type="submit" class="btn btn-danger">Register</button>
   </form>
 </div>
@@ -75,8 +98,27 @@
     pwd.type = this.checked ? "text" : "password";
   });
 
+  // Toggle College field based on role
+  const roleSelect = document.getElementById("role");
+  const collegeField = document.getElementById("collegeField");
+  const collegeSelect = document.getElementById("college_id");
+
+  function toggleCollegeField() {
+    if (roleSelect.value === "SuperAdmin") {
+      collegeField.style.display = "none";
+      collegeSelect.required = false;
+      collegeSelect.value = "";
+    } else {
+      collegeField.style.display = "block";
+      collegeSelect.required = true;
+    }
+  }
+
+  roleSelect.addEventListener("change", toggleCollegeField);
+  toggleCollegeField(); // run on page load
+
   // Loading animation on submit
-  document.getElementById("registerForm").addEventListener("submit", function(e) {
+  document.getElementById("registerForm").addEventListener("submit", function() {
     const btn = this.querySelector("button");
     btn.innerHTML = "⏳ Registering...";
     btn.disabled = true;

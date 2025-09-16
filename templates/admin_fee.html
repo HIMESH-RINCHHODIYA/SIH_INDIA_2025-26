@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Fee Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body { font-family:'Inter',sans-serif; margin:0; padding:0;
+  background:linear-gradient(135deg,#00c6ff 0%,#0072ff 100%); color:#333; }
+
+.container { max-width:1100px; margin:40px auto; padding:30px; background:#fff;
+  border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,0.2); }
+
+h1,h2 { text-align:center; margin:10px 0; }
+h1 { font-size:26px; font-weight:700; color:#0072ff; }
+h2 { font-weight:700; color:#0072ff; margin-bottom:25px; }
+
+.logo { display:block; margin:0 auto 10px; max-height:80px; }
+
+.dashboard-btn { display:inline-block; margin-bottom:20px; background:#0072ff;
+  color:#fff; padding:10px 18px; border-radius:8px; font-size:14px; text-decoration:none; transition:.3s; }
+.dashboard-btn:hover { background:#0056cc; transform:scale(1.05); }
+
+.card { background:#f4f9ff; padding:20px; border-radius:12px; margin-bottom:30px;
+  border-left:6px solid #0072ff; }
+.card:hover { box-shadow:0 4px 15px rgba(0,0,0,0.08); }
+
+label { font-weight:600; margin-right:10px; }
+select,input[type="number"],input[type="date"] { padding:8px; border:1px solid #ccc;
+  border-radius:6px; margin:5px 10px 15px 0; }
+
+button { background:#0072ff; color:white; border:none; padding:8px 14px;
+  border-radius:8px; cursor:pointer; transition:.3s; font-size:14px; }
+button:hover { background:#0056cc; transform:translateY(-2px); }
+
+table { width:100%; border-collapse:collapse; margin-top:15px; }
+table th,table td { border:1px solid #ddd; padding:10px; text-align:center; }
+table th { background:#0072ff; color:white; }
+table tr:nth-child(even){background:#f9f9f9;}
+
+.status { font-weight:bold; padding:4px 10px; border-radius:6px; }
+.Unpaid { background:#ffe6e6; color:#d32f2f; }
+.Pending { background:#fff4cc; color:#856404; }
+.Paid { background:#d4edda; color:#155724; }
+.Failed { background:#f8d7da; color:#721c24; }
+
+/* Modal */
+.modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.6); }
+.modal-content { background:#fff; margin:10% auto; padding:20px; border-radius:12px;
+  max-width:600px; }
+.modal-close { float:right; font-size:20px; cursor:pointer; }
+</style>
+</head>
+<body>
+  <div class="container">
+    {% if college_logo %}
+      <img src="{{ college_logo }}" alt="College Logo" class="logo">
+    {% endif %}
+    <h1>{{ college_name or "College Admin Panel" }}</h1>
+    <a href="/dashboard" class="dashboard-btn">⬅ Back to Dashboard</a>
+
+    <h2>💼 Admin Fee Dashboard</h2>
+
+    <!-- Save Fee Configuration -->
+    <div class="card">
+      <h3>⚙️ Set Fee Configuration</h3>
+      <form id="feeConfigForm">
+        <label>Program:</label><select id="cfgProgram"></select>
+        <label>Branch:</label><select id="cfgBranch"></select>
+        <label>Year:</label><select id="cfgYear"></select>
+        <br>
+        <label>Amount (₹):</label>
+        <input type="number" step="0.01" id="cfgAmount" required>
+        <label>Last Date:</label>
+        <input type="date" id="cfgLastDate">
+        <button type="submit">💾 Save Config</button>
+      </form>
+    </div>
+
+    <!-- Filter Students -->
+    <div class="card">
+      <h3>🔍 Filter Students</h3>
+      <label>Program:</label><select id="program"></select>
+      <label>Branch:</label><select id="branch"></select>
+      <label>Year:</label><select id="year"></select>
+      <button id="filterBtn">Filter</button>
+      <button id="downloadCSV">⬇ CSV</button>
+      <button id="downloadPDF">⬇ PDF</button>
+    </div>
+
+    <!-- Students Table -->
+    <div class="card">
+      <h3>📑 Students</h3>
+      <table id="studentsTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Program / Branch / Year</th>
+            <th>Applied Fee (₹)</th>
+            <th>Paid Amount (₹)</th>
+            <th>Status</th>
+            <th>Payments</th>
+            <th>Update Fee</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Payment History Modal -->
+  <div id="historyModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <h3>📜 Payment History</h3>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Amount</th><th>Status</th><th>Receipt</th></tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+// API endpoints
+const apiDropdown="/admin/fees/api/dropdowns";
+const studentsApi="/admin/fees/api/students";
+
+// Toast utility
+function showToast(message,type="info"){
+  const toast=document.createElement("div");
+  toast.className=`toast ${type}`;
+  toast.innerText=message;
+  Object.assign(toast.style,{
+    position:"fixed",bottom:"20px",right:"20px",background:type==="error"?"#e74c3c":"#2ecc71",
+    color:"#fff",padding:"10px 16px",borderRadius:"6px",zIndex:2000,boxShadow:"0 4px 12px rgba(0,0,0,.2)"
+  });
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(),3000);
+}
+
+// Populate dropdowns safely
+async function populateDropdowns(){
+  try {
+    const res=await fetch(apiDropdown); 
+    if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const data=await res.json();
+
+    function fillSelect(sel,items,addAll=true){
+      sel.innerHTML="";
+      if(addAll) sel.innerHTML="<option value=''>--All--</option>";
+      if(items && Array.isArray(items)){
+        items.forEach(i=> sel.appendChild(new Option(i,i)));
+      }
+    }
+
+    // Filter dropdowns
+    fillSelect(document.getElementById("program"),data.programs,true);
+    fillSelect(document.getElementById("branch"),data.branches,true);
+    fillSelect(document.getElementById("year"),data.years,true);
+
+    // Config dropdowns
+    fillSelect(document.getElementById("cfgProgram"),data.programs,false);
+    fillSelect(document.getElementById("cfgBranch"),data.branches,false);
+    fillSelect(document.getElementById("cfgYear"),data.years,false);
+
+  } catch(err){
+    console.error("Dropdown fetch error:",err);
+    showToast("Failed to load dropdowns","error");
+  }
+}
+
+// Fetch students
+async function fetchStudents(){
+  const p=program.value,b=branch.value,y=year.value;
+  try {
+    const res=await fetch(`${studentsApi}?program=${p}&branch=${b}&year=${y}`);
+    if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const students=await res.json();
+
+    const tbody=document.querySelector("#studentsTable tbody");
+    tbody.innerHTML="";
+
+    students.forEach(st=>{
+      const tr=document.createElement("tr");
+      tr.innerHTML=`
+        <td>${st.name}</td>
+        <td>${st.email}</td>
+        <td>${st.program||"-"} / ${st.branch||"-"} / ${st.year||"-"}</td>
+        <td>${st.applied_fee?.amount?.toFixed(2)||"-"}</td>
+        <td>${st.paid_amount?.toFixed(2)||"-"}</td>
+        <td><span class="status ${st.status}">${st.status}</span></td>
+        <td><button onclick="viewPayments(${st.id})">🔍 View</button></td>
+        <td>
+          <input type="number" step="0.01" value="${st.applied_fee?.amount||0}" id="amt_${st.id}">
+          <button onclick="updateAmount(${st.id})">Update</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+
+  } catch(err){
+    console.error("Fetch students error:",err);
+    showToast("Failed to fetch students","error");
+  }
+}
+
+// Update student fee
+async function updateAmount(studentId){
+  const amt=parseFloat(document.getElementById(`amt_${studentId}`).value);
+  try {
+    const res=await fetch(`/admin/fees/api/update_fee/${studentId}`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({amount:amt})
+    });
+    const data=await res.json();
+    if(data.error) showToast(data.error,"error"); 
+    else showToast(data.message,"success");
+    fetchStudents();
+  } catch(err){
+    console.error(err);
+    showToast("Failed to update fee","error");
+  }
+}
+
+// Save fee config
+async function saveFeeConfig(e) {
+    e.preventDefault();
+    const data = {
+        program: cfgProgram.value,
+        branch: cfgBranch.value,
+        year: cfgYear.value,
+        amount: parseFloat(cfgAmount.value),
+        last_date: cfgLastDate.value
+    };
+    try {
+        const res = await fetch("/admin/fees/api/save_fee_config", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+        const r = await res.json();
+        if (r.error) showToast(r.error, "error");
+        else showToast(r.message, "success");
+        fetchStudents();
+    } catch (err) {
+        console.error(err);
+        showToast("Failed to save fee config.", "error");
+    }
+}
+
+// Payment history modal
+async function viewPayments(studentId){
+  try {
+    const res=await fetch(`/admin/fees/api/payments/${studentId}`);
+    if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const payments=await res.json();
+    const tbody=document.getElementById("historyBody"); 
+    tbody.innerHTML="";
+    payments.forEach(p=>{
+      const tr=document.createElement("tr");
+      tr.innerHTML=`
+        <td>${p.created_at}</td>
+        <td>₹${p.amount}</td>
+        <td><span class="status ${p.status}">${p.status}</span></td>
+        <td>${p.status==="Paid"?`<a href="/admin/fees/receipt/${p.id}" target="_blank">⬇ Receipt</a>`:"-"}</td>`;
+      tbody.appendChild(tr);
+    });
+    document.getElementById("historyModal").style.display="block";
+  } catch(err){
+    console.error(err);
+    showToast("Failed to load payments","error");
+  }
+}
+
+function closeModal(){ document.getElementById("historyModal").style.display="none"; }
+
+// Download CSV/PDF
+function downloadFile(type){
+  const p=program.value,b=branch.value,y=year.value;
+  window.location.href=`/admin/fees/download_students/${type}?program=${p}&branch=${b}&year=${y}`;
+}
+
+// Events
+filterBtn.addEventListener("click",fetchStudents);
+downloadCSV.addEventListener("click",()=>downloadFile("csv"));
+downloadPDF.addEventListener("click",()=>downloadFile("pdf"));
+feeConfigForm.addEventListener("submit",saveFeeConfig);
+
+// Init
+populateDropdowns(); 
+fetchStudents();
+</script>
+</body>
+</html>

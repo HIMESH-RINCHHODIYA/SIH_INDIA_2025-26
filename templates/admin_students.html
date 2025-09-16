@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .student-list-container {
+    max-width: 1000px;
+    margin: auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.1);
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  .table th {
+    background-color: #185a9d;
+    color: white;
+  }
+  .btn-edit {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+  }
+  .btn-edit:hover {
+    background: linear-gradient(135deg, #185a9d, #43cea2);
+    transform: scale(1.05);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="student-list-container">
+  <h3 class="text-center mb-4">📋 Manage Student Profiles</h3>
+
+  {% if students %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Roll No</th>
+            <th>Program</th>
+            <th>Branch</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+            <tr>
+              <td>{{ student.id }}</td>
+              <td>{{ student.name }}</td>
+              <td>{{ student.email }}</td>
+              <td>{{ student.roll_no or '-' }}</td>
+              <td>{{ student.program or '-' }}</td>
+              <td>{{ student.branch or '-' }}</td>
+              <td>
+                <a href="{{ url_for('profile_bp.set_student_profile', student_id=student.id) }}" 
+                   class="btn-edit">✏️Edit</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-center text-muted">No students found.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>✏️ Update College</h2>
+
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label class="form-label">College Name</label>
+    <input type="text" name="name" value="{{ college.name }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Domain</label>
+    <input type="text" name="domain" value="{{ college.domain }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Logo (optional)</label>
+    <input type="file" name="logo" class="form-control">
+    {% if college.logo %}
+      <p class="mt-2">Current: <img src="{{ url_for('static', filename=college.logo.split('static/')[-1]) }}" width="50"></p>
+    {% endif %}
+  </div>
+  <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+  <a href="{{ url_for('superadmin.colleges') }}" class="btn btn-secondary">⬅️ Back</a>
+</form>
+{% endblock %}

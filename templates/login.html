@@ -13,11 +13,11 @@
   }
 
   /* Input styles */
-  .login-container input {
+  .login-container input, .login-container select {
     border-radius: 8px;
     transition: all 0.3s ease;
   }
-  .login-container input:focus {
+  .login-container input:focus, .login-container select:focus {
     border-color: #007bff;
     box-shadow: 0px 0px 8px rgba(0,123,255,0.6);
   }
@@ -43,18 +43,38 @@
 <div class="login-container">
   <h2 class="text-center text-white mb-4">🔐 Login</h2>
   <form method="POST" id="loginForm">
+    
+    <!-- College dropdown (optional for SuperAdmin) -->
+    <div class="mb-3">
+      <label class="form-label text-white">Select College / School 
+        <small class="text-light">(Skip if SuperAdmin)</small>
+      </label>
+      <select name="college_id" class="form-select">
+        <option value="">-- Select College --</option>
+        {% for college in colleges %}
+          <option value="{{ college.id }}">{{ college.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Email -->
     <div class="mb-3">
       <label class="form-label text-white">Email</label>
-      <input type="email" name="email" class="form-control" placeholder="Enter your college email" required>
+      <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
     </div>
+
+    <!-- Password -->
     <div class="mb-3">
       <label class="form-label text-white">Password</label>
       <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
     </div>
+
+    <!-- Show password toggle -->
     <div class="form-check mb-3">
       <input type="checkbox" class="form-check-input" id="showPassword">
       <label class="form-check-label text-white" for="showPassword">Show Password</label>
     </div>
+
     <button type="submit" class="btn btn-primary">Login</button>
   </form>
 </div>
@@ -66,8 +86,8 @@
     pwd.type = this.checked ? "text" : "password";
   });
 
-  // Small login animation effect
-  document.getElementById("loginForm").addEventListener("submit", function(e) {
+  // Disable button after submit
+  document.getElementById("loginForm").addEventListener("submit", function() {
     const btn = this.querySelector("button");
     btn.innerHTML = "⏳ Logging in...";
     btn.disabled = true;

@@ -63,3 +63,1881 @@
 2025-09-07 18:21:11,461 INFO  * Restarting with stat
 2025-09-07 18:21:11,940 WARNING  * Debugger is active!
 2025-09-07 18:21:11,940 INFO  * Debugger PIN: 479-369-492
+2025-09-10 15:05:20,049 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 15:05:20,049 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 15:05:20,050 INFO  * Restarting with stat
+2025-09-10 15:05:20,561 WARNING  * Debugger is active!
+2025-09-10 15:05:20,562 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:08:36,818 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 15:08:36,933 INFO  * Restarting with stat
+2025-09-10 15:08:37,900 WARNING  * Debugger is active!
+2025-09-10 15:08:37,900 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:08:53,666 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.4.241:5000
+2025-09-10 15:08:53,666 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 15:08:53,667 INFO  * Restarting with stat
+2025-09-10 15:08:54,137 WARNING  * Debugger is active!
+2025-09-10 15:08:54,138 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:09:14,235 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 15:09:14,361 INFO  * Restarting with stat
+2025-09-10 15:09:15,639 WARNING  * Debugger is active!
+2025-09-10 15:09:15,639 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:09:27,253 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 15:09:27,254 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 15:09:27,254 INFO  * Restarting with stat
+2025-09-10 15:09:27,734 WARNING  * Debugger is active!
+2025-09-10 15:09:27,735 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:09:52,641 INFO 127.0.0.1 - - [10/Sep/2025 15:09:52] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 15:09:52,792 INFO 127.0.0.1 - - [10/Sep/2025 15:09:52] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:09:53,088 ERROR 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-09-10 15:09:53,090 INFO 127.0.0.1 - - [10/Sep/2025 15:09:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-10 15:10:17,084 INFO 127.0.0.1 - - [10/Sep/2025 15:10:17] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:10:17,245 INFO 127.0.0.1 - - [10/Sep/2025 15:10:17] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:10:19,265 INFO 127.0.0.1 - - [10/Sep/2025 15:10:19] "GET /faculty/courses HTTP/1.1" 200 -
+2025-09-10 15:10:20,799 INFO 127.0.0.1 - - [10/Sep/2025 15:10:20] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:10:22,311 INFO 127.0.0.1 - - [10/Sep/2025 15:10:22] "GET /faculty/assignments HTTP/1.1" 200 -
+2025-09-10 15:10:23,753 INFO 127.0.0.1 - - [10/Sep/2025 15:10:23] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:10:24,743 INFO 127.0.0.1 - - [10/Sep/2025 15:10:24] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:10:27,292 INFO 127.0.0.1 - - [10/Sep/2025 15:10:27] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:10:29,537 INFO 127.0.0.1 - - [10/Sep/2025 15:10:29] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 15:10:29,625 INFO 127.0.0.1 - - [10/Sep/2025 15:10:29] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:10:35,390 INFO 127.0.0.1 - - [10/Sep/2025 15:10:35] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:10:35,565 INFO 127.0.0.1 - - [10/Sep/2025 15:10:35] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:10:38,044 INFO 127.0.0.1 - - [10/Sep/2025 15:10:38] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 15:10:39,930 INFO 127.0.0.1 - - [10/Sep/2025 15:10:39] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 15:10:39,987 INFO 127.0.0.1 - - [10/Sep/2025 15:10:39] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:10:46,702 INFO 127.0.0.1 - - [10/Sep/2025 15:10:46] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:10:46,772 INFO 127.0.0.1 - - [10/Sep/2025 15:10:46] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:15:27,275 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 15:15:27,440 INFO  * Restarting with stat
+2025-09-10 15:15:28,358 WARNING  * Debugger is active!
+2025-09-10 15:15:28,359 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:15:48,737 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.4.241:5000
+2025-09-10 15:15:48,738 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 15:15:48,738 INFO  * Restarting with stat
+2025-09-10 15:15:49,228 WARNING  * Debugger is active!
+2025-09-10 15:15:49,228 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:15:53,308 INFO 127.0.0.1 - - [10/Sep/2025 15:15:53] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 15:15:53,511 INFO 127.0.0.1 - - [10/Sep/2025 15:15:53] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:16:06,325 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 15:16:06,432 INFO  * Restarting with stat
+2025-09-10 15:16:07,468 WARNING  * Debugger is active!
+2025-09-10 15:16:07,468 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:16:29,996 INFO 127.0.0.1 - - [10/Sep/2025 15:16:29] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:16:41,855 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 15:16:41,855 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 15:16:41,856 INFO  * Restarting with stat
+2025-09-10 15:16:42,380 WARNING  * Debugger is active!
+2025-09-10 15:16:42,380 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:16:47,958 INFO 127.0.0.1 - - [10/Sep/2025 15:16:47] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 15:16:48,156 INFO 127.0.0.1 - - [10/Sep/2025 15:16:48] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:17:01,555 INFO 127.0.0.1 - - [10/Sep/2025 15:17:01] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:17:01,806 INFO 127.0.0.1 - - [10/Sep/2025 15:17:01] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:17:04,013 INFO 127.0.0.1 - - [10/Sep/2025 15:17:04] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 15:17:04,190 INFO 127.0.0.1 - - [10/Sep/2025 15:17:04] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:17:08,760 INFO 127.0.0.1 - - [10/Sep/2025 15:17:08] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:17:08,888 INFO 127.0.0.1 - - [10/Sep/2025 15:17:08] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:24:15,581 INFO 127.0.0.1 - - [10/Sep/2025 15:24:15] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:24:17,507 INFO 127.0.0.1 - - [10/Sep/2025 15:24:17] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:24:22,866 INFO 127.0.0.1 - - [10/Sep/2025 15:24:22] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 15:24:22,955 INFO 127.0.0.1 - - [10/Sep/2025 15:24:22] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:24:27,924 INFO 127.0.0.1 - - [10/Sep/2025 15:24:27] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-09-10 15:24:28,082 INFO 127.0.0.1 - - [10/Sep/2025 15:24:28] "GET /login?next=/dashboard HTTP/1.1" 200 -
+2025-09-10 15:24:28,890 INFO 127.0.0.1 - - [10/Sep/2025 15:24:28] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:24:36,844 INFO 127.0.0.1 - - [10/Sep/2025 15:24:36] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:24:36,940 INFO 127.0.0.1 - - [10/Sep/2025 15:24:36] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:24:39,103 INFO 127.0.0.1 - - [10/Sep/2025 15:24:39] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 15:24:39,289 INFO 127.0.0.1 - - [10/Sep/2025 15:24:39] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:24:44,248 INFO 127.0.0.1 - - [10/Sep/2025 15:24:44] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:24:44,446 INFO 127.0.0.1 - - [10/Sep/2025 15:24:44] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:25:44,770 INFO 127.0.0.1 - - [10/Sep/2025 15:25:44] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 15:25:44,840 INFO 127.0.0.1 - - [10/Sep/2025 15:25:44] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:26:06,958 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 15:26:06,958 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 15:26:06,959 INFO  * Restarting with stat
+2025-09-10 15:26:07,466 WARNING  * Debugger is active!
+2025-09-10 15:26:07,467 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:26:11,921 INFO 127.0.0.1 - - [10/Sep/2025 15:26:11] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:26:22,317 INFO 127.0.0.1 - - [10/Sep/2025 15:26:22] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:26:22,558 INFO 127.0.0.1 - - [10/Sep/2025 15:26:22] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:29:35,762 INFO 127.0.0.1 - - [10/Sep/2025 15:29:35] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:29:37,825 INFO 127.0.0.1 - - [10/Sep/2025 15:29:37] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:29:39,809 INFO 127.0.0.1 - - [10/Sep/2025 15:29:39] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:30:13,527 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 15:30:13,646 INFO  * Restarting with stat
+2025-09-10 15:30:14,761 WARNING  * Debugger is active!
+2025-09-10 15:30:14,761 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:30:16,816 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 15:30:16,949 INFO  * Restarting with stat
+2025-09-10 15:32:10,288 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 15:32:10,290 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 15:32:10,292 INFO  * Restarting with stat
+2025-09-10 15:32:11,007 WARNING  * Debugger is active!
+2025-09-10 15:32:11,008 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:32:15,755 INFO 127.0.0.1 - - [10/Sep/2025 15:32:15] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 15:32:16,007 INFO 127.0.0.1 - - [10/Sep/2025 15:32:16] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:32:19,122 INFO 127.0.0.1 - - [10/Sep/2025 15:32:19] "GET /faculty/assignments HTTP/1.1" 200 -
+2025-09-10 15:32:20,580 INFO 127.0.0.1 - - [10/Sep/2025 15:32:20] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:33:00,178 INFO 127.0.0.1 - - [10/Sep/2025 15:33:00] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:33:01,902 INFO 127.0.0.1 - - [10/Sep/2025 15:33:01] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:36:18,111 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 15:36:18,211 INFO  * Restarting with stat
+2025-09-10 15:36:18,911 WARNING  * Debugger is active!
+2025-09-10 15:36:18,914 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:36:36,510 INFO 127.0.0.1 - - [10/Sep/2025 15:36:36] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:36:39,232 INFO 127.0.0.1 - - [10/Sep/2025 15:36:39] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:36:39,367 ERROR 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-09-10 15:36:39,370 INFO 127.0.0.1 - - [10/Sep/2025 15:36:39] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-09-10 15:36:46,827 INFO 127.0.0.1 - - [10/Sep/2025 15:36:46] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:36:48,377 INFO 127.0.0.1 - - [10/Sep/2025 15:36:48] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:36:48,564 ERROR 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-09-10 15:36:48,566 INFO 127.0.0.1 - - [10/Sep/2025 15:36:48] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-09-10 15:38:12,258 INFO 127.0.0.1 - - [10/Sep/2025 15:38:12] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:39:45,843 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 15:39:45,940 INFO  * Restarting with stat
+2025-09-10 15:39:46,550 WARNING  * Debugger is active!
+2025-09-10 15:39:46,551 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:40:10,989 INFO 127.0.0.1 - - [10/Sep/2025 15:40:10] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:42:28,293 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 15:42:28,701 INFO  * Restarting with stat
+2025-09-10 15:42:29,916 WARNING  * Debugger is active!
+2025-09-10 15:42:29,917 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:42:35,816 INFO 127.0.0.1 - - [10/Sep/2025 15:42:35] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:45:25,857 ERROR Error: Directory migrations already exists and is not empty
+2025-09-10 15:49:15,173 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 15:49:15,173 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 15:49:15,175 INFO  * Restarting with stat
+2025-09-10 15:49:15,653 WARNING  * Debugger is active!
+2025-09-10 15:49:15,654 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:49:26,780 INFO 127.0.0.1 - - [10/Sep/2025 15:49:26] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 15:49:27,023 INFO 127.0.0.1 - - [10/Sep/2025 15:49:27] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:49:30,743 INFO 127.0.0.1 - - [10/Sep/2025 15:49:30] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 15:49:42,891 INFO 127.0.0.1 - - [10/Sep/2025 15:49:42] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 15:49:43,054 INFO 127.0.0.1 - - [10/Sep/2025 15:49:43] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:49:50,078 INFO 127.0.0.1 - - [10/Sep/2025 15:49:50] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:49:58,045 INFO 127.0.0.1 - - [10/Sep/2025 15:49:58] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:49:58,230 INFO 127.0.0.1 - - [10/Sep/2025 15:49:58] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:50:01,136 INFO 127.0.0.1 - - [10/Sep/2025 15:50:01] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-10 15:50:02,773 INFO 127.0.0.1 - - [10/Sep/2025 15:50:02] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:59:24,860 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 15:59:24,860 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 15:59:24,860 INFO  * Restarting with stat
+2025-09-10 15:59:25,313 WARNING  * Debugger is active!
+2025-09-10 15:59:25,313 INFO  * Debugger PIN: 104-244-752
+2025-09-10 15:59:30,437 INFO 127.0.0.1 - - [10/Sep/2025 15:59:30] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 15:59:30,661 INFO 127.0.0.1 - - [10/Sep/2025 15:59:30] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:59:35,244 INFO 127.0.0.1 - - [10/Sep/2025 15:59:35] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-10 15:59:36,929 INFO 127.0.0.1 - - [10/Sep/2025 15:59:36] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:59:38,846 INFO 127.0.0.1 - - [10/Sep/2025 15:59:38] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 15:59:39,064 INFO 127.0.0.1 - - [10/Sep/2025 15:59:39] "GET /login HTTP/1.1" 200 -
+2025-09-10 15:59:47,450 INFO 127.0.0.1 - - [10/Sep/2025 15:59:47] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 15:59:47,558 INFO 127.0.0.1 - - [10/Sep/2025 15:59:47] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 15:59:49,287 INFO 127.0.0.1 - - [10/Sep/2025 15:59:49] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 16:01:19,712 INFO 127.0.0.1 - - [10/Sep/2025 16:01:19] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 16:03:08,652 INFO 127.0.0.1 - - [10/Sep/2025 16:03:08] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 16:04:16,635 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 16:04:16,795 INFO  * Restarting with stat
+2025-09-10 16:04:17,599 WARNING  * Debugger is active!
+2025-09-10 16:04:17,600 INFO  * Debugger PIN: 104-244-752
+2025-09-10 16:04:17,989 INFO 127.0.0.1 - - [10/Sep/2025 16:04:17] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 16:05:24,567 INFO 127.0.0.1 - - [10/Sep/2025 16:05:24] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 16:06:19,025 INFO 127.0.0.1 - - [10/Sep/2025 16:06:19] "GET /faculty/assignments HTTP/1.1" 200 -
+2025-09-10 16:06:20,830 INFO 127.0.0.1 - - [10/Sep/2025 16:06:20] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:06:22,931 INFO 127.0.0.1 - - [10/Sep/2025 16:06:22] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 16:06:23,116 INFO 127.0.0.1 - - [10/Sep/2025 16:06:23] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:36:55,529 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 16:36:56,121 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 16:36:56,124 INFO  * Restarting with stat
+2025-09-10 16:36:56,645 WARNING  * Debugger is active!
+2025-09-10 16:36:56,645 INFO  * Debugger PIN: 729-460-738
+2025-09-10 16:37:04,715 INFO 127.0.0.1 - - [10/Sep/2025 16:37:04] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 16:37:04,894 INFO 127.0.0.1 - - [10/Sep/2025 16:37:04] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:37:11,945 INFO 127.0.0.1 - - [10/Sep/2025 16:37:11] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 16:37:12,202 INFO 127.0.0.1 - - [10/Sep/2025 16:37:12] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:37:14,662 INFO 127.0.0.1 - - [10/Sep/2025 16:37:14] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 16:37:46,190 INFO 127.0.0.1 - - [10/Sep/2025 16:37:46] "GET /faculty/assignments HTTP/1.1" 200 -
+2025-09-10 16:37:48,737 INFO 127.0.0.1 - - [10/Sep/2025 16:37:48] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:38:40,176 INFO 127.0.0.1 - - [10/Sep/2025 16:38:40] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 16:39:00,534 INFO 127.0.0.1 - - [10/Sep/2025 16:39:00] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 16:39:00,627 INFO 127.0.0.1 - - [10/Sep/2025 16:39:00] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:39:12,842 INFO 127.0.0.1 - - [10/Sep/2025 16:39:12] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 16:39:12,953 INFO 127.0.0.1 - - [10/Sep/2025 16:39:12] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:39:15,237 INFO 127.0.0.1 - - [10/Sep/2025 16:39:15] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-10 16:39:16,954 INFO 127.0.0.1 - - [10/Sep/2025 16:39:16] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:39:18,065 INFO 127.0.0.1 - - [10/Sep/2025 16:39:18] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 16:44:50,569 INFO 127.0.0.1 - - [10/Sep/2025 16:44:50] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 16:45:05,899 INFO 127.0.0.1 - - [10/Sep/2025 16:45:05] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 16:47:42,322 INFO 127.0.0.1 - - [10/Sep/2025 16:47:42] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 16:48:03,791 INFO 127.0.0.1 - - [10/Sep/2025 16:48:03] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-10 16:48:03,856 INFO 127.0.0.1 - - [10/Sep/2025 16:48:03] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 16:48:08,201 INFO 127.0.0.1 - - [10/Sep/2025 16:48:08] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:48:09,994 INFO 127.0.0.1 - - [10/Sep/2025 16:48:09] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-10 16:48:11,717 INFO 127.0.0.1 - - [10/Sep/2025 16:48:11] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:48:13,559 INFO 127.0.0.1 - - [10/Sep/2025 16:48:13] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 16:48:13,728 INFO 127.0.0.1 - - [10/Sep/2025 16:48:13] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:48:20,988 INFO 127.0.0.1 - - [10/Sep/2025 16:48:20] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 16:48:21,091 INFO 127.0.0.1 - - [10/Sep/2025 16:48:21] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:48:22,781 INFO 127.0.0.1 - - [10/Sep/2025 16:48:22] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 16:49:49,978 INFO 127.0.0.1 - - [10/Sep/2025 16:49:49] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 16:49:50,078 INFO 127.0.0.1 - - [10/Sep/2025 16:49:50] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:49:56,904 INFO 127.0.0.1 - - [10/Sep/2025 16:49:56] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 16:49:57,145 INFO 127.0.0.1 - - [10/Sep/2025 16:49:57] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:49:59,071 INFO 127.0.0.1 - - [10/Sep/2025 16:49:59] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-10 16:50:00,772 INFO 127.0.0.1 - - [10/Sep/2025 16:50:00] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:50:02,084 INFO 127.0.0.1 - - [10/Sep/2025 16:50:02] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 16:50:08,115 INFO 127.0.0.1 - - [10/Sep/2025 16:50:08] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 16:50:08,336 INFO 127.0.0.1 - - [10/Sep/2025 16:50:08] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:50:16,240 INFO 127.0.0.1 - - [10/Sep/2025 16:50:16] "GET /register HTTP/1.1" 200 -
+2025-09-10 16:50:26,408 INFO 127.0.0.1 - - [10/Sep/2025 16:50:26] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:50:50,933 INFO 127.0.0.1 - - [10/Sep/2025 16:50:50] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 16:50:51,011 INFO 127.0.0.1 - - [10/Sep/2025 16:50:51] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:51:15,189 INFO 127.0.0.1 - - [10/Sep/2025 16:51:15] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 16:51:15,285 INFO 127.0.0.1 - - [10/Sep/2025 16:51:15] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:51:38,774 INFO 127.0.0.1 - - [10/Sep/2025 16:51:38] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 16:51:38,836 INFO 127.0.0.1 - - [10/Sep/2025 16:51:38] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:51:40,992 INFO 127.0.0.1 - - [10/Sep/2025 16:51:40] "GET /register HTTP/1.1" 200 -
+2025-09-10 16:51:59,635 INFO 127.0.0.1 - - [10/Sep/2025 16:51:59] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-10 16:51:59,801 INFO 127.0.0.1 - - [10/Sep/2025 16:51:59] "GET /verify HTTP/1.1" 200 -
+2025-09-10 16:52:09,347 INFO 127.0.0.1 - - [10/Sep/2025 16:52:09] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-10 16:52:09,446 INFO 127.0.0.1 - - [10/Sep/2025 16:52:09] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:52:19,668 INFO 127.0.0.1 - - [10/Sep/2025 16:52:19] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 16:52:19,799 INFO 127.0.0.1 - - [10/Sep/2025 16:52:19] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 16:52:21,447 INFO 127.0.0.1 - - [10/Sep/2025 16:52:21] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 16:52:54,262 INFO 127.0.0.1 - - [10/Sep/2025 16:52:54] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-10 16:52:54,403 INFO 127.0.0.1 - - [10/Sep/2025 16:52:54] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 16:52:56,932 INFO 127.0.0.1 - - [10/Sep/2025 16:52:56] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 16:52:57,002 INFO 127.0.0.1 - - [10/Sep/2025 16:52:57] "GET /login HTTP/1.1" 200 -
+2025-09-10 16:54:10,522 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/appx.py', reloading
+2025-09-10 16:54:11,108 INFO  * Restarting with stat
+2025-09-10 16:54:13,761 WARNING  * Debugger is active!
+2025-09-10 16:54:13,764 INFO  * Debugger PIN: 729-460-738
+2025-09-10 16:57:32,261 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/profile/__init__.py', reloading
+2025-09-10 16:57:32,350 INFO  * Restarting with stat
+2025-09-10 16:57:32,881 WARNING  * Debugger is active!
+2025-09-10 16:57:32,881 INFO  * Debugger PIN: 729-460-738
+2025-09-10 16:58:17,713 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 16:58:18,160 INFO  * Restarting with stat
+2025-09-10 17:04:37,512 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 17:04:37,513 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 17:04:37,514 INFO  * Restarting with stat
+2025-09-10 17:04:38,249 WARNING  * Debugger is active!
+2025-09-10 17:04:38,249 INFO  * Debugger PIN: 100-421-205
+2025-09-10 17:04:45,182 INFO 127.0.0.1 - - [10/Sep/2025 17:04:45] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 17:04:45,368 INFO 127.0.0.1 - - [10/Sep/2025 17:04:45] "GET /login HTTP/1.1" 200 -
+2025-09-10 17:04:53,356 INFO 127.0.0.1 - - [10/Sep/2025 17:04:53] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 17:04:53,720 INFO 127.0.0.1 - - [10/Sep/2025 17:04:53] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 17:04:56,134 INFO 127.0.0.1 - - [10/Sep/2025 17:04:56] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 17:04:59,025 INFO 127.0.0.1 - - [10/Sep/2025 17:04:59] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 17:04:59,125 INFO 127.0.0.1 - - [10/Sep/2025 17:04:59] "GET /login HTTP/1.1" 200 -
+2025-09-10 17:05:05,896 INFO 127.0.0.1 - - [10/Sep/2025 17:05:05] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 17:05:06,054 INFO 127.0.0.1 - - [10/Sep/2025 17:05:06] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 17:05:07,962 INFO 127.0.0.1 - - [10/Sep/2025 17:05:07] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 17:07:26,035 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 17:07:26,157 INFO  * Restarting with stat
+2025-09-10 17:07:26,831 WARNING  * Debugger is active!
+2025-09-10 17:07:26,832 INFO  * Debugger PIN: 100-421-205
+2025-09-10 17:07:28,895 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 17:07:29,074 INFO  * Restarting with stat
+2025-09-10 17:16:07,738 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 17:16:07,739 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 17:16:07,739 INFO  * Restarting with stat
+2025-09-10 17:16:08,187 WARNING  * Debugger is active!
+2025-09-10 17:16:08,187 INFO  * Debugger PIN: 100-421-205
+2025-09-10 17:16:12,746 INFO 127.0.0.1 - - [10/Sep/2025 17:16:12] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 17:16:12,984 INFO 127.0.0.1 - - [10/Sep/2025 17:16:12] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 17:16:16,812 INFO 127.0.0.1 - - [10/Sep/2025 17:16:16] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 17:16:29,860 INFO 127.0.0.1 - - [10/Sep/2025 17:16:29] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 17:16:29,928 INFO 127.0.0.1 - - [10/Sep/2025 17:16:29] "GET /login HTTP/1.1" 200 -
+2025-09-10 17:16:37,031 INFO 127.0.0.1 - - [10/Sep/2025 17:16:37] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 17:16:37,197 INFO 127.0.0.1 - - [10/Sep/2025 17:16:37] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 17:16:45,288 INFO 127.0.0.1 - - [10/Sep/2025 17:16:45] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 17:17:05,413 INFO 127.0.0.1 - - [10/Sep/2025 17:17:05] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-10 17:17:05,478 INFO 127.0.0.1 - - [10/Sep/2025 17:17:05] "GET /student-profile HTTP/1.1" 200 -
+2025-09-10 17:17:05,639 INFO 127.0.0.1 - - [10/Sep/2025 17:17:05] "GET /static/uploads/user5_f97da5fc4d2349c78ee59b9fc560ec05_Screenshot_2024-12-18_192442.png HTTP/1.1" 200 -
+2025-09-10 17:17:10,900 INFO 127.0.0.1 - - [10/Sep/2025 17:17:10] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 17:22:54,945 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/faculty_attendance/__init__.py', reloading
+2025-09-10 17:22:55,013 INFO  * Restarting with stat
+2025-09-10 17:22:55,626 WARNING  * Debugger is active!
+2025-09-10 17:22:55,627 INFO  * Debugger PIN: 100-421-205
+2025-09-10 17:23:23,791 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/faculty_attendance/routes.py', reloading
+2025-09-10 17:23:23,862 INFO  * Restarting with stat
+2025-09-10 17:23:24,490 WARNING  * Debugger is active!
+2025-09-10 17:23:24,491 INFO  * Debugger PIN: 100-421-205
+2025-09-10 17:24:04,758 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 17:24:05,042 INFO  * Restarting with stat
+2025-09-10 17:24:06,350 WARNING  * Debugger is active!
+2025-09-10 17:24:06,350 INFO  * Debugger PIN: 100-421-205
+2025-09-10 17:24:07,402 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 17:24:07,508 INFO  * Restarting with stat
+2025-09-10 18:15:59,788 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 18:15:59,788 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 18:15:59,789 INFO  * Restarting with stat
+2025-09-10 18:16:00,447 WARNING  * Debugger is active!
+2025-09-10 18:16:00,448 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:16:05,607 INFO 127.0.0.1 - - [10/Sep/2025 18:16:05] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 18:16:05,777 INFO 127.0.0.1 - - [10/Sep/2025 18:16:05] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-10 18:16:05,992 INFO 127.0.0.1 - - [10/Sep/2025 18:16:05] "GET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-10 18:16:06,002 INFO 127.0.0.1 - - [10/Sep/2025 18:16:06] "GET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-10 18:16:06,196 INFO 127.0.0.1 - - [10/Sep/2025 18:16:06] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-10 18:16:06,351 INFO 127.0.0.1 - - [10/Sep/2025 18:16:06] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:16:14,460 INFO 127.0.0.1 - - [10/Sep/2025 18:16:14] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-10 18:16:14,538 INFO 127.0.0.1 - - [10/Sep/2025 18:16:14] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:16:14,549 INFO 127.0.0.1 - - [10/Sep/2025 18:16:14] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:16:14,739 INFO 127.0.0.1 - - [10/Sep/2025 18:16:14] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:16:14,818 INFO 127.0.0.1 - - [10/Sep/2025 18:16:14] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:17:23,837 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:17:24,005 INFO  * Restarting with stat
+2025-09-10 18:17:24,653 WARNING  * Debugger is active!
+2025-09-10 18:17:24,654 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:20:35,488 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:20:35,640 INFO  * Restarting with stat
+2025-09-10 18:20:36,421 WARNING  * Debugger is active!
+2025-09-10 18:20:36,422 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:21:07,590 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:21:07,752 INFO  * Restarting with stat
+2025-09-10 18:21:08,727 WARNING  * Debugger is active!
+2025-09-10 18:21:08,728 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:22:51,120 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 18:22:51,120 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 18:22:51,121 INFO  * Restarting with stat
+2025-09-10 18:22:51,657 WARNING  * Debugger is active!
+2025-09-10 18:22:51,657 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:22:55,189 INFO 127.0.0.1 - - [10/Sep/2025 18:22:55] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 18:22:55,385 INFO 127.0.0.1 - - [10/Sep/2025 18:22:55] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-10 18:22:55,611 INFO 127.0.0.1 - - [10/Sep/2025 18:22:55] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:22:55,611 INFO 127.0.0.1 - - [10/Sep/2025 18:22:55] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:22:55,810 INFO 127.0.0.1 - - [10/Sep/2025 18:22:55] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:29:01,077 INFO 127.0.0.1 - - [10/Sep/2025 18:29:01] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:29:03,787 INFO 127.0.0.1 - - [10/Sep/2025 18:29:03] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-10 18:29:06,462 INFO 127.0.0.1 - - [10/Sep/2025 18:29:06] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:29:08,575 INFO 127.0.0.1 - - [10/Sep/2025 18:29:08] "GET /my-program HTTP/1.1" 200 -
+2025-09-10 18:29:10,046 INFO 127.0.0.1 - - [10/Sep/2025 18:29:10] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:29:11,850 INFO 127.0.0.1 - - [10/Sep/2025 18:29:11] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 18:29:11,945 INFO 127.0.0.1 - - [10/Sep/2025 18:29:11] "GET /login HTTP/1.1" 200 -
+2025-09-10 18:29:19,205 INFO 127.0.0.1 - - [10/Sep/2025 18:29:19] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 18:29:19,401 INFO 127.0.0.1 - - [10/Sep/2025 18:29:19] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-10 18:29:19,559 INFO 127.0.0.1 - - [10/Sep/2025 18:29:19] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:29:19,562 INFO 127.0.0.1 - - [10/Sep/2025 18:29:19] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:29:19,625 INFO 127.0.0.1 - - [10/Sep/2025 18:29:19] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:29:19,833 INFO 127.0.0.1 - - [10/Sep/2025 18:29:19] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:29:36,343 INFO 127.0.0.1 - - [10/Sep/2025 18:29:36] "GET /login HTTP/1.1" 200 -
+2025-09-10 18:29:41,323 INFO 127.0.0.1 - - [10/Sep/2025 18:29:41] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 18:29:41,532 INFO 127.0.0.1 - - [10/Sep/2025 18:29:41] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-10 18:29:41,679 INFO 127.0.0.1 - - [10/Sep/2025 18:29:41] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:29:41,683 INFO 127.0.0.1 - - [10/Sep/2025 18:29:41] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:29:41,778 INFO 127.0.0.1 - - [10/Sep/2025 18:29:41] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:31:04,557 INFO 127.0.0.1 - - [10/Sep/2025 18:31:04] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-10 18:31:04,845 INFO 127.0.0.1 - - [10/Sep/2025 18:31:04] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:31:04,848 INFO 127.0.0.1 - - [10/Sep/2025 18:31:04] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:31:05,088 INFO 127.0.0.1 - - [10/Sep/2025 18:31:05] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:31:05,278 INFO 127.0.0.1 - - [10/Sep/2025 18:31:05] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:31:19,417 INFO 127.0.0.1 - - [10/Sep/2025 18:31:19] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:31:21,852 INFO 127.0.0.1 - - [10/Sep/2025 18:31:21] "GET /faculty/assignments?path=attendance HTTP/1.1" 200 -
+2025-09-10 18:31:24,322 INFO 127.0.0.1 - - [10/Sep/2025 18:31:24] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:31:26,511 INFO 127.0.0.1 - - [10/Sep/2025 18:31:26] "GET /faculty/assignments?path=attendance HTTP/1.1" 200 -
+2025-09-10 18:31:28,174 INFO 127.0.0.1 - - [10/Sep/2025 18:31:28] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:31:29,572 INFO 127.0.0.1 - - [10/Sep/2025 18:31:29] "GET /faculty/assignments?path=assignments HTTP/1.1" 200 -
+2025-09-10 18:31:31,796 INFO 127.0.0.1 - - [10/Sep/2025 18:31:31] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:31:32,932 INFO 127.0.0.1 - - [10/Sep/2025 18:31:32] "GET /faculty/assignments?path=attendance HTTP/1.1" 200 -
+2025-09-10 18:32:41,220 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:32:41,319 INFO  * Restarting with stat
+2025-09-10 18:32:41,997 WARNING  * Debugger is active!
+2025-09-10 18:32:41,998 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:32:44,566 INFO 127.0.0.1 - - [10/Sep/2025 18:32:44] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:32:46,438 INFO 127.0.0.1 - - [10/Sep/2025 18:32:46] "[35m[1mGET /faculty/attendance HTTP/1.1[0m" 500 -
+2025-09-10 18:32:46,574 INFO 127.0.0.1 - - [10/Sep/2025 18:32:46] "GET /faculty/attendance?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-10 18:32:46,692 INFO 127.0.0.1 - - [10/Sep/2025 18:32:46] "GET /faculty/attendance?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-10 18:32:46,782 INFO 127.0.0.1 - - [10/Sep/2025 18:32:46] "GET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-10 18:32:46,860 INFO 127.0.0.1 - - [10/Sep/2025 18:32:46] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:33:17,053 INFO 127.0.0.1 - - [10/Sep/2025 18:33:17] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:33:19,746 INFO 127.0.0.1 - - [10/Sep/2025 18:33:19] "[35m[1mGET /faculty/attendance HTTP/1.1[0m" 500 -
+2025-09-10 18:33:20,014 INFO 127.0.0.1 - - [10/Sep/2025 18:33:20] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:33:20,036 INFO 127.0.0.1 - - [10/Sep/2025 18:33:20] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:33:20,241 INFO 127.0.0.1 - - [10/Sep/2025 18:33:20] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:33:44,498 INFO 127.0.0.1 - - [10/Sep/2025 18:33:44] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:33:47,103 INFO 127.0.0.1 - - [10/Sep/2025 18:33:47] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:33:49,030 INFO 127.0.0.1 - - [10/Sep/2025 18:33:49] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:33:50,934 INFO 127.0.0.1 - - [10/Sep/2025 18:33:50] "[35m[1mGET /faculty/attendance HTTP/1.1[0m" 500 -
+2025-09-10 18:33:51,126 INFO 127.0.0.1 - - [10/Sep/2025 18:33:51] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:33:51,137 INFO 127.0.0.1 - - [10/Sep/2025 18:33:51] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:33:51,207 INFO 127.0.0.1 - - [10/Sep/2025 18:33:51] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:35:19,728 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:35:20,129 INFO  * Restarting with stat
+2025-09-10 18:37:28,386 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 18:37:28,387 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 18:37:28,388 INFO  * Restarting with stat
+2025-09-10 18:37:28,888 WARNING  * Debugger is active!
+2025-09-10 18:37:28,889 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:37:33,308 INFO 127.0.0.1 - - [10/Sep/2025 18:37:33] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 18:37:33,492 INFO 127.0.0.1 - - [10/Sep/2025 18:37:33] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:37:36,836 INFO 127.0.0.1 - - [10/Sep/2025 18:37:36] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-10 18:37:45,419 INFO 127.0.0.1 - - [10/Sep/2025 18:37:45] "[32mPOST /faculty/attendance HTTP/1.1[0m" 302 -
+2025-09-10 18:37:45,554 INFO 127.0.0.1 - - [10/Sep/2025 18:37:45] "GET /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1" 200 -
+2025-09-10 18:37:47,169 INFO 127.0.0.1 - - [10/Sep/2025 18:37:47] "[32mPOST /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1[0m" 302 -
+2025-09-10 18:37:47,402 INFO 127.0.0.1 - - [10/Sep/2025 18:37:47] "GET /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1" 200 -
+2025-09-10 18:40:00,573 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/faculty_attendance/routes.py', reloading
+2025-09-10 18:40:00,763 INFO  * Restarting with stat
+2025-09-10 18:40:01,556 WARNING  * Debugger is active!
+2025-09-10 18:40:01,560 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:41:24,229 INFO 127.0.0.1 - - [10/Sep/2025 18:41:24] "[35m[1mGET /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1[0m" 500 -
+2025-09-10 18:41:24,558 INFO 127.0.0.1 - - [10/Sep/2025 18:41:24] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:41:24,561 INFO 127.0.0.1 - - [10/Sep/2025 18:41:24] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:41:24,832 INFO 127.0.0.1 - - [10/Sep/2025 18:41:24] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:41:24,983 INFO 127.0.0.1 - - [10/Sep/2025 18:41:24] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:41:33,097 INFO 127.0.0.1 - - [10/Sep/2025 18:41:33] "[35m[1mGET /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1[0m" 500 -
+2025-09-10 18:41:35,175 INFO 127.0.0.1 - - [10/Sep/2025 18:41:35] "[35m[1mGET /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1[0m" 500 -
+2025-09-10 18:41:35,257 INFO 127.0.0.1 - - [10/Sep/2025 18:41:35] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:41:35,266 INFO 127.0.0.1 - - [10/Sep/2025 18:41:35] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:41:35,337 INFO 127.0.0.1 - - [10/Sep/2025 18:41:35] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:41:35,492 INFO 127.0.0.1 - - [10/Sep/2025 18:41:35] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:41:40,624 INFO 127.0.0.1 - - [10/Sep/2025 18:41:40] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:41:43,931 INFO 127.0.0.1 - - [10/Sep/2025 18:41:43] "[35m[1mGET /faculty/attendance HTTP/1.1[0m" 500 -
+2025-09-10 18:41:44,202 INFO 127.0.0.1 - - [10/Sep/2025 18:41:44] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:41:44,213 INFO 127.0.0.1 - - [10/Sep/2025 18:41:44] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:41:44,276 INFO 127.0.0.1 - - [10/Sep/2025 18:41:44] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:46:39,190 INFO 127.0.0.1 - - [10/Sep/2025 18:46:39] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-10 18:46:39,356 INFO 127.0.0.1 - - [10/Sep/2025 18:46:39] "GET /login HTTP/1.1" 200 -
+2025-09-10 18:46:47,928 INFO 127.0.0.1 - - [10/Sep/2025 18:46:47] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-10 18:46:48,189 INFO 127.0.0.1 - - [10/Sep/2025 18:46:48] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:46:49,743 INFO 127.0.0.1 - - [10/Sep/2025 18:46:49] "[35m[1mGET /faculty/attendance HTTP/1.1[0m" 500 -
+2025-09-10 18:46:49,976 INFO 127.0.0.1 - - [10/Sep/2025 18:46:49] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:46:49,978 INFO 127.0.0.1 - - [10/Sep/2025 18:46:49] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:46:50,050 INFO 127.0.0.1 - - [10/Sep/2025 18:46:50] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:47:00,129 INFO 127.0.0.1 - - [10/Sep/2025 18:47:00] "GET /faculty/assignments HTTP/1.1" 200 -
+2025-09-10 18:47:01,842 INFO 127.0.0.1 - - [10/Sep/2025 18:47:01] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:47:30,088 INFO 127.0.0.1 - - [10/Sep/2025 18:47:30] "[35m[1mGET /faculty/attendance HTTP/1.1[0m" 500 -
+2025-09-10 18:47:30,227 INFO 127.0.0.1 - - [10/Sep/2025 18:47:30] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:47:30,230 INFO 127.0.0.1 - - [10/Sep/2025 18:47:30] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:47:30,301 INFO 127.0.0.1 - - [10/Sep/2025 18:47:30] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:50:08,200 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/faculty_attendance/__init__.py', reloading
+2025-09-10 18:50:08,363 INFO  * Restarting with stat
+2025-09-10 18:50:09,310 WARNING  * Debugger is active!
+2025-09-10 18:50:09,311 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:50:30,447 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:50:30,558 INFO  * Restarting with stat
+2025-09-10 18:50:31,519 WARNING  * Debugger is active!
+2025-09-10 18:50:31,520 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:50:50,651 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:50:50,922 INFO  * Restarting with stat
+2025-09-10 18:50:52,048 WARNING  * Debugger is active!
+2025-09-10 18:50:52,049 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:53:09,785 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 18:53:09,785 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 18:53:09,786 INFO  * Restarting with stat
+2025-09-10 18:53:10,279 WARNING  * Debugger is active!
+2025-09-10 18:53:10,280 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:53:19,719 INFO 127.0.0.1 - - [10/Sep/2025 18:53:19] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 18:53:19,982 INFO 127.0.0.1 - - [10/Sep/2025 18:53:19] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:53:22,184 INFO 127.0.0.1 - - [10/Sep/2025 18:53:22] "GET /faculty/assignments HTTP/1.1" 200 -
+2025-09-10 18:53:24,065 INFO 127.0.0.1 - - [10/Sep/2025 18:53:24] "GET /dashboard HTTP/1.1" 200 -
+2025-09-10 18:53:25,307 INFO 127.0.0.1 - - [10/Sep/2025 18:53:25] "[35m[1mGET /faculty/attendance HTTP/1.1[0m" 500 -
+2025-09-10 18:53:25,411 INFO 127.0.0.1 - - [10/Sep/2025 18:53:25] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 18:53:25,470 INFO 127.0.0.1 - - [10/Sep/2025 18:53:25] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 18:53:25,615 INFO 127.0.0.1 - - [10/Sep/2025 18:53:25] "[36mGET /faculty/attendance?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 18:54:50,732 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-10 18:54:50,851 INFO  * Restarting with stat
+2025-09-10 18:54:51,586 WARNING  * Debugger is active!
+2025-09-10 18:54:51,587 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:55:27,821 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:55:28,080 INFO  * Restarting with stat
+2025-09-10 18:55:29,245 WARNING  * Debugger is active!
+2025-09-10 18:55:29,245 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:56:06,479 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:56:06,595 INFO  * Restarting with stat
+2025-09-10 18:56:07,475 WARNING  * Debugger is active!
+2025-09-10 18:56:07,476 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:56:19,595 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:56:19,756 INFO  * Restarting with stat
+2025-09-10 18:56:20,509 WARNING  * Debugger is active!
+2025-09-10 18:56:20,510 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:56:30,606 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:56:30,729 INFO  * Restarting with stat
+2025-09-10 18:56:31,614 WARNING  * Debugger is active!
+2025-09-10 18:56:31,615 INFO  * Debugger PIN: 100-421-205
+2025-09-10 18:59:08,368 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 18:59:08,503 INFO  * Restarting with stat
+2025-09-10 19:02:33,504 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 19:02:33,504 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 19:02:33,504 INFO  * Restarting with stat
+2025-09-10 19:02:34,034 WARNING  * Debugger is active!
+2025-09-10 19:02:34,035 INFO  * Debugger PIN: 100-421-205
+2025-09-10 19:02:38,062 INFO 127.0.0.1 - - [10/Sep/2025 19:02:38] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 19:02:38,262 INFO 127.0.0.1 - - [10/Sep/2025 19:02:38] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-10 19:02:38,474 INFO 127.0.0.1 - - [10/Sep/2025 19:02:38] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 19:02:38,474 INFO 127.0.0.1 - - [10/Sep/2025 19:02:38] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 19:02:38,717 INFO 127.0.0.1 - - [10/Sep/2025 19:02:38] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 19:02:38,882 INFO 127.0.0.1 - - [10/Sep/2025 19:02:38] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 19:04:14,524 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 19:04:14,626 INFO  * Restarting with stat
+2025-09-10 19:04:54,669 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 19:04:54,669 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 19:04:54,669 INFO  * Restarting with stat
+2025-09-10 19:04:55,162 WARNING  * Debugger is active!
+2025-09-10 19:04:55,162 INFO  * Debugger PIN: 100-421-205
+2025-09-10 19:04:59,270 INFO 127.0.0.1 - - [10/Sep/2025 19:04:59] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 19:04:59,462 INFO 127.0.0.1 - - [10/Sep/2025 19:04:59] "GET /login HTTP/1.1" 200 -
+2025-09-10 19:05:10,518 INFO 127.0.0.1 - - [10/Sep/2025 19:05:10] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2025-09-10 19:05:10,827 INFO 127.0.0.1 - - [10/Sep/2025 19:05:10] "GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-10 19:05:10,833 INFO 127.0.0.1 - - [10/Sep/2025 19:05:10] "GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-10 19:05:11,092 INFO 127.0.0.1 - - [10/Sep/2025 19:05:11] "GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-10 19:05:11,235 INFO 127.0.0.1 - - [10/Sep/2025 19:05:11] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 19:06:19,559 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-10 19:06:19,679 INFO  * Restarting with stat
+2025-09-10 19:06:20,437 WARNING  * Debugger is active!
+2025-09-10 19:06:20,438 INFO  * Debugger PIN: 100-421-205
+2025-09-10 19:06:44,580 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 19:06:44,728 INFO  * Restarting with stat
+2025-09-10 19:06:45,435 WARNING  * Debugger is active!
+2025-09-10 19:06:45,435 INFO  * Debugger PIN: 100-421-205
+2025-09-10 19:07:27,672 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_profile/routes.py', reloading
+2025-09-10 19:07:27,754 INFO  * Restarting with stat
+2025-09-10 19:07:28,356 WARNING  * Debugger is active!
+2025-09-10 19:07:28,356 INFO  * Debugger PIN: 100-421-205
+2025-09-10 19:08:45,501 INFO 127.0.0.1 - - [10/Sep/2025 19:08:45] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2025-09-10 19:08:45,732 INFO 127.0.0.1 - - [10/Sep/2025 19:08:45] "[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 19:08:45,736 INFO 127.0.0.1 - - [10/Sep/2025 19:08:45] "[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 19:08:45,909 INFO 127.0.0.1 - - [10/Sep/2025 19:08:45] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 19:08:46,091 INFO 127.0.0.1 - - [10/Sep/2025 19:08:46] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 19:09:30,135 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-10 19:09:30,135 INFO [33mPress CTRL+C to quit[0m
+2025-09-10 19:09:30,136 INFO  * Restarting with stat
+2025-09-10 19:09:30,611 WARNING  * Debugger is active!
+2025-09-10 19:09:30,611 INFO  * Debugger PIN: 100-421-205
+2025-09-10 19:09:37,152 INFO 127.0.0.1 - - [10/Sep/2025 19:09:37] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 19:09:37,273 INFO 127.0.0.1 - - [10/Sep/2025 19:09:37] "[35m[1mGET /login HTTP/1.1[0m" 500 -
+2025-09-10 19:09:37,412 INFO 127.0.0.1 - - [10/Sep/2025 19:09:37] "[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 19:09:37,417 INFO 127.0.0.1 - - [10/Sep/2025 19:09:37] "[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 19:09:37,587 INFO 127.0.0.1 - - [10/Sep/2025 19:09:37] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 19:09:56,757 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-10 19:09:57,270 INFO  * Restarting with stat
+2025-09-10 19:09:58,663 WARNING  * Debugger is active!
+2025-09-10 19:09:58,664 INFO  * Debugger PIN: 100-421-205
+2025-09-10 19:10:08,138 INFO 127.0.0.1 - - [10/Sep/2025 19:10:08] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-10 19:10:08,395 INFO 127.0.0.1 - - [10/Sep/2025 19:10:08] "GET /login HTTP/1.1" 200 -
+2025-09-10 19:10:15,616 INFO 127.0.0.1 - - [10/Sep/2025 19:10:15] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2025-09-10 19:10:15,779 INFO 127.0.0.1 - - [10/Sep/2025 19:10:15] "[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-10 19:10:15,877 INFO 127.0.0.1 - - [10/Sep/2025 19:10:15] "[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-10 19:10:16,058 INFO 127.0.0.1 - - [10/Sep/2025 19:10:16] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 19:10:16,153 INFO 127.0.0.1 - - [10/Sep/2025 19:10:16] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-10 19:10:24,876 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_profile/routes.py', reloading
+2025-09-10 19:10:25,009 INFO  * Restarting with stat
+2025-09-11 04:30:22,633 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-11 04:30:22,635 INFO [33mPress CTRL+C to quit[0m
+2025-09-11 04:30:22,635 INFO  * Restarting with stat
+2025-09-11 04:30:23,102 WARNING  * Debugger is active!
+2025-09-11 04:30:23,104 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:30:30,633 INFO 127.0.0.1 - - [11/Sep/2025 04:30:30] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-11 04:30:30,797 INFO 127.0.0.1 - - [11/Sep/2025 04:30:30] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:30:31,068 ERROR 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-09-11 04:30:31,070 INFO 127.0.0.1 - - [11/Sep/2025 04:30:31] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-11 04:30:38,983 INFO 127.0.0.1 - - [11/Sep/2025 04:30:38] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:30:39,172 INFO 127.0.0.1 - - [11/Sep/2025 04:30:39] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-11 04:30:39,433 INFO 127.0.0.1 - - [11/Sep/2025 04:30:39] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 04:30:39,442 INFO 127.0.0.1 - - [11/Sep/2025 04:30:39] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 04:30:39,728 INFO 127.0.0.1 - - [11/Sep/2025 04:30:39] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 04:30:45,242 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 04:30:45,766 INFO  * Restarting with stat
+2025-09-11 04:30:47,051 WARNING  * Debugger is active!
+2025-09-11 04:30:47,052 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:30:50,249 INFO 127.0.0.1 - - [11/Sep/2025 04:30:50] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:30:55,529 INFO 127.0.0.1 - - [11/Sep/2025 04:30:55] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:30:55,681 INFO 127.0.0.1 - - [11/Sep/2025 04:30:55] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:30:57,297 INFO 127.0.0.1 - - [11/Sep/2025 04:30:57] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:31:02,001 INFO 127.0.0.1 - - [11/Sep/2025 04:31:02] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:31:20,141 INFO 127.0.0.1 - - [11/Sep/2025 04:31:20] "[35m[1mPOST /faculty/attendance/save HTTP/1.1[0m" 500 -
+2025-09-11 04:31:20,229 INFO 127.0.0.1 - - [11/Sep/2025 04:31:20] "GET /faculty/attendance/save?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-11 04:31:20,239 INFO 127.0.0.1 - - [11/Sep/2025 04:31:20] "GET /faculty/attendance/save?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-11 04:31:20,314 INFO 127.0.0.1 - - [11/Sep/2025 04:31:20] "GET /faculty/attendance/save?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-11 04:31:20,408 INFO 127.0.0.1 - - [11/Sep/2025 04:31:20] "[36mGET /faculty/attendance/save?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 04:31:41,192 INFO 127.0.0.1 - - [11/Sep/2025 04:31:41] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:31:46,457 INFO 127.0.0.1 - - [11/Sep/2025 04:31:46] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 04:31:46,547 INFO 127.0.0.1 - - [11/Sep/2025 04:31:46] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:31:53,054 INFO 127.0.0.1 - - [11/Sep/2025 04:31:53] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:31:53,200 INFO 127.0.0.1 - - [11/Sep/2025 04:31:53] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:31:57,579 INFO 127.0.0.1 - - [11/Sep/2025 04:31:57] "GET /student-profile HTTP/1.1" 200 -
+2025-09-11 04:32:06,124 INFO 127.0.0.1 - - [11/Sep/2025 04:32:06] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 04:32:07,737 INFO 127.0.0.1 - - [11/Sep/2025 04:32:07] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:32:09,654 INFO 127.0.0.1 - - [11/Sep/2025 04:32:09] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 04:32:09,788 INFO 127.0.0.1 - - [11/Sep/2025 04:32:09] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:32:51,843 INFO 127.0.0.1 - - [11/Sep/2025 04:32:51] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:32:51,980 INFO 127.0.0.1 - - [11/Sep/2025 04:32:51] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:32:53,871 INFO 127.0.0.1 - - [11/Sep/2025 04:32:53] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 04:32:55,442 INFO 127.0.0.1 - - [11/Sep/2025 04:32:55] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:32:57,490 INFO 127.0.0.1 - - [11/Sep/2025 04:32:57] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 04:32:57,605 INFO 127.0.0.1 - - [11/Sep/2025 04:32:57] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:33:06,234 INFO 127.0.0.1 - - [11/Sep/2025 04:33:06] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:33:06,424 INFO 127.0.0.1 - - [11/Sep/2025 04:33:06] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:33:07,843 INFO 127.0.0.1 - - [11/Sep/2025 04:33:07] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:33:16,428 INFO 127.0.0.1 - - [11/Sep/2025 04:33:16] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:33:23,218 INFO 127.0.0.1 - - [11/Sep/2025 04:33:23] "[35m[1mPOST /faculty/attendance/save HTTP/1.1[0m" 500 -
+2025-09-11 04:33:23,306 INFO 127.0.0.1 - - [11/Sep/2025 04:33:23] "[36mGET /faculty/attendance/save?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 04:33:23,308 INFO 127.0.0.1 - - [11/Sep/2025 04:33:23] "[36mGET /faculty/attendance/save?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 04:33:23,372 INFO 127.0.0.1 - - [11/Sep/2025 04:33:23] "[36mGET /faculty/attendance/save?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 04:37:04,882 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-11 04:37:04,883 INFO [33mPress CTRL+C to quit[0m
+2025-09-11 04:37:04,883 INFO  * Restarting with stat
+2025-09-11 04:37:05,408 WARNING  * Debugger is active!
+2025-09-11 04:37:05,409 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:37:59,678 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 04:37:59,793 INFO  * Restarting with stat
+2025-09-11 04:38:00,531 WARNING  * Debugger is active!
+2025-09-11 04:38:00,532 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:38:15,656 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 04:38:15,885 INFO  * Restarting with stat
+2025-09-11 04:38:16,593 WARNING  * Debugger is active!
+2025-09-11 04:38:16,596 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:38:21,660 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 04:38:21,804 INFO  * Restarting with stat
+2025-09-11 04:38:22,774 WARNING  * Debugger is active!
+2025-09-11 04:38:22,778 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:38:23,810 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 04:38:23,941 INFO  * Restarting with stat
+2025-09-11 04:38:24,808 WARNING  * Debugger is active!
+2025-09-11 04:38:24,809 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:38:25,863 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 04:38:26,009 INFO  * Restarting with stat
+2025-09-11 04:38:27,490 WARNING  * Debugger is active!
+2025-09-11 04:38:27,490 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:38:28,531 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 04:38:28,736 INFO  * Restarting with stat
+2025-09-11 04:38:29,485 WARNING  * Debugger is active!
+2025-09-11 04:38:29,485 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:42:13,845 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-11 04:42:13,845 INFO [33mPress CTRL+C to quit[0m
+2025-09-11 04:42:13,847 INFO  * Restarting with stat
+2025-09-11 04:42:14,428 WARNING  * Debugger is active!
+2025-09-11 04:42:14,429 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:42:18,395 INFO 127.0.0.1 - - [11/Sep/2025 04:42:18] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-11 04:42:18,558 INFO 127.0.0.1 - - [11/Sep/2025 04:42:18] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:42:26,265 INFO 127.0.0.1 - - [11/Sep/2025 04:42:26] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:42:26,408 INFO 127.0.0.1 - - [11/Sep/2025 04:42:26] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:42:41,662 INFO 127.0.0.1 - - [11/Sep/2025 04:42:41] "GET /register HTTP/1.1" 200 -
+2025-09-11 04:42:54,818 INFO 127.0.0.1 - - [11/Sep/2025 04:42:54] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-11 04:42:55,001 INFO 127.0.0.1 - - [11/Sep/2025 04:42:55] "GET /verify HTTP/1.1" 200 -
+2025-09-11 04:43:00,569 INFO 127.0.0.1 - - [11/Sep/2025 04:43:00] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-11 04:43:00,635 INFO 127.0.0.1 - - [11/Sep/2025 04:43:00] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:43:06,644 INFO 127.0.0.1 - - [11/Sep/2025 04:43:06] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:43:06,910 INFO 127.0.0.1 - - [11/Sep/2025 04:43:06] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:43:08,891 INFO 127.0.0.1 - - [11/Sep/2025 04:43:08] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:43:13,538 INFO 127.0.0.1 - - [11/Sep/2025 04:43:13] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 04:43:13,743 INFO 127.0.0.1 - - [11/Sep/2025 04:43:13] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:44:24,715 INFO 127.0.0.1 - - [11/Sep/2025 04:44:24] "GET /register HTTP/1.1" 200 -
+2025-09-11 04:44:36,336 INFO 127.0.0.1 - - [11/Sep/2025 04:44:36] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-11 04:44:36,455 INFO 127.0.0.1 - - [11/Sep/2025 04:44:36] "GET /verify HTTP/1.1" 200 -
+2025-09-11 04:44:44,888 INFO 127.0.0.1 - - [11/Sep/2025 04:44:44] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-11 04:44:44,987 INFO 127.0.0.1 - - [11/Sep/2025 04:44:44] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:44:57,185 INFO 127.0.0.1 - - [11/Sep/2025 04:44:57] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:44:57,360 INFO 127.0.0.1 - - [11/Sep/2025 04:44:57] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:44:59,449 INFO 127.0.0.1 - - [11/Sep/2025 04:44:59] "GET /student-profile HTTP/1.1" 200 -
+2025-09-11 04:45:50,093 INFO 127.0.0.1 - - [11/Sep/2025 04:45:50] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-11 04:45:50,216 INFO 127.0.0.1 - - [11/Sep/2025 04:45:50] "GET /student-profile HTTP/1.1" 200 -
+2025-09-11 04:45:50,371 INFO 127.0.0.1 - - [11/Sep/2025 04:45:50] "GET /static/uploads/user2_4d37ebe03b994ce2b2468741946df9c6_INSTA_PROFILE_PHOTO.jpg HTTP/1.1" 200 -
+2025-09-11 04:45:54,119 INFO 127.0.0.1 - - [11/Sep/2025 04:45:54] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 04:45:54,176 INFO 127.0.0.1 - - [11/Sep/2025 04:45:54] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:46:01,937 INFO 127.0.0.1 - - [11/Sep/2025 04:46:01] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:46:02,088 INFO 127.0.0.1 - - [11/Sep/2025 04:46:02] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:46:03,545 INFO 127.0.0.1 - - [11/Sep/2025 04:46:03] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:46:08,465 INFO 127.0.0.1 - - [11/Sep/2025 04:46:08] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:46:12,438 INFO 127.0.0.1 - - [11/Sep/2025 04:46:12] "[32mPOST /faculty/attendance/save HTTP/1.1[0m" 302 -
+2025-09-11 04:46:12,528 INFO 127.0.0.1 - - [11/Sep/2025 04:46:12] "GET /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1" 200 -
+2025-09-11 04:46:15,296 INFO 127.0.0.1 - - [11/Sep/2025 04:46:15] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 04:46:15,397 INFO 127.0.0.1 - - [11/Sep/2025 04:46:15] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:46:21,902 INFO 127.0.0.1 - - [11/Sep/2025 04:46:21] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:46:21,967 INFO 127.0.0.1 - - [11/Sep/2025 04:46:21] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:46:23,345 INFO 127.0.0.1 - - [11/Sep/2025 04:46:23] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 04:46:28,891 INFO 127.0.0.1 - - [11/Sep/2025 04:46:28] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:55:57,123 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 04:55:57,256 INFO  * Restarting with stat
+2025-09-11 04:55:58,130 WARNING  * Debugger is active!
+2025-09-11 04:55:58,130 INFO  * Debugger PIN: 243-868-869
+2025-09-11 04:56:57,669 INFO 127.0.0.1 - - [11/Sep/2025 04:56:57] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:56:59,499 INFO 127.0.0.1 - - [11/Sep/2025 04:56:59] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 04:56:59,649 INFO 127.0.0.1 - - [11/Sep/2025 04:56:59] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:57:01,114 INFO 127.0.0.1 - - [11/Sep/2025 04:57:01] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 04:57:01,337 INFO 127.0.0.1 - - [11/Sep/2025 04:57:01] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:57:04,757 INFO 127.0.0.1 - - [11/Sep/2025 04:57:04] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 04:57:04,819 INFO 127.0.0.1 - - [11/Sep/2025 04:57:04] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:57:11,767 INFO 127.0.0.1 - - [11/Sep/2025 04:57:11] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:57:11,888 INFO 127.0.0.1 - - [11/Sep/2025 04:57:11] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:57:13,314 INFO 127.0.0.1 - - [11/Sep/2025 04:57:13] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:57:22,701 INFO 127.0.0.1 - - [11/Sep/2025 04:57:22] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 04:57:28,719 INFO 127.0.0.1 - - [11/Sep/2025 04:57:28] "[32mPOST /faculty/attendance/save HTTP/1.1[0m" 302 -
+2025-09-11 04:57:28,969 INFO 127.0.0.1 - - [11/Sep/2025 04:57:28] "GET /faculty/attendance?branch=CSBS&date=2025-09-10 HTTP/1.1" 200 -
+2025-09-11 04:57:43,540 INFO 127.0.0.1 - - [11/Sep/2025 04:57:43] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 04:57:43,633 INFO 127.0.0.1 - - [11/Sep/2025 04:57:43] "GET /login HTTP/1.1" 200 -
+2025-09-11 04:57:50,090 INFO 127.0.0.1 - - [11/Sep/2025 04:57:50] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 04:57:50,185 INFO 127.0.0.1 - - [11/Sep/2025 04:57:50] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:57:52,033 INFO 127.0.0.1 - - [11/Sep/2025 04:57:52] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 04:57:52,121 INFO 127.0.0.1 - - [11/Sep/2025 04:57:52] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:57:53,142 INFO 127.0.0.1 - - [11/Sep/2025 04:57:53] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 04:57:53,249 INFO 127.0.0.1 - - [11/Sep/2025 04:57:53] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:57:54,307 INFO 127.0.0.1 - - [11/Sep/2025 04:57:54] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 04:57:54,484 INFO 127.0.0.1 - - [11/Sep/2025 04:57:54] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:58:30,576 INFO 127.0.0.1 - - [11/Sep/2025 04:58:30] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 04:58:30,635 INFO 127.0.0.1 - - [11/Sep/2025 04:58:30] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:58:31,983 INFO 127.0.0.1 - - [11/Sep/2025 04:58:31] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 04:58:32,055 INFO 127.0.0.1 - - [11/Sep/2025 04:58:32] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 04:58:32,150 INFO 127.0.0.1 - - [11/Sep/2025 04:58:32] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 04:58:32,374 INFO 127.0.0.1 - - [11/Sep/2025 04:58:32] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 04:58:32,433 INFO 127.0.0.1 - - [11/Sep/2025 04:58:32] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 05:04:38,541 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 05:04:38,733 INFO  * Restarting with stat
+2025-09-11 05:04:39,345 WARNING  * Debugger is active!
+2025-09-11 05:04:39,345 INFO  * Debugger PIN: 243-868-869
+2025-09-11 05:04:49,446 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 05:04:49,719 INFO  * Restarting with stat
+2025-09-11 05:04:50,531 WARNING  * Debugger is active!
+2025-09-11 05:04:50,531 INFO  * Debugger PIN: 243-868-869
+2025-09-11 05:05:33,142 INFO 127.0.0.1 - - [11/Sep/2025 05:05:33] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 05:05:35,197 INFO 127.0.0.1 - - [11/Sep/2025 05:05:35] "[33mGET /student/attendance HTTP/1.1[0m" 404 -
+2025-09-11 05:05:36,981 INFO 127.0.0.1 - - [11/Sep/2025 05:05:36] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 05:05:38,722 INFO 127.0.0.1 - - [11/Sep/2025 05:05:38] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 05:05:38,958 INFO 127.0.0.1 - - [11/Sep/2025 05:05:38] "GET /login HTTP/1.1" 200 -
+2025-09-11 05:05:51,462 INFO 127.0.0.1 - - [11/Sep/2025 05:05:51] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 05:05:51,571 INFO 127.0.0.1 - - [11/Sep/2025 05:05:51] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-11 05:05:51,692 INFO 127.0.0.1 - - [11/Sep/2025 05:05:51] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 05:05:51,782 INFO 127.0.0.1 - - [11/Sep/2025 05:05:51] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 05:05:51,974 INFO 127.0.0.1 - - [11/Sep/2025 05:05:51] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 05:05:52,170 INFO 127.0.0.1 - - [11/Sep/2025 05:05:52] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 05:05:59,909 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 05:06:00,070 INFO  * Restarting with stat
+2025-09-11 05:06:01,026 WARNING  * Debugger is active!
+2025-09-11 05:06:01,028 INFO  * Debugger PIN: 243-868-869
+2025-09-11 05:06:02,086 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 05:06:02,428 INFO  * Restarting with stat
+2025-09-11 05:06:03,702 WARNING  * Debugger is active!
+2025-09-11 05:06:03,702 INFO  * Debugger PIN: 243-868-869
+2025-09-11 05:06:09,022 INFO 127.0.0.1 - - [11/Sep/2025 05:06:09] "GET /login HTTP/1.1" 200 -
+2025-09-11 05:06:15,787 INFO 127.0.0.1 - - [11/Sep/2025 05:06:15] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 05:06:15,895 INFO 127.0.0.1 - - [11/Sep/2025 05:06:15] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-11 05:06:16,053 INFO 127.0.0.1 - - [11/Sep/2025 05:06:16] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 05:06:16,184 INFO 127.0.0.1 - - [11/Sep/2025 05:06:16] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 05:06:16,266 INFO 127.0.0.1 - - [11/Sep/2025 05:06:16] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 05:06:29,706 INFO 127.0.0.1 - - [11/Sep/2025 05:06:29] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-11 05:06:29,864 INFO 127.0.0.1 - - [11/Sep/2025 05:06:29] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 05:06:29,868 INFO 127.0.0.1 - - [11/Sep/2025 05:06:29] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 05:06:29,975 INFO 127.0.0.1 - - [11/Sep/2025 05:06:29] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 05:06:30,071 INFO 127.0.0.1 - - [11/Sep/2025 05:06:30] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 05:06:40,216 INFO 127.0.0.1 - - [11/Sep/2025 05:06:40] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 05:06:42,089 INFO 127.0.0.1 - - [11/Sep/2025 05:06:42] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 05:06:47,027 INFO 127.0.0.1 - - [11/Sep/2025 05:06:47] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 05:06:51,150 INFO 127.0.0.1 - - [11/Sep/2025 05:06:51] "[32mPOST /faculty/attendance/save HTTP/1.1[0m" 302 -
+2025-09-11 05:06:51,252 INFO 127.0.0.1 - - [11/Sep/2025 05:06:51] "GET /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1" 200 -
+2025-09-11 05:06:54,446 INFO 127.0.0.1 - - [11/Sep/2025 05:06:54] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 05:06:56,495 INFO 127.0.0.1 - - [11/Sep/2025 05:06:56] "GET /faculty/assignments HTTP/1.1" 200 -
+2025-09-11 05:06:58,483 INFO 127.0.0.1 - - [11/Sep/2025 05:06:58] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 05:06:58,626 INFO 127.0.0.1 - - [11/Sep/2025 05:06:58] "GET /login HTTP/1.1" 200 -
+2025-09-11 05:07:01,549 INFO 127.0.0.1 - - [11/Sep/2025 05:07:01] "GET /login HTTP/1.1" 200 -
+2025-09-11 05:07:09,881 INFO 127.0.0.1 - - [11/Sep/2025 05:07:09] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 05:07:10,018 INFO 127.0.0.1 - - [11/Sep/2025 05:07:10] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 05:07:11,344 INFO 127.0.0.1 - - [11/Sep/2025 05:07:11] "[33mGET /student/attendance HTTP/1.1[0m" 404 -
+2025-09-11 17:31:01,401 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-11 17:31:01,431 INFO [33mPress CTRL+C to quit[0m
+2025-09-11 17:31:01,433 INFO  * Restarting with stat
+2025-09-11 17:31:01,910 WARNING  * Debugger is active!
+2025-09-11 17:31:01,911 INFO  * Debugger PIN: 761-976-417
+2025-09-11 17:31:08,848 INFO 127.0.0.1 - - [11/Sep/2025 17:31:08] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-11 17:31:08,986 INFO 127.0.0.1 - - [11/Sep/2025 17:31:08] "GET /login HTTP/1.1" 200 -
+2025-09-11 17:31:09,233 INFO 127.0.0.1 - - [11/Sep/2025 17:31:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-11 17:31:21,151 INFO 127.0.0.1 - - [11/Sep/2025 17:31:21] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 17:31:21,380 INFO 127.0.0.1 - - [11/Sep/2025 17:31:21] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:31:22,958 INFO 127.0.0.1 - - [11/Sep/2025 17:31:22] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 17:31:28,032 INFO 127.0.0.1 - - [11/Sep/2025 17:31:28] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 17:31:35,675 INFO 127.0.0.1 - - [11/Sep/2025 17:31:35] "[32mPOST /faculty/attendance/save HTTP/1.1[0m" 302 -
+2025-09-11 17:31:35,835 INFO 127.0.0.1 - - [11/Sep/2025 17:31:35] "GET /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1" 200 -
+2025-09-11 17:31:42,440 INFO 127.0.0.1 - - [11/Sep/2025 17:31:42] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 17:31:47,335 INFO 127.0.0.1 - - [11/Sep/2025 17:31:47] "[32mPOST /faculty/attendance/save HTTP/1.1[0m" 302 -
+2025-09-11 17:31:47,393 INFO 127.0.0.1 - - [11/Sep/2025 17:31:47] "GET /faculty/attendance?branch=CSBS&date=2025-09-11 HTTP/1.1" 200 -
+2025-09-11 17:31:49,893 INFO 127.0.0.1 - - [11/Sep/2025 17:31:49] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 17:31:50,067 INFO 127.0.0.1 - - [11/Sep/2025 17:31:50] "GET /login HTTP/1.1" 200 -
+2025-09-11 17:33:45,398 INFO 127.0.0.1 - - [11/Sep/2025 17:33:45] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 17:33:45,534 INFO 127.0.0.1 - - [11/Sep/2025 17:33:45] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:33:52,716 INFO 127.0.0.1 - - [11/Sep/2025 17:33:52] "[32mGET /student/attendance HTTP/1.1[0m" 302 -
+2025-09-11 17:33:53,001 INFO 127.0.0.1 - - [11/Sep/2025 17:33:53] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:33:55,749 INFO 127.0.0.1 - - [11/Sep/2025 17:33:55] "[32mGET /student/grades HTTP/1.1[0m" 302 -
+2025-09-11 17:33:55,809 INFO 127.0.0.1 - - [11/Sep/2025 17:33:55] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:33:57,432 INFO 127.0.0.1 - - [11/Sep/2025 17:33:57] "GET /student-profile HTTP/1.1" 200 -
+2025-09-11 17:33:57,688 INFO 127.0.0.1 - - [11/Sep/2025 17:33:57] "[36mGET /static/uploads/user2_4d37ebe03b994ce2b2468741946df9c6_INSTA_PROFILE_PHOTO.jpg HTTP/1.1[0m" 304 -
+2025-09-11 17:34:01,162 INFO 127.0.0.1 - - [11/Sep/2025 17:34:01] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 17:34:01,233 INFO 127.0.0.1 - - [11/Sep/2025 17:34:01] "GET /login HTTP/1.1" 200 -
+2025-09-11 17:34:07,715 INFO 127.0.0.1 - - [11/Sep/2025 17:34:07] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 17:34:07,771 INFO 127.0.0.1 - - [11/Sep/2025 17:34:07] "GET /login HTTP/1.1" 200 -
+2025-09-11 17:34:14,047 INFO 127.0.0.1 - - [11/Sep/2025 17:34:14] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 17:34:14,145 INFO 127.0.0.1 - - [11/Sep/2025 17:34:14] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:34:15,812 INFO 127.0.0.1 - - [11/Sep/2025 17:34:15] "GET /my-program HTTP/1.1" 200 -
+2025-09-11 17:34:34,345 INFO 127.0.0.1 - - [11/Sep/2025 17:34:34] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:34:50,892 INFO 127.0.0.1 - - [11/Sep/2025 17:34:50] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:34:53,392 INFO 127.0.0.1 - - [11/Sep/2025 17:34:53] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:34:55,515 INFO 127.0.0.1 - - [11/Sep/2025 17:34:55] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 17:34:55,593 INFO 127.0.0.1 - - [11/Sep/2025 17:34:55] "GET /login HTTP/1.1" 200 -
+2025-09-11 17:35:05,362 INFO 127.0.0.1 - - [11/Sep/2025 17:35:05] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 17:35:05,445 INFO 127.0.0.1 - - [11/Sep/2025 17:35:05] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:42:44,131 ERROR Error: Directory migrations already exists and is not empty
+2025-09-11 17:46:45,934 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_att.py', reloading
+2025-09-11 17:46:46,130 INFO  * Restarting with stat
+2025-09-11 17:46:47,186 WARNING  * Debugger is active!
+2025-09-11 17:46:47,187 INFO  * Debugger PIN: 761-976-417
+2025-09-11 17:48:06,579 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_att.py', reloading
+2025-09-11 17:48:06,729 INFO  * Restarting with stat
+2025-09-11 17:48:07,494 WARNING  * Debugger is active!
+2025-09-11 17:48:07,494 INFO  * Debugger PIN: 761-976-417
+2025-09-11 17:48:35,776 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 17:48:36,069 INFO  * Restarting with stat
+2025-09-11 17:48:37,436 WARNING  * Debugger is active!
+2025-09-11 17:48:37,437 INFO  * Debugger PIN: 761-976-417
+2025-09-11 17:49:08,014 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 17:49:08,160 INFO  * Restarting with stat
+2025-09-11 17:49:08,941 WARNING  * Debugger is active!
+2025-09-11 17:49:08,941 INFO  * Debugger PIN: 761-976-417
+2025-09-11 17:50:25,434 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 17:50:25,535 INFO  * Restarting with stat
+2025-09-11 17:50:26,917 WARNING  * Debugger is active!
+2025-09-11 17:50:26,922 INFO  * Debugger PIN: 761-976-417
+2025-09-11 17:51:00,512 INFO 127.0.0.1 - - [11/Sep/2025 17:51:00] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:51:02,982 INFO 127.0.0.1 - - [11/Sep/2025 17:51:02] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 17:51:10,994 INFO 127.0.0.1 - - [11/Sep/2025 17:51:10] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 17:51:11,225 INFO 127.0.0.1 - - [11/Sep/2025 17:51:11] "GET /login HTTP/1.1" 200 -
+2025-09-11 17:51:16,227 INFO 127.0.0.1 - - [11/Sep/2025 17:51:16] "GET /register HTTP/1.1" 200 -
+2025-09-11 17:51:28,061 INFO 127.0.0.1 - - [11/Sep/2025 17:51:28] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-11 17:51:28,194 INFO 127.0.0.1 - - [11/Sep/2025 17:51:28] "GET /verify HTTP/1.1" 200 -
+2025-09-11 17:51:34,506 INFO 127.0.0.1 - - [11/Sep/2025 17:51:34] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-11 17:51:34,717 INFO 127.0.0.1 - - [11/Sep/2025 17:51:34] "GET /login HTTP/1.1" 200 -
+2025-09-11 17:51:42,046 INFO 127.0.0.1 - - [11/Sep/2025 17:51:42] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 17:51:42,315 INFO 127.0.0.1 - - [11/Sep/2025 17:51:42] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:51:43,759 INFO 127.0.0.1 - - [11/Sep/2025 17:51:43] "GET /student-profile HTTP/1.1" 200 -
+2025-09-11 17:52:08,465 INFO 127.0.0.1 - - [11/Sep/2025 17:52:08] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-11 17:52:08,536 INFO 127.0.0.1 - - [11/Sep/2025 17:52:08] "GET /student-profile HTTP/1.1" 200 -
+2025-09-11 17:52:08,742 INFO 127.0.0.1 - - [11/Sep/2025 17:52:08] "GET /static/uploads/user3_7e6e9a4e824b44e7b5a658d37995c278_ec3e27c6-1f4b-46df-9c94-5cae72411f4f.png HTTP/1.1" 200 -
+2025-09-11 17:52:10,904 INFO 127.0.0.1 - - [11/Sep/2025 17:52:10] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:52:12,436 INFO 127.0.0.1 - - [11/Sep/2025 17:52:12] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 17:52:21,285 INFO 127.0.0.1 - - [11/Sep/2025 17:52:21] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 17:52:21,435 INFO 127.0.0.1 - - [11/Sep/2025 17:52:21] "GET /login HTTP/1.1" 200 -
+2025-09-11 17:52:32,937 INFO 127.0.0.1 - - [11/Sep/2025 17:52:32] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 17:52:33,118 INFO 127.0.0.1 - - [11/Sep/2025 17:52:33] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:52:34,531 INFO 127.0.0.1 - - [11/Sep/2025 17:52:34] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 17:52:51,099 INFO 127.0.0.1 - - [11/Sep/2025 17:52:51] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 17:52:55,425 INFO 127.0.0.1 - - [11/Sep/2025 17:52:55] "[32mPOST /faculty/attendance/save HTTP/1.1[0m" 302 -
+2025-09-11 17:52:55,698 INFO 127.0.0.1 - - [11/Sep/2025 17:52:55] "GET /faculty/attendance?branch=CSBS&date=2025-09-12 HTTP/1.1" 200 -
+2025-09-11 17:53:00,832 INFO 127.0.0.1 - - [11/Sep/2025 17:53:00] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 17:53:00,963 INFO 127.0.0.1 - - [11/Sep/2025 17:53:00] "GET /login HTTP/1.1" 200 -
+2025-09-11 17:53:08,382 INFO 127.0.0.1 - - [11/Sep/2025 17:53:08] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 17:53:08,447 INFO 127.0.0.1 - - [11/Sep/2025 17:53:08] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:53:10,082 INFO 127.0.0.1 - - [11/Sep/2025 17:53:10] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 17:53:53,920 INFO 127.0.0.1 - - [11/Sep/2025 17:53:53] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 17:55:02,707 INFO 127.0.0.1 - - [11/Sep/2025 17:55:02] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:55:04,892 INFO 127.0.0.1 - - [11/Sep/2025 17:55:04] "GET /student-profile HTTP/1.1" 200 -
+2025-09-11 17:55:05,207 INFO 127.0.0.1 - - [11/Sep/2025 17:55:05] "[36mGET /static/uploads/user2_4d37ebe03b994ce2b2468741946df9c6_INSTA_PROFILE_PHOTO.jpg HTTP/1.1[0m" 304 -
+2025-09-11 17:55:09,301 INFO 127.0.0.1 - - [11/Sep/2025 17:55:09] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:55:11,550 INFO 127.0.0.1 - - [11/Sep/2025 17:55:11] "[32mGET /student/grades HTTP/1.1[0m" 302 -
+2025-09-11 17:55:11,633 INFO 127.0.0.1 - - [11/Sep/2025 17:55:11] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 17:57:57,018 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-11 17:57:57,261 INFO  * Restarting with stat
+2025-09-11 17:57:59,005 WARNING  * Debugger is active!
+2025-09-11 17:57:59,006 INFO  * Debugger PIN: 761-976-417
+2025-09-11 17:58:22,222 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-11 17:58:22,379 INFO  * Restarting with stat
+2025-09-11 17:58:23,242 WARNING  * Debugger is active!
+2025-09-11 17:58:23,243 INFO  * Debugger PIN: 761-976-417
+2025-09-11 17:58:28,956 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-11 17:58:29,060 INFO  * Restarting with stat
+2025-09-11 18:23:04,922 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-11 18:23:04,922 INFO [33mPress CTRL+C to quit[0m
+2025-09-11 18:23:04,923 INFO  * Restarting with stat
+2025-09-11 18:23:05,618 WARNING  * Debugger is active!
+2025-09-11 18:23:05,621 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:23:11,021 INFO 127.0.0.1 - - [11/Sep/2025 18:23:11] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-11 18:23:11,298 INFO 127.0.0.1 - - [11/Sep/2025 18:23:11] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:23:13,386 INFO 127.0.0.1 - - [11/Sep/2025 18:23:13] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 18:23:17,091 INFO 127.0.0.1 - - [11/Sep/2025 18:23:17] "[32mGET /student/fees HTTP/1.1[0m" 302 -
+2025-09-11 18:23:17,361 INFO 127.0.0.1 - - [11/Sep/2025 18:23:17] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:23:18,847 INFO 127.0.0.1 - - [11/Sep/2025 18:23:18] "[32mGET /student/fees HTTP/1.1[0m" 302 -
+2025-09-11 18:23:19,039 INFO 127.0.0.1 - - [11/Sep/2025 18:23:19] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:26:59,733 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-11 18:26:59,830 INFO  * Restarting with stat
+2025-09-11 18:27:00,579 WARNING  * Debugger is active!
+2025-09-11 18:27:00,580 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:27:23,994 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/admin_fee.py', reloading
+2025-09-11 18:27:24,121 INFO  * Restarting with stat
+2025-09-11 18:27:25,191 WARNING  * Debugger is active!
+2025-09-11 18:27:25,191 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:32:13,470 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-11 18:32:13,575 INFO  * Restarting with stat
+2025-09-11 18:32:14,514 WARNING  * Debugger is active!
+2025-09-11 18:32:14,515 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:32:28,782 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/admin_fee.py', reloading
+2025-09-11 18:32:28,884 INFO  * Restarting with stat
+2025-09-11 18:32:29,660 WARNING  * Debugger is active!
+2025-09-11 18:32:29,660 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:35:55,020 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 18:35:55,163 INFO  * Restarting with stat
+2025-09-11 18:36:15,125 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-11 18:36:15,126 INFO [33mPress CTRL+C to quit[0m
+2025-09-11 18:36:15,127 INFO  * Restarting with stat
+2025-09-11 18:36:15,960 WARNING  * Debugger is active!
+2025-09-11 18:36:15,960 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:36:19,537 INFO 127.0.0.1 - - [11/Sep/2025 18:36:19] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-11 18:36:19,790 INFO 127.0.0.1 - - [11/Sep/2025 18:36:19] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:36:22,632 INFO 127.0.0.1 - - [11/Sep/2025 18:36:22] "[32mGET /student/fees HTTP/1.1[0m" 302 -
+2025-09-11 18:36:22,780 INFO 127.0.0.1 - - [11/Sep/2025 18:36:22] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:36:24,378 INFO 127.0.0.1 - - [11/Sep/2025 18:36:24] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 18:37:03,730 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 18:37:03,876 INFO  * Restarting with stat
+2025-09-11 18:37:04,518 WARNING  * Debugger is active!
+2025-09-11 18:37:04,518 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:37:07,452 INFO 127.0.0.1 - - [11/Sep/2025 18:37:07] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:37:09,346 INFO 127.0.0.1 - - [11/Sep/2025 18:37:09] "[32mGET /student/fees HTTP/1.1[0m" 302 -
+2025-09-11 18:37:09,468 INFO 127.0.0.1 - - [11/Sep/2025 18:37:09] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:39:20,348 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 18:39:20,488 INFO  * Restarting with stat
+2025-09-11 18:39:49,044 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-11 18:39:49,045 INFO [33mPress CTRL+C to quit[0m
+2025-09-11 18:39:49,045 INFO  * Restarting with stat
+2025-09-11 18:39:49,556 WARNING  * Debugger is active!
+2025-09-11 18:39:49,556 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:39:54,539 INFO 127.0.0.1 - - [11/Sep/2025 18:39:54] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-11 18:39:54,716 INFO 127.0.0.1 - - [11/Sep/2025 18:39:54] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:39:56,409 INFO 127.0.0.1 - - [11/Sep/2025 18:39:56] "[32mGET /student/fees HTTP/1.1[0m" 302 -
+2025-09-11 18:39:56,606 INFO 127.0.0.1 - - [11/Sep/2025 18:39:56] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:41:01,997 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 18:41:02,067 INFO  * Restarting with stat
+2025-09-11 18:41:29,504 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-11 18:41:29,505 INFO [33mPress CTRL+C to quit[0m
+2025-09-11 18:41:29,505 INFO  * Restarting with stat
+2025-09-11 18:41:30,061 WARNING  * Debugger is active!
+2025-09-11 18:41:30,061 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:41:34,081 INFO 127.0.0.1 - - [11/Sep/2025 18:41:34] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:41:35,932 INFO 127.0.0.1 - - [11/Sep/2025 18:41:35] "[32mGET /student/fees HTTP/1.1[0m" 302 -
+2025-09-11 18:41:36,094 INFO 127.0.0.1 - - [11/Sep/2025 18:41:36] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:42:32,837 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-11 18:42:33,038 INFO  * Restarting with stat
+2025-09-11 18:42:33,987 WARNING  * Debugger is active!
+2025-09-11 18:42:33,987 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:42:40,635 INFO 127.0.0.1 - - [11/Sep/2025 18:42:40] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:42:42,217 INFO 127.0.0.1 - - [11/Sep/2025 18:42:42] "[32mGET /student/fees HTTP/1.1[0m" 308 -
+2025-09-11 18:42:46,064 INFO 127.0.0.1 - - [11/Sep/2025 18:42:46] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:43:08,435 INFO 127.0.0.1 - - [11/Sep/2025 18:43:08] "GET /student-profile HTTP/1.1" 200 -
+2025-09-11 18:43:08,529 INFO 127.0.0.1 - - [11/Sep/2025 18:43:08] "[36mGET /static/uploads/user2_4d37ebe03b994ce2b2468741946df9c6_INSTA_PROFILE_PHOTO.jpg HTTP/1.1[0m" 304 -
+2025-09-11 18:45:40,009 INFO 127.0.0.1 - - [11/Sep/2025 18:45:40] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:45:42,365 INFO 127.0.0.1 - - [11/Sep/2025 18:45:42] "[35m[1mGET /student/fees/ HTTP/1.1[0m" 500 -
+2025-09-11 18:45:42,640 INFO 127.0.0.1 - - [11/Sep/2025 18:45:42] "GET /student/fees/?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-11 18:45:42,647 INFO 127.0.0.1 - - [11/Sep/2025 18:45:42] "GET /student/fees/?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-11 18:45:42,870 INFO 127.0.0.1 - - [11/Sep/2025 18:45:42] "GET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-11 18:45:43,008 INFO 127.0.0.1 - - [11/Sep/2025 18:45:43] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 18:45:44,750 INFO 127.0.0.1 - - [11/Sep/2025 18:45:44] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:45:46,298 INFO 127.0.0.1 - - [11/Sep/2025 18:45:46] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 18:45:51,613 INFO 127.0.0.1 - - [11/Sep/2025 18:45:51] "[32mGET /student/grades HTTP/1.1[0m" 302 -
+2025-09-11 18:45:51,705 INFO 127.0.0.1 - - [11/Sep/2025 18:45:51] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:45:53,534 INFO 127.0.0.1 - - [11/Sep/2025 18:45:53] "GET /my-program HTTP/1.1" 200 -
+2025-09-11 18:45:55,288 INFO 127.0.0.1 - - [11/Sep/2025 18:45:55] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:45:56,653 INFO 127.0.0.1 - - [11/Sep/2025 18:45:56] "[32mGET /student/grades HTTP/1.1[0m" 302 -
+2025-09-11 18:45:56,822 INFO 127.0.0.1 - - [11/Sep/2025 18:45:56] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:45:58,282 INFO 127.0.0.1 - - [11/Sep/2025 18:45:58] "GET /my-program HTTP/1.1" 200 -
+2025-09-11 18:45:59,938 INFO 127.0.0.1 - - [11/Sep/2025 18:45:59] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:46:01,141 INFO 127.0.0.1 - - [11/Sep/2025 18:46:01] "[35m[1mGET /student/fees/ HTTP/1.1[0m" 500 -
+2025-09-11 18:46:01,272 INFO 127.0.0.1 - - [11/Sep/2025 18:46:01] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 18:46:01,285 INFO 127.0.0.1 - - [11/Sep/2025 18:46:01] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 18:46:01,356 INFO 127.0.0.1 - - [11/Sep/2025 18:46:01] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 18:46:09,976 INFO 127.0.0.1 - - [11/Sep/2025 18:46:09] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 18:46:10,041 INFO 127.0.0.1 - - [11/Sep/2025 18:46:10] "GET /login HTTP/1.1" 200 -
+2025-09-11 18:46:16,891 INFO 127.0.0.1 - - [11/Sep/2025 18:46:16] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 18:46:17,014 INFO 127.0.0.1 - - [11/Sep/2025 18:46:17] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:46:18,923 INFO 127.0.0.1 - - [11/Sep/2025 18:46:18] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-11 18:46:24,120 INFO 127.0.0.1 - - [11/Sep/2025 18:46:24] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 18:46:24,269 INFO 127.0.0.1 - - [11/Sep/2025 18:46:24] "GET /login HTTP/1.1" 200 -
+2025-09-11 18:46:31,497 INFO 127.0.0.1 - - [11/Sep/2025 18:46:31] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 18:46:31,650 INFO 127.0.0.1 - - [11/Sep/2025 18:46:31] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:46:33,968 INFO 127.0.0.1 - - [11/Sep/2025 18:46:33] "[35m[1mGET /student/fees/ HTTP/1.1[0m" 500 -
+2025-09-11 18:46:34,066 INFO 127.0.0.1 - - [11/Sep/2025 18:46:34] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 18:46:34,078 INFO 127.0.0.1 - - [11/Sep/2025 18:46:34] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 18:46:34,148 INFO 127.0.0.1 - - [11/Sep/2025 18:46:34] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 18:48:27,441 ERROR Error: Directory migrations already exists and is not empty
+2025-09-11 18:52:25,633 INFO 127.0.0.1 - - [11/Sep/2025 18:52:25] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-11 18:52:37,149 INFO 127.0.0.1 - - [11/Sep/2025 18:52:37] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-11 18:54:23,509 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-11 18:54:23,613 INFO  * Restarting with stat
+2025-09-11 18:54:24,351 WARNING  * Debugger is active!
+2025-09-11 18:54:24,352 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:54:55,973 INFO 127.0.0.1 - - [11/Sep/2025 18:54:55] "[33mGET /student/fees/ HTTP/1.1[0m" 404 -
+2025-09-11 18:55:00,064 INFO 127.0.0.1 - - [11/Sep/2025 18:55:00] "[33mGET /student/fees/ HTTP/1.1[0m" 404 -
+2025-09-11 18:55:54,092 INFO 127.0.0.1 - - [11/Sep/2025 18:55:54] "[33mGET /student/fees/ HTTP/1.1[0m" 404 -
+2025-09-11 18:57:13,513 INFO 127.0.0.1 - - [11/Sep/2025 18:57:13] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:57:25,502 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-11 18:57:25,760 INFO  * Restarting with stat
+2025-09-11 18:57:26,530 WARNING  * Debugger is active!
+2025-09-11 18:57:26,531 INFO  * Debugger PIN: 761-976-417
+2025-09-11 18:57:32,570 INFO 127.0.0.1 - - [11/Sep/2025 18:57:32] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 18:57:34,634 INFO 127.0.0.1 - - [11/Sep/2025 18:57:34] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-11 19:03:10,418 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-11 19:03:10,548 INFO  * Restarting with stat
+2025-09-11 19:03:11,233 WARNING  * Debugger is active!
+2025-09-11 19:03:11,233 INFO  * Debugger PIN: 761-976-417
+2025-09-11 19:03:11,765 INFO 127.0.0.1 - - [11/Sep/2025 19:03:11] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-09-11 19:03:12,016 INFO 127.0.0.1 - - [11/Sep/2025 19:03:12] "GET /login?next=/dashboard HTTP/1.1" 200 -
+2025-09-11 19:04:23,645 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-11 19:04:23,856 INFO  * Restarting with stat
+2025-09-11 19:13:05,130 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-11 19:13:05,130 INFO [33mPress CTRL+C to quit[0m
+2025-09-11 19:13:05,132 INFO  * Restarting with stat
+2025-09-11 19:13:05,802 WARNING  * Debugger is active!
+2025-09-11 19:13:05,802 INFO  * Debugger PIN: 767-759-271
+2025-09-11 19:13:09,320 INFO 127.0.0.1 - - [11/Sep/2025 19:13:09] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-11 19:13:09,474 INFO 127.0.0.1 - - [11/Sep/2025 19:13:09] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:13:21,779 INFO 127.0.0.1 - - [11/Sep/2025 19:13:21] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2025-09-11 19:13:22,062 INFO 127.0.0.1 - - [11/Sep/2025 19:13:22] "[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 19:13:22,062 INFO 127.0.0.1 - - [11/Sep/2025 19:13:22] "[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 19:13:22,329 INFO 127.0.0.1 - - [11/Sep/2025 19:13:22] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 19:13:22,523 INFO 127.0.0.1 - - [11/Sep/2025 19:13:22] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 19:13:34,767 INFO 127.0.0.1 - - [11/Sep/2025 19:13:34] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:13:42,490 INFO 127.0.0.1 - - [11/Sep/2025 19:13:42] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2025-09-11 19:13:42,628 INFO 127.0.0.1 - - [11/Sep/2025 19:13:42] "[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 19:13:42,704 INFO 127.0.0.1 - - [11/Sep/2025 19:13:42] "[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 19:13:42,851 INFO 127.0.0.1 - - [11/Sep/2025 19:13:42] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 19:13:42,925 INFO 127.0.0.1 - - [11/Sep/2025 19:13:42] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 19:13:47,769 INFO 127.0.0.1 - - [11/Sep/2025 19:13:47] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:13:50,007 INFO 127.0.0.1 - - [11/Sep/2025 19:13:50] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:13:57,668 INFO 127.0.0.1 - - [11/Sep/2025 19:13:57] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2025-09-11 19:13:57,761 INFO 127.0.0.1 - - [11/Sep/2025 19:13:57] "[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-11 19:13:57,770 INFO 127.0.0.1 - - [11/Sep/2025 19:13:57] "[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-11 19:13:57,835 INFO 127.0.0.1 - - [11/Sep/2025 19:13:57] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 19:13:57,966 INFO 127.0.0.1 - - [11/Sep/2025 19:13:57] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-11 19:18:03,479 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-11 19:18:03,589 INFO  * Restarting with stat
+2025-09-11 19:18:04,396 WARNING  * Debugger is active!
+2025-09-11 19:18:04,396 INFO  * Debugger PIN: 767-759-271
+2025-09-11 19:18:25,448 ERROR Error: Directory migrations already exists and is not empty
+2025-09-11 19:18:47,737 INFO 127.0.0.1 - - [11/Sep/2025 19:18:47] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:18:54,384 INFO 127.0.0.1 - - [11/Sep/2025 19:18:54] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 19:18:54,584 INFO 127.0.0.1 - - [11/Sep/2025 19:18:54] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:18:57,196 INFO 127.0.0.1 - - [11/Sep/2025 19:18:57] "GET /register HTTP/1.1" 200 -
+2025-09-11 19:19:04,070 INFO 127.0.0.1 - - [11/Sep/2025 19:19:04] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-11 19:19:04,326 INFO 127.0.0.1 - - [11/Sep/2025 19:19:04] "GET /verify HTTP/1.1" 200 -
+2025-09-11 19:19:10,174 INFO 127.0.0.1 - - [11/Sep/2025 19:19:10] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-11 19:19:10,271 INFO 127.0.0.1 - - [11/Sep/2025 19:19:10] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:19:16,477 INFO 127.0.0.1 - - [11/Sep/2025 19:19:16] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 19:19:16,622 INFO 127.0.0.1 - - [11/Sep/2025 19:19:16] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:19:18,619 INFO 127.0.0.1 - - [11/Sep/2025 19:19:18] "GET /register HTTP/1.1" 200 -
+2025-09-11 19:19:25,086 INFO 127.0.0.1 - - [11/Sep/2025 19:19:25] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-11 19:19:25,295 INFO 127.0.0.1 - - [11/Sep/2025 19:19:25] "GET /verify HTTP/1.1" 200 -
+2025-09-11 19:19:34,108 INFO 127.0.0.1 - - [11/Sep/2025 19:19:34] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-11 19:19:34,235 INFO 127.0.0.1 - - [11/Sep/2025 19:19:34] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:19:43,301 INFO 127.0.0.1 - - [11/Sep/2025 19:19:43] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 19:19:43,459 INFO 127.0.0.1 - - [11/Sep/2025 19:19:43] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 19:19:45,048 INFO 127.0.0.1 - - [11/Sep/2025 19:19:45] "GET /student-profile HTTP/1.1" 200 -
+2025-09-11 19:19:48,677 INFO 127.0.0.1 - - [11/Sep/2025 19:19:48] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 19:19:50,018 INFO 127.0.0.1 - - [11/Sep/2025 19:19:50] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-11 19:19:52,673 INFO 127.0.0.1 - - [11/Sep/2025 19:19:52] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 19:19:54,637 INFO 127.0.0.1 - - [11/Sep/2025 19:19:54] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 19:19:59,156 INFO 127.0.0.1 - - [11/Sep/2025 19:19:59] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 19:20:00,253 INFO 127.0.0.1 - - [11/Sep/2025 19:20:00] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-11 19:20:01,293 INFO 127.0.0.1 - - [11/Sep/2025 19:20:01] "GET /student/attendance?start_date=&end_date= HTTP/1.1" 200 -
+2025-09-11 19:20:09,312 INFO 127.0.0.1 - - [11/Sep/2025 19:20:09] "GET /my-program HTTP/1.1" 200 -
+2025-09-11 19:20:10,867 INFO 127.0.0.1 - - [11/Sep/2025 19:20:10] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 19:20:12,710 INFO 127.0.0.1 - - [11/Sep/2025 19:20:12] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 19:20:12,845 INFO 127.0.0.1 - - [11/Sep/2025 19:20:12] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:20:19,402 INFO 127.0.0.1 - - [11/Sep/2025 19:20:19] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 19:20:19,496 INFO 127.0.0.1 - - [11/Sep/2025 19:20:19] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 19:20:21,134 INFO 127.0.0.1 - - [11/Sep/2025 19:20:21] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-11 19:23:05,696 INFO 127.0.0.1 - - [11/Sep/2025 19:23:05] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-11 19:23:13,567 INFO 127.0.0.1 - - [11/Sep/2025 19:23:13] "[31m[1mGET /student/fees/create-order?amount=100 HTTP/1.1[0m" 400 -
+2025-09-11 19:25:32,017 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-11 19:25:32,508 INFO  * Restarting with stat
+2025-09-11 19:25:33,543 WARNING  * Debugger is active!
+2025-09-11 19:25:33,544 INFO  * Debugger PIN: 767-759-271
+2025-09-11 19:25:56,928 INFO 127.0.0.1 - - [11/Sep/2025 19:25:56] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-11 19:26:02,899 INFO 127.0.0.1 - - [11/Sep/2025 19:26:02] "POST /student/fees/create HTTP/1.1" 200 -
+2025-09-11 19:26:05,738 INFO 127.0.0.1 - - [11/Sep/2025 19:26:05] "POST /student/fees/create HTTP/1.1" 200 -
+2025-09-11 19:26:06,626 INFO 127.0.0.1 - - [11/Sep/2025 19:26:06] "POST /student/fees/create HTTP/1.1" 200 -
+2025-09-11 19:27:50,672 INFO 127.0.0.1 - - [11/Sep/2025 19:27:50] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-11 19:27:56,723 INFO 127.0.0.1 - - [11/Sep/2025 19:27:56] "POST /student/fees/create HTTP/1.1" 200 -
+2025-09-11 19:28:43,740 INFO 127.0.0.1 - - [11/Sep/2025 19:28:43] "POST /student/fees/create HTTP/1.1" 200 -
+2025-09-11 19:31:18,268 INFO 127.0.0.1 - - [11/Sep/2025 19:31:18] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-11 19:31:18,471 INFO 127.0.0.1 - - [11/Sep/2025 19:31:18] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 19:31:21,970 INFO 127.0.0.1 - - [11/Sep/2025 19:31:21] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-11 19:31:22,215 INFO 127.0.0.1 - - [11/Sep/2025 19:31:22] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:31:43,285 INFO 127.0.0.1 - - [11/Sep/2025 19:31:43] "GET /login HTTP/1.1" 200 -
+2025-09-11 19:31:43,792 INFO 127.0.0.1 - - [11/Sep/2025 19:31:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-11 19:31:57,878 INFO 127.0.0.1 - - [11/Sep/2025 19:31:57] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-11 19:31:58,253 INFO 127.0.0.1 - - [11/Sep/2025 19:31:58] "GET /dashboard HTTP/1.1" 200 -
+2025-09-11 19:32:02,047 INFO 127.0.0.1 - - [11/Sep/2025 19:32:02] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-11 19:32:07,845 INFO 127.0.0.1 - - [11/Sep/2025 19:32:07] "POST /student/fees/create HTTP/1.1" 200 -
+2025-09-12 04:08:07,525 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 04:08:07,526 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 04:08:07,527 INFO  * Restarting with stat
+2025-09-12 04:08:08,039 WARNING  * Debugger is active!
+2025-09-12 04:08:08,040 INFO  * Debugger PIN: 721-188-793
+2025-09-12 04:08:52,668 INFO 127.0.0.1 - - [12/Sep/2025 04:08:52] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 04:08:52,848 INFO 127.0.0.1 - - [12/Sep/2025 04:08:52] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:08:53,218 INFO 127.0.0.1 - - [12/Sep/2025 04:08:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-12 04:09:16,098 INFO 127.0.0.1 - - [12/Sep/2025 04:09:16] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:09:16,315 INFO 127.0.0.1 - - [12/Sep/2025 04:09:16] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:09:18,580 INFO 127.0.0.1 - - [12/Sep/2025 04:09:18] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 04:09:42,571 INFO 127.0.0.1 - - [12/Sep/2025 04:09:42] "GET /student/attendance?start_date=2025-09-11&end_date=2025-09-12 HTTP/1.1" 200 -
+2025-09-12 04:09:46,351 INFO 127.0.0.1 - - [12/Sep/2025 04:09:46] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 04:09:49,542 INFO 127.0.0.1 - - [12/Sep/2025 04:09:49] "GET /student/attendance?start_date=2025-09-11&end_date=2025-09-12 HTTP/1.1" 200 -
+2025-09-12 04:09:56,279 INFO 127.0.0.1 - - [12/Sep/2025 04:09:56] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 04:10:11,191 INFO 127.0.0.1 - - [12/Sep/2025 04:10:11] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 04:10:11,403 INFO 127.0.0.1 - - [12/Sep/2025 04:10:11] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:10:19,144 INFO 127.0.0.1 - - [12/Sep/2025 04:10:19] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:10:19,392 INFO 127.0.0.1 - - [12/Sep/2025 04:10:19] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:10:21,314 INFO 127.0.0.1 - - [12/Sep/2025 04:10:21] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 04:10:29,099 INFO 127.0.0.1 - - [12/Sep/2025 04:10:29] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 04:10:38,658 INFO 127.0.0.1 - - [12/Sep/2025 04:10:38] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 04:10:48,167 INFO 127.0.0.1 - - [12/Sep/2025 04:10:48] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 04:10:48,270 INFO 127.0.0.1 - - [12/Sep/2025 04:10:48] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:10:58,337 INFO 127.0.0.1 - - [12/Sep/2025 04:10:58] "GET /register HTTP/1.1" 200 -
+2025-09-12 04:11:01,819 INFO 127.0.0.1 - - [12/Sep/2025 04:11:01] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:11:06,113 INFO 127.0.0.1 - - [12/Sep/2025 04:11:06] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:11:06,184 INFO 127.0.0.1 - - [12/Sep/2025 04:11:06] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:11:07,938 INFO 127.0.0.1 - - [12/Sep/2025 04:11:07] "GET /register HTTP/1.1" 200 -
+2025-09-12 04:11:17,146 INFO 127.0.0.1 - - [12/Sep/2025 04:11:17] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 04:11:17,356 INFO 127.0.0.1 - - [12/Sep/2025 04:11:17] "GET /verify HTTP/1.1" 200 -
+2025-09-12 04:11:21,608 INFO 127.0.0.1 - - [12/Sep/2025 04:11:21] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-12 04:11:21,667 INFO 127.0.0.1 - - [12/Sep/2025 04:11:21] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:11:24,206 INFO 127.0.0.1 - - [12/Sep/2025 04:11:24] "GET /register HTTP/1.1" 200 -
+2025-09-12 04:11:51,846 INFO 127.0.0.1 - - [12/Sep/2025 04:11:51] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 04:11:52,001 INFO 127.0.0.1 - - [12/Sep/2025 04:11:52] "GET /register HTTP/1.1" 200 -
+2025-09-12 04:12:18,604 INFO 127.0.0.1 - - [12/Sep/2025 04:12:18] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 04:12:18,668 INFO 127.0.0.1 - - [12/Sep/2025 04:12:18] "GET /verify HTTP/1.1" 200 -
+2025-09-12 04:12:24,777 INFO 127.0.0.1 - - [12/Sep/2025 04:12:24] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-12 04:12:24,850 INFO 127.0.0.1 - - [12/Sep/2025 04:12:24] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:12:30,721 INFO 127.0.0.1 - - [12/Sep/2025 04:12:30] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:12:30,925 INFO 127.0.0.1 - - [12/Sep/2025 04:12:30] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:12:32,845 INFO 127.0.0.1 - - [12/Sep/2025 04:12:32] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 04:12:40,086 INFO 127.0.0.1 - - [12/Sep/2025 04:12:40] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 04:12:40,196 INFO 127.0.0.1 - - [12/Sep/2025 04:12:40] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:12:45,725 INFO 127.0.0.1 - - [12/Sep/2025 04:12:45] "GET /register HTTP/1.1" 200 -
+2025-09-12 04:12:47,987 INFO 127.0.0.1 - - [12/Sep/2025 04:12:47] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:12:55,783 INFO 127.0.0.1 - - [12/Sep/2025 04:12:55] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:12:56,022 INFO 127.0.0.1 - - [12/Sep/2025 04:12:56] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:12:58,741 INFO 127.0.0.1 - - [12/Sep/2025 04:12:58] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 04:13:04,720 INFO 127.0.0.1 - - [12/Sep/2025 04:13:04] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 04:13:25,582 INFO 127.0.0.1 - - [12/Sep/2025 04:13:25] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-12 04:13:25,672 INFO 127.0.0.1 - - [12/Sep/2025 04:13:25] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 04:13:28,139 INFO 127.0.0.1 - - [12/Sep/2025 04:13:28] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:13:30,040 INFO 127.0.0.1 - - [12/Sep/2025 04:13:30] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 04:13:30,162 INFO 127.0.0.1 - - [12/Sep/2025 04:13:30] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:13:36,393 INFO 127.0.0.1 - - [12/Sep/2025 04:13:36] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:13:36,513 INFO 127.0.0.1 - - [12/Sep/2025 04:13:36] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:13:38,996 INFO 127.0.0.1 - - [12/Sep/2025 04:13:38] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 04:14:01,969 INFO 127.0.0.1 - - [12/Sep/2025 04:14:01] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-12 04:14:02,039 INFO 127.0.0.1 - - [12/Sep/2025 04:14:02] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 04:14:04,229 INFO 127.0.0.1 - - [12/Sep/2025 04:14:04] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 04:14:04,374 INFO 127.0.0.1 - - [12/Sep/2025 04:14:04] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:14:25,294 INFO 127.0.0.1 - - [12/Sep/2025 04:14:25] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:14:25,463 INFO 127.0.0.1 - - [12/Sep/2025 04:14:25] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:14:33,143 INFO 127.0.0.1 - - [12/Sep/2025 04:14:33] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 04:14:47,718 INFO 127.0.0.1 - - [12/Sep/2025 04:14:47] "[35m[1mPOST /student-profile HTTP/1.1[0m" 500 -
+2025-09-12 04:14:47,818 INFO 127.0.0.1 - - [12/Sep/2025 04:14:47] "GET /student-profile?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-12 04:14:47,825 INFO 127.0.0.1 - - [12/Sep/2025 04:14:47] "GET /student-profile?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-12 04:14:47,971 INFO 127.0.0.1 - - [12/Sep/2025 04:14:47] "GET /student-profile?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-12 04:14:48,254 INFO 127.0.0.1 - - [12/Sep/2025 04:14:48] "[36mGET /student-profile?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:14:50,243 INFO 127.0.0.1 - - [12/Sep/2025 04:14:50] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 04:14:58,130 INFO 127.0.0.1 - - [12/Sep/2025 04:14:58] "[35m[1mPOST /student-profile HTTP/1.1[0m" 500 -
+2025-09-12 04:14:58,268 INFO 127.0.0.1 - - [12/Sep/2025 04:14:58] "[36mGET /student-profile?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:14:58,271 INFO 127.0.0.1 - - [12/Sep/2025 04:14:58] "[36mGET /student-profile?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:14:58,377 INFO 127.0.0.1 - - [12/Sep/2025 04:14:58] "[36mGET /student-profile?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:14:58,550 INFO 127.0.0.1 - - [12/Sep/2025 04:14:58] "[36mGET /student-profile?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:15:10,907 INFO 127.0.0.1 - - [12/Sep/2025 04:15:10] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 04:15:11,032 INFO 127.0.0.1 - - [12/Sep/2025 04:15:11] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:15:15,797 INFO 127.0.0.1 - - [12/Sep/2025 04:15:15] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:15:15,951 INFO 127.0.0.1 - - [12/Sep/2025 04:15:15] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:15:18,009 INFO 127.0.0.1 - - [12/Sep/2025 04:15:18] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 04:15:23,010 INFO 127.0.0.1 - - [12/Sep/2025 04:15:23] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 04:15:32,832 INFO 127.0.0.1 - - [12/Sep/2025 04:15:32] "[32mPOST /faculty/attendance/save HTTP/1.1[0m" 302 -
+2025-09-12 04:15:32,890 INFO 127.0.0.1 - - [12/Sep/2025 04:15:32] "GET /faculty/attendance?branch=CSBS&date=2025-09-12 HTTP/1.1" 200 -
+2025-09-12 04:15:36,432 INFO 127.0.0.1 - - [12/Sep/2025 04:15:36] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:15:38,678 INFO 127.0.0.1 - - [12/Sep/2025 04:15:38] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 04:15:38,798 INFO 127.0.0.1 - - [12/Sep/2025 04:15:38] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:15:46,885 INFO 127.0.0.1 - - [12/Sep/2025 04:15:46] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:15:46,971 INFO 127.0.0.1 - - [12/Sep/2025 04:15:46] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:15:48,677 INFO 127.0.0.1 - - [12/Sep/2025 04:15:48] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 04:15:51,779 INFO 127.0.0.1 - - [12/Sep/2025 04:15:51] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 04:15:55,081 INFO 127.0.0.1 - - [12/Sep/2025 04:15:55] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 04:16:13,024 INFO 127.0.0.1 - - [12/Sep/2025 04:16:13] "GET /student/attendance?start_date=2025-09-12&end_date=2025-09-12 HTTP/1.1" 200 -
+2025-09-12 04:25:57,687 INFO 127.0.0.1 - - [12/Sep/2025 04:25:57] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 04:25:57,868 INFO 127.0.0.1 - - [12/Sep/2025 04:25:57] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:26:00,240 INFO 127.0.0.1 - - [12/Sep/2025 04:26:00] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 04:26:04,846 INFO 127.0.0.1 - - [12/Sep/2025 04:26:04] "[31m[1mPOST /student/fees/create HTTP/1.1[0m" 400 -
+2025-09-12 04:29:38,614 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-12 04:29:38,781 INFO  * Restarting with stat
+2025-09-12 04:30:36,246 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 04:30:36,246 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 04:30:36,247 INFO  * Restarting with stat
+2025-09-12 04:30:36,755 WARNING  * Debugger is active!
+2025-09-12 04:30:36,756 INFO  * Debugger PIN: 721-188-793
+2025-09-12 04:30:40,054 INFO 127.0.0.1 - - [12/Sep/2025 04:30:40] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:30:42,048 INFO 127.0.0.1 - - [12/Sep/2025 04:30:42] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 04:30:55,631 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-12 04:30:55,776 INFO  * Restarting with stat
+2025-09-12 04:30:57,043 WARNING  * Debugger is active!
+2025-09-12 04:30:57,043 INFO  * Debugger PIN: 721-188-793
+2025-09-12 04:31:04,003 INFO 127.0.0.1 - - [12/Sep/2025 04:31:04] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 04:31:35,167 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-12 04:31:35,422 INFO  * Restarting with stat
+2025-09-12 04:31:36,261 WARNING  * Debugger is active!
+2025-09-12 04:31:36,261 INFO  * Debugger PIN: 721-188-793
+2025-09-12 04:31:40,156 INFO 127.0.0.1 - - [12/Sep/2025 04:31:40] "[35m[1mGET /student/fees/ HTTP/1.1[0m" 500 -
+2025-09-12 04:31:40,501 INFO 127.0.0.1 - - [12/Sep/2025 04:31:40] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:31:40,501 INFO 127.0.0.1 - - [12/Sep/2025 04:31:40] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:31:40,635 INFO 127.0.0.1 - - [12/Sep/2025 04:31:40] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:31:40,910 INFO 127.0.0.1 - - [12/Sep/2025 04:31:40] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:31:44,092 INFO 127.0.0.1 - - [12/Sep/2025 04:31:44] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:31:45,879 INFO 127.0.0.1 - - [12/Sep/2025 04:31:45] "[35m[1mGET /student/fees/ HTTP/1.1[0m" 500 -
+2025-09-12 04:31:45,972 INFO 127.0.0.1 - - [12/Sep/2025 04:31:45] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:31:46,096 INFO 127.0.0.1 - - [12/Sep/2025 04:31:46] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:31:46,179 INFO 127.0.0.1 - - [12/Sep/2025 04:31:46] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:31:47,849 INFO 127.0.0.1 - - [12/Sep/2025 04:31:47] "[35m[1mGET /student/fees/ HTTP/1.1[0m" 500 -
+2025-09-12 04:31:47,921 INFO 127.0.0.1 - - [12/Sep/2025 04:31:47] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:31:47,931 INFO 127.0.0.1 - - [12/Sep/2025 04:31:47] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:31:48,068 INFO 127.0.0.1 - - [12/Sep/2025 04:31:48] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:31:48,124 INFO 127.0.0.1 - - [12/Sep/2025 04:31:48] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:33:38,504 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 04:33:38,504 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 04:33:38,506 INFO  * Restarting with stat
+2025-09-12 04:33:39,040 WARNING  * Debugger is active!
+2025-09-12 04:33:39,041 INFO  * Debugger PIN: 983-629-422
+2025-09-12 04:33:43,249 INFO 127.0.0.1 - - [12/Sep/2025 04:33:43] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 04:33:43,423 INFO 127.0.0.1 - - [12/Sep/2025 04:33:43] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:33:45,325 INFO 127.0.0.1 - - [12/Sep/2025 04:33:45] "[35m[1mGET /student/fees/ HTTP/1.1[0m" 500 -
+2025-09-12 04:33:45,480 INFO 127.0.0.1 - - [12/Sep/2025 04:33:45] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:33:45,480 INFO 127.0.0.1 - - [12/Sep/2025 04:33:45] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:33:45,667 INFO 127.0.0.1 - - [12/Sep/2025 04:33:45] "[36mGET /student/fees/?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:45:44,301 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 04:45:44,302 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 04:45:44,303 INFO  * Restarting with stat
+2025-09-12 04:45:44,827 WARNING  * Debugger is active!
+2025-09-12 04:45:44,828 INFO  * Debugger PIN: 983-629-422
+2025-09-12 04:45:48,148 INFO 127.0.0.1 - - [12/Sep/2025 04:45:48] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 04:45:48,319 INFO 127.0.0.1 - - [12/Sep/2025 04:45:48] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:45:56,614 INFO 127.0.0.1 - - [12/Sep/2025 04:45:56] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:45:56,787 INFO 127.0.0.1 - - [12/Sep/2025 04:45:56] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:45:58,907 INFO 127.0.0.1 - - [12/Sep/2025 04:45:58] "GET /register HTTP/1.1" 200 -
+2025-09-12 04:46:09,610 INFO 127.0.0.1 - - [12/Sep/2025 04:46:09] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 04:46:09,876 INFO 127.0.0.1 - - [12/Sep/2025 04:46:09] "GET /verify HTTP/1.1" 200 -
+2025-09-12 04:46:18,869 INFO 127.0.0.1 - - [12/Sep/2025 04:46:18] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-12 04:46:19,005 INFO 127.0.0.1 - - [12/Sep/2025 04:46:19] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:46:30,930 INFO 127.0.0.1 - - [12/Sep/2025 04:46:30] "GET /register HTTP/1.1" 200 -
+2025-09-12 04:46:49,995 INFO 127.0.0.1 - - [12/Sep/2025 04:46:49] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 04:46:50,150 INFO 127.0.0.1 - - [12/Sep/2025 04:46:50] "GET /verify HTTP/1.1" 200 -
+2025-09-12 04:46:55,339 INFO 127.0.0.1 - - [12/Sep/2025 04:46:55] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-12 04:46:55,461 INFO 127.0.0.1 - - [12/Sep/2025 04:46:55] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:47:00,432 INFO 127.0.0.1 - - [12/Sep/2025 04:47:00] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 04:47:00,490 INFO 127.0.0.1 - - [12/Sep/2025 04:47:00] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:47:01,699 INFO 127.0.0.1 - - [12/Sep/2025 04:47:01] "GET /register HTTP/1.1" 200 -
+2025-09-12 04:47:16,637 INFO 127.0.0.1 - - [12/Sep/2025 04:47:16] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 04:47:16,760 INFO 127.0.0.1 - - [12/Sep/2025 04:47:16] "GET /verify HTTP/1.1" 200 -
+2025-09-12 04:47:22,708 INFO 127.0.0.1 - - [12/Sep/2025 04:47:22] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-12 04:47:22,794 INFO 127.0.0.1 - - [12/Sep/2025 04:47:22] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:47:34,561 INFO 127.0.0.1 - - [12/Sep/2025 04:47:34] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:47:34,699 INFO 127.0.0.1 - - [12/Sep/2025 04:47:34] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-12 04:47:34,825 INFO 127.0.0.1 - - [12/Sep/2025 04:47:34] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:47:34,835 INFO 127.0.0.1 - - [12/Sep/2025 04:47:34] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:47:35,015 INFO 127.0.0.1 - - [12/Sep/2025 04:47:35] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:47:35,101 INFO 127.0.0.1 - - [12/Sep/2025 04:47:35] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:50:03,339 INFO 127.0.0.1 - - [12/Sep/2025 04:50:03] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-12 04:50:03,612 INFO 127.0.0.1 - - [12/Sep/2025 04:50:03] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:50:03,621 INFO 127.0.0.1 - - [12/Sep/2025 04:50:03] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:50:03,803 INFO 127.0.0.1 - - [12/Sep/2025 04:50:03] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:50:03,983 INFO 127.0.0.1 - - [12/Sep/2025 04:50:03] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:50:07,646 INFO 127.0.0.1 - - [12/Sep/2025 04:50:07] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:50:17,510 INFO 127.0.0.1 - - [12/Sep/2025 04:50:17] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:50:17,698 INFO 127.0.0.1 - - [12/Sep/2025 04:50:17] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:50:19,492 INFO 127.0.0.1 - - [12/Sep/2025 04:50:19] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 04:51:02,248 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-12 04:51:02,370 INFO  * Restarting with stat
+2025-09-12 04:51:03,161 WARNING  * Debugger is active!
+2025-09-12 04:51:03,162 INFO  * Debugger PIN: 983-629-422
+2025-09-12 04:51:09,215 INFO 127.0.0.1 - - [12/Sep/2025 04:51:09] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:51:10,791 INFO 127.0.0.1 - - [12/Sep/2025 04:51:10] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 04:51:16,243 INFO 127.0.0.1 - - [12/Sep/2025 04:51:16] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:51:18,644 INFO 127.0.0.1 - - [12/Sep/2025 04:51:18] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 04:51:18,730 INFO 127.0.0.1 - - [12/Sep/2025 04:51:18] "GET /login HTTP/1.1" 200 -
+2025-09-12 04:51:25,079 INFO 127.0.0.1 - - [12/Sep/2025 04:51:25] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 04:51:25,175 INFO 127.0.0.1 - - [12/Sep/2025 04:51:25] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-12 04:51:25,322 INFO 127.0.0.1 - - [12/Sep/2025 04:51:25] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:51:25,384 INFO 127.0.0.1 - - [12/Sep/2025 04:51:25] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:51:25,586 INFO 127.0.0.1 - - [12/Sep/2025 04:51:25] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:51:25,674 INFO 127.0.0.1 - - [12/Sep/2025 04:51:25] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:55:28,398 INFO 127.0.0.1 - - [12/Sep/2025 04:55:28] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-12 04:55:28,612 INFO 127.0.0.1 - - [12/Sep/2025 04:55:28] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:55:28,615 INFO 127.0.0.1 - - [12/Sep/2025 04:55:28] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:55:28,776 INFO 127.0.0.1 - - [12/Sep/2025 04:55:28] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:55:28,919 INFO 127.0.0.1 - - [12/Sep/2025 04:55:28] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:56:47,790 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2025-09-12 04:56:47,791 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 04:56:47,791 INFO  * Restarting with stat
+2025-09-12 04:56:48,335 WARNING  * Debugger is active!
+2025-09-12 04:56:48,336 INFO  * Debugger PIN: 983-629-422
+2025-09-12 04:56:52,145 INFO 127.0.0.1 - - [12/Sep/2025 04:56:52] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:59:03,775 INFO 127.0.0.1 - - [12/Sep/2025 04:59:03] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:59:06,037 INFO 127.0.0.1 - - [12/Sep/2025 04:59:06] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 04:59:06,274 INFO 127.0.0.1 - - [12/Sep/2025 04:59:06] "GET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-12 04:59:06,301 INFO 127.0.0.1 - - [12/Sep/2025 04:59:06] "GET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-12 04:59:06,471 INFO 127.0.0.1 - - [12/Sep/2025 04:59:06] "GET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-12 04:59:06,632 INFO 127.0.0.1 - - [12/Sep/2025 04:59:06] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 04:59:12,309 INFO 127.0.0.1 - - [12/Sep/2025 04:59:12] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:59:14,219 INFO 127.0.0.1 - - [12/Sep/2025 04:59:14] "GET /my-program HTTP/1.1" 200 -
+2025-09-12 04:59:18,508 INFO 127.0.0.1 - - [12/Sep/2025 04:59:18] "GET /my-program HTTP/1.1" 200 -
+2025-09-12 04:59:20,099 INFO 127.0.0.1 - - [12/Sep/2025 04:59:20] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:59:21,440 INFO 127.0.0.1 - - [12/Sep/2025 04:59:21] "GET /my-program HTTP/1.1" 200 -
+2025-09-12 04:59:23,103 INFO 127.0.0.1 - - [12/Sep/2025 04:59:23] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 04:59:24,475 INFO 127.0.0.1 - - [12/Sep/2025 04:59:24] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 04:59:24,572 INFO 127.0.0.1 - - [12/Sep/2025 04:59:24] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 04:59:24,587 INFO 127.0.0.1 - - [12/Sep/2025 04:59:24] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 04:59:24,703 INFO 127.0.0.1 - - [12/Sep/2025 04:59:24] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 05:02:06,714 INFO 127.0.0.1 - - [12/Sep/2025 05:02:06] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:02:41,789 INFO 127.0.0.1 - - [12/Sep/2025 05:02:41] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:03:37,638 INFO 127.0.0.1 - - [12/Sep/2025 05:03:37] "GET /my-program HTTP/1.1" 200 -
+2025-09-12 05:03:41,860 INFO 127.0.0.1 - - [12/Sep/2025 05:03:41] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:03:41,940 INFO 127.0.0.1 - - [12/Sep/2025 05:03:41] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:03:50,666 INFO 127.0.0.1 - - [12/Sep/2025 05:03:50] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:03:50,748 INFO 127.0.0.1 - - [12/Sep/2025 05:03:50] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:03:55,901 INFO 127.0.0.1 - - [12/Sep/2025 05:03:55] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:03:55,967 INFO 127.0.0.1 - - [12/Sep/2025 05:03:55] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:03:57,567 INFO 127.0.0.1 - - [12/Sep/2025 05:03:57] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:04:00,770 INFO 127.0.0.1 - - [12/Sep/2025 05:04:00] "[31m[1mPOST /student/fees/create HTTP/1.1[0m" 400 -
+2025-09-12 05:05:23,268 INFO 127.0.0.1 - - [12/Sep/2025 05:05:23] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:05:23,467 INFO 127.0.0.1 - - [12/Sep/2025 05:05:23] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:07:58,014 INFO 127.0.0.1 - - [12/Sep/2025 05:07:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-12 05:07:59,778 INFO 127.0.0.1 - - [12/Sep/2025 05:07:59] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:08:12,406 INFO 127.0.0.1 - - [12/Sep/2025 05:08:12] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:08:12,575 INFO 127.0.0.1 - - [12/Sep/2025 05:08:12] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:08:32,151 INFO 127.0.0.1 - - [12/Sep/2025 05:08:32] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:08:32,344 INFO 127.0.0.1 - - [12/Sep/2025 05:08:32] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:08:35,601 INFO 127.0.0.1 - - [12/Sep/2025 05:08:35] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:08:55,628 INFO 127.0.0.1 - - [12/Sep/2025 05:08:55] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 05:09:00,507 INFO 127.0.0.1 - - [12/Sep/2025 05:09:00] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 05:09:07,377 INFO 127.0.0.1 - - [12/Sep/2025 05:09:07] "[32mGET /student/grades HTTP/1.1[0m" 302 -
+2025-09-12 05:09:07,535 INFO 127.0.0.1 - - [12/Sep/2025 05:09:07] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:09:10,036 INFO 127.0.0.1 - - [12/Sep/2025 05:09:10] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:09:10,188 INFO 127.0.0.1 - - [12/Sep/2025 05:09:10] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:09:10,230 INFO 127.0.0.1 - - [12/Sep/2025 05:09:10] "[32mGET /student/grades HTTP/1.1[0m" 302 -
+2025-09-12 05:09:10,314 INFO 127.0.0.1 - - [12/Sep/2025 05:09:10] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:09:11,885 INFO 127.0.0.1 - - [12/Sep/2025 05:09:11] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:09:12,102 INFO 127.0.0.1 - - [12/Sep/2025 05:09:12] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:09:21,781 INFO 127.0.0.1 - - [12/Sep/2025 05:09:21] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:09:26,696 INFO 127.0.0.1 - - [12/Sep/2025 05:09:26] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 05:09:33,502 INFO 127.0.0.1 - - [12/Sep/2025 05:09:33] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 05:09:37,324 INFO 127.0.0.1 - - [12/Sep/2025 05:09:37] "[32mPOST /student/fees/admin/config HTTP/1.1[0m" 302 -
+2025-09-12 05:09:37,502 INFO 127.0.0.1 - - [12/Sep/2025 05:09:37] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:09:39,453 INFO 127.0.0.1 - - [12/Sep/2025 05:09:39] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:09:50,172 INFO 127.0.0.1 - - [12/Sep/2025 05:09:50] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:09:51,509 INFO 127.0.0.1 - - [12/Sep/2025 05:09:51] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:09:56,846 INFO 127.0.0.1 - - [12/Sep/2025 05:09:56] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:09:58,530 INFO 127.0.0.1 - - [12/Sep/2025 05:09:58] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 05:10:26,265 INFO 127.0.0.1 - - [12/Sep/2025 05:10:26] "[32mPOST /student/fees/admin/config HTTP/1.1[0m" 302 -
+2025-09-12 05:10:26,418 INFO 127.0.0.1 - - [12/Sep/2025 05:10:26] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:10:47,325 INFO 127.0.0.1 - - [12/Sep/2025 05:10:47] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:10:48,682 INFO 127.0.0.1 - - [12/Sep/2025 05:10:48] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:10:54,208 INFO 127.0.0.1 - - [12/Sep/2025 05:10:54] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:10:55,056 INFO 127.0.0.1 - - [12/Sep/2025 05:10:55] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:10:58,050 INFO 127.0.0.1 - - [12/Sep/2025 05:10:58] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:11:03,372 INFO 127.0.0.1 - - [12/Sep/2025 05:11:03] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:11:03,507 INFO 127.0.0.1 - - [12/Sep/2025 05:11:03] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:11:18,474 INFO 127.0.0.1 - - [12/Sep/2025 05:11:18] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:11:18,640 INFO 127.0.0.1 - - [12/Sep/2025 05:11:18] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:11:34,326 INFO 127.0.0.1 - - [12/Sep/2025 05:11:34] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:11:34,461 INFO 127.0.0.1 - - [12/Sep/2025 05:11:34] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:11:35,945 INFO 127.0.0.1 - - [12/Sep/2025 05:11:35] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:11:42,175 INFO 127.0.0.1 - - [12/Sep/2025 05:11:42] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 05:11:44,902 INFO 127.0.0.1 - - [12/Sep/2025 05:11:44] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 05:11:47,474 INFO 127.0.0.1 - - [12/Sep/2025 05:11:47] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:11:53,065 INFO 127.0.0.1 - - [12/Sep/2025 05:11:53] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 05:11:55,434 INFO 127.0.0.1 - - [12/Sep/2025 05:11:55] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 05:11:57,098 INFO 127.0.0.1 - - [12/Sep/2025 05:11:57] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:12:06,287 INFO 127.0.0.1 - - [12/Sep/2025 05:12:06] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 05:12:20,476 INFO 127.0.0.1 - - [12/Sep/2025 05:12:20] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:12:21,750 INFO 127.0.0.1 - - [12/Sep/2025 05:12:21] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 05:12:27,122 INFO 127.0.0.1 - - [12/Sep/2025 05:12:27] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:12:41,816 INFO 127.0.0.1 - - [12/Sep/2025 05:12:41] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:12:41,919 INFO 127.0.0.1 - - [12/Sep/2025 05:12:41] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:12:50,800 INFO 127.0.0.1 - - [12/Sep/2025 05:12:50] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:12:50,890 INFO 127.0.0.1 - - [12/Sep/2025 05:12:50] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:13:00,567 INFO 127.0.0.1 - - [12/Sep/2025 05:13:00] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:13:00,745 INFO 127.0.0.1 - - [12/Sep/2025 05:13:00] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:13:03,230 INFO 127.0.0.1 - - [12/Sep/2025 05:13:03] "[35m[1mGET /faculty/courses HTTP/1.1[0m" 500 -
+2025-09-12 05:13:03,368 INFO 127.0.0.1 - - [12/Sep/2025 05:13:03] "GET /faculty/courses?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-12 05:13:03,375 INFO 127.0.0.1 - - [12/Sep/2025 05:13:03] "GET /faculty/courses?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-12 05:13:03,569 INFO 127.0.0.1 - - [12/Sep/2025 05:13:03] "GET /faculty/courses?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-12 05:13:03,661 INFO 127.0.0.1 - - [12/Sep/2025 05:13:03] "[36mGET /faculty/courses?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 05:13:08,845 INFO 127.0.0.1 - - [12/Sep/2025 05:13:08] "[35m[1mGET /faculty/assignments HTTP/1.1[0m" 500 -
+2025-09-12 05:13:08,949 INFO 127.0.0.1 - - [12/Sep/2025 05:13:08] "GET /faculty/assignments?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-12 05:13:08,953 INFO 127.0.0.1 - - [12/Sep/2025 05:13:08] "GET /faculty/assignments?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-12 05:13:09,127 INFO 127.0.0.1 - - [12/Sep/2025 05:13:09] "GET /faculty/assignments?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-12 05:13:09,215 INFO 127.0.0.1 - - [12/Sep/2025 05:13:09] "[36mGET /faculty/assignments?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 05:13:10,839 INFO 127.0.0.1 - - [12/Sep/2025 05:13:10] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 05:13:12,949 INFO 127.0.0.1 - - [12/Sep/2025 05:13:12] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 05:13:18,209 INFO 127.0.0.1 - - [12/Sep/2025 05:13:18] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 05:13:27,341 INFO 127.0.0.1 - - [12/Sep/2025 05:13:27] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 05:13:28,937 INFO 127.0.0.1 - - [12/Sep/2025 05:13:28] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:13:29,029 INFO 127.0.0.1 - - [12/Sep/2025 05:13:29] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:13:49,491 INFO 127.0.0.1 - - [12/Sep/2025 05:13:49] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:13:49,575 INFO 127.0.0.1 - - [12/Sep/2025 05:13:49] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:13:51,217 INFO 127.0.0.1 - - [12/Sep/2025 05:13:51] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:13:54,210 INFO 127.0.0.1 - - [12/Sep/2025 05:13:54] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:13:55,499 INFO 127.0.0.1 - - [12/Sep/2025 05:13:55] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:08,528 INFO 127.0.0.1 - - [12/Sep/2025 05:14:08] "GET /my-program HTTP/1.1" 200 -
+2025-09-12 05:14:10,657 INFO 127.0.0.1 - - [12/Sep/2025 05:14:10] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:11,869 INFO 127.0.0.1 - - [12/Sep/2025 05:14:11] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:14,355 INFO 127.0.0.1 - - [12/Sep/2025 05:14:14] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:15,207 INFO 127.0.0.1 - - [12/Sep/2025 05:14:15] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:15,779 INFO 127.0.0.1 - - [12/Sep/2025 05:14:15] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:16,634 INFO 127.0.0.1 - - [12/Sep/2025 05:14:16] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:18,843 INFO 127.0.0.1 - - [12/Sep/2025 05:14:18] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:19,770 INFO 127.0.0.1 - - [12/Sep/2025 05:14:19] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:20,652 INFO 127.0.0.1 - - [12/Sep/2025 05:14:20] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:21,178 INFO 127.0.0.1 - - [12/Sep/2025 05:14:21] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:14:21,863 INFO 127.0.0.1 - - [12/Sep/2025 05:14:21] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:14:22,295 INFO 127.0.0.1 - - [12/Sep/2025 05:14:22] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 05:14:28,411 INFO 127.0.0.1 - - [12/Sep/2025 05:14:28] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:15:27,468 INFO 127.0.0.1 - - [12/Sep/2025 05:15:27] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:15:27,622 INFO 127.0.0.1 - - [12/Sep/2025 05:15:27] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:15:37,573 INFO 127.0.0.1 - - [12/Sep/2025 05:15:37] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:15:37,721 INFO 127.0.0.1 - - [12/Sep/2025 05:15:37] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:15:39,662 INFO 127.0.0.1 - - [12/Sep/2025 05:15:39] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 05:16:26,671 INFO 127.0.0.1 - - [12/Sep/2025 05:16:26] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-12 05:16:26,853 INFO 127.0.0.1 - - [12/Sep/2025 05:16:26] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 05:16:26,992 INFO 127.0.0.1 - - [12/Sep/2025 05:16:26] "GET /static/uploads/user1_cc565e20a8c84cb7b8e9baceb2040387_ec3e27c6-1f4b-46df-9c94-5cae72411f4f.png HTTP/1.1" 200 -
+2025-09-12 05:16:34,264 INFO 127.0.0.1 - - [12/Sep/2025 05:16:34] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:16:36,542 INFO 127.0.0.1 - - [12/Sep/2025 05:16:36] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 05:16:41,929 INFO 127.0.0.1 - - [12/Sep/2025 05:16:41] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:16:42,023 INFO 127.0.0.1 - - [12/Sep/2025 05:16:42] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:16:49,183 INFO 127.0.0.1 - - [12/Sep/2025 05:16:49] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:16:49,352 INFO 127.0.0.1 - - [12/Sep/2025 05:16:49] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:16:50,576 INFO 127.0.0.1 - - [12/Sep/2025 05:16:50] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:17:08,457 INFO 127.0.0.1 - - [12/Sep/2025 05:17:08] "[32mPOST /student/fees/admin/config HTTP/1.1[0m" 302 -
+2025-09-12 05:17:08,534 INFO 127.0.0.1 - - [12/Sep/2025 05:17:08] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:17:21,026 INFO 127.0.0.1 - - [12/Sep/2025 05:17:21] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:17:24,298 INFO 127.0.0.1 - - [12/Sep/2025 05:17:24] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:17:24,411 INFO 127.0.0.1 - - [12/Sep/2025 05:17:24] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:17:30,217 INFO 127.0.0.1 - - [12/Sep/2025 05:17:30] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:17:30,304 INFO 127.0.0.1 - - [12/Sep/2025 05:17:30] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:17:32,552 INFO 127.0.0.1 - - [12/Sep/2025 05:17:32] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:17:36,248 INFO 127.0.0.1 - - [12/Sep/2025 05:17:36] "[31m[1mPOST /student/fees/create HTTP/1.1[0m" 400 -
+2025-09-12 05:19:50,536 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-12 05:19:50,595 INFO  * Restarting with stat
+2025-09-12 05:19:50,937 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-12 05:19:51,533 INFO  * Restarting with stat
+2025-09-12 05:21:29,958 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 05:21:29,959 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 05:21:29,960 INFO  * Restarting with stat
+2025-09-12 05:21:30,935 WARNING  * Debugger is active!
+2025-09-12 05:21:30,935 INFO  * Debugger PIN: 983-629-422
+2025-09-12 05:21:33,124 INFO 127.0.0.1 - - [12/Sep/2025 05:21:33] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:21:37,690 INFO 127.0.0.1 - - [12/Sep/2025 05:21:37] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:21:39,753 INFO 127.0.0.1 - - [12/Sep/2025 05:21:39] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:21:45,503 INFO 127.0.0.1 - - [12/Sep/2025 05:21:45] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:21:45,767 INFO 127.0.0.1 - - [12/Sep/2025 05:21:45] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:21:52,247 INFO 127.0.0.1 - - [12/Sep/2025 05:21:52] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:21:52,337 INFO 127.0.0.1 - - [12/Sep/2025 05:21:52] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-09-12 05:21:52,599 INFO 127.0.0.1 - - [12/Sep/2025 05:21:52] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 05:21:52,600 INFO 127.0.0.1 - - [12/Sep/2025 05:21:52] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 05:21:52,786 INFO 127.0.0.1 - - [12/Sep/2025 05:21:52] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 05:21:52,865 INFO 127.0.0.1 - - [12/Sep/2025 05:21:52] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 05:23:18,468 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-12 05:23:18,624 INFO  * Restarting with stat
+2025-09-12 05:23:19,270 WARNING  * Debugger is active!
+2025-09-12 05:23:19,270 INFO  * Debugger PIN: 983-629-422
+2025-09-12 05:23:23,577 INFO 127.0.0.1 - - [12/Sep/2025 05:23:23] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:23:25,339 INFO 127.0.0.1 - - [12/Sep/2025 05:23:25] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:23:32,397 INFO 127.0.0.1 - - [12/Sep/2025 05:23:32] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:23:34,474 INFO 127.0.0.1 - - [12/Sep/2025 05:23:34] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:23:34,593 INFO 127.0.0.1 - - [12/Sep/2025 05:23:34] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:23:42,232 INFO 127.0.0.1 - - [12/Sep/2025 05:23:42] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:23:42,387 INFO 127.0.0.1 - - [12/Sep/2025 05:23:42] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:23:43,960 INFO 127.0.0.1 - - [12/Sep/2025 05:23:43] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:23:46,259 INFO 127.0.0.1 - - [12/Sep/2025 05:23:46] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:26:12,126 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/student_fee.py', reloading
+2025-09-12 05:26:12,207 INFO  * Restarting with stat
+2025-09-12 05:26:12,844 WARNING  * Debugger is active!
+2025-09-12 05:26:12,844 INFO  * Debugger PIN: 983-629-422
+2025-09-12 05:27:36,585 INFO 127.0.0.1 - - [12/Sep/2025 05:27:36] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:27:50,500 INFO 127.0.0.1 - - [12/Sep/2025 05:27:50] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:27:50,649 INFO 127.0.0.1 - - [12/Sep/2025 05:27:50] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:28:02,974 INFO 127.0.0.1 - - [12/Sep/2025 05:28:02] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:28:03,185 INFO 127.0.0.1 - - [12/Sep/2025 05:28:03] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:28:04,520 INFO 127.0.0.1 - - [12/Sep/2025 05:28:04] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:28:27,511 INFO 127.0.0.1 - - [12/Sep/2025 05:28:27] "[32mPOST /student/fees/admin/config HTTP/1.1[0m" 302 -
+2025-09-12 05:28:27,666 INFO 127.0.0.1 - - [12/Sep/2025 05:28:27] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 05:28:37,242 INFO 127.0.0.1 - - [12/Sep/2025 05:28:37] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 05:28:37,475 INFO 127.0.0.1 - - [12/Sep/2025 05:28:37] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:28:39,033 INFO 127.0.0.1 - - [12/Sep/2025 05:28:39] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:28:39,096 INFO 127.0.0.1 - - [12/Sep/2025 05:28:39] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:28:45,731 INFO 127.0.0.1 - - [12/Sep/2025 05:28:45] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:28:45,794 INFO 127.0.0.1 - - [12/Sep/2025 05:28:45] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:28:47,911 INFO 127.0.0.1 - - [12/Sep/2025 05:28:47] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:28:50,676 INFO 127.0.0.1 - - [12/Sep/2025 05:28:50] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:32:15,030 INFO 127.0.0.1 - - [12/Sep/2025 05:32:15] "[32mGET /student/fees/admin HTTP/1.1[0m" 302 -
+2025-09-12 05:32:15,180 INFO 127.0.0.1 - - [12/Sep/2025 05:32:15] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 05:32:23,438 INFO 127.0.0.1 - - [12/Sep/2025 05:32:23] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 05:32:23,598 INFO 127.0.0.1 - - [12/Sep/2025 05:32:23] "GET /login HTTP/1.1" 200 -
+2025-09-12 05:32:31,920 INFO 127.0.0.1 - - [12/Sep/2025 05:32:31] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 05:32:32,089 INFO 127.0.0.1 - - [12/Sep/2025 05:32:32] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 05:32:33,392 INFO 127.0.0.1 - - [12/Sep/2025 05:32:33] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 05:32:33,711 INFO 127.0.0.1 - - [12/Sep/2025 05:32:33] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 05:32:33,712 INFO 127.0.0.1 - - [12/Sep/2025 05:32:33] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 05:32:33,973 INFO 127.0.0.1 - - [12/Sep/2025 05:32:33] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 05:32:34,146 INFO 127.0.0.1 - - [12/Sep/2025 05:32:34] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 11:59:03,707 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 11:59:03,708 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 11:59:03,709 INFO  * Restarting with stat
+2025-09-12 11:59:04,232 WARNING  * Debugger is active!
+2025-09-12 11:59:04,233 INFO  * Debugger PIN: 115-093-055
+2025-09-12 11:59:10,630 INFO 127.0.0.1 - - [12/Sep/2025 11:59:10] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 11:59:10,802 INFO 127.0.0.1 - - [12/Sep/2025 11:59:10] "GET /login HTTP/1.1" 200 -
+2025-09-12 11:59:11,052 INFO 127.0.0.1 - - [12/Sep/2025 11:59:11] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-12 11:59:23,536 INFO 127.0.0.1 - - [12/Sep/2025 11:59:23] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 11:59:23,727 INFO 127.0.0.1 - - [12/Sep/2025 11:59:23] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 11:59:26,112 INFO 127.0.0.1 - - [12/Sep/2025 11:59:26] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 12:20:36,565 INFO 127.0.0.1 - - [12/Sep/2025 12:20:36] "POST /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 12:27:16,398 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 12:27:16,399 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 12:27:16,401 INFO  * Restarting with stat
+2025-09-12 12:27:18,102 WARNING  * Debugger is active!
+2025-09-12 12:27:18,106 INFO  * Debugger PIN: 237-851-509
+2025-09-12 12:27:25,812 INFO 127.0.0.1 - - [12/Sep/2025 12:27:25] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 12:27:26,130 INFO 127.0.0.1 - - [12/Sep/2025 12:27:26] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 12:55:20,942 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 12:55:20,943 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 12:55:20,943 INFO  * Restarting with stat
+2025-09-12 12:55:21,577 WARNING  * Debugger is active!
+2025-09-12 12:55:21,578 INFO  * Debugger PIN: 128-404-608
+2025-09-12 12:55:25,722 INFO 127.0.0.1 - - [12/Sep/2025 12:55:25] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 12:55:25,980 INFO 127.0.0.1 - - [12/Sep/2025 12:55:25] "GET /login HTTP/1.1" 200 -
+2025-09-12 12:55:34,037 INFO 127.0.0.1 - - [12/Sep/2025 12:55:34] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 12:55:34,233 INFO 127.0.0.1 - - [12/Sep/2025 12:55:34] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 13:03:07,586 INFO 127.0.0.1 - - [12/Sep/2025 13:03:07] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 13:03:07,779 INFO 127.0.0.1 - - [12/Sep/2025 13:03:07] "GET /login HTTP/1.1" 200 -
+2025-09-12 13:03:21,078 INFO 127.0.0.1 - - [12/Sep/2025 13:03:21] "GET /register HTTP/1.1" 200 -
+2025-09-12 13:45:38,467 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 13:45:38,506 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 13:45:38,510 INFO  * Restarting with stat
+2025-09-12 13:45:42,369 WARNING  * Debugger is active!
+2025-09-12 13:45:42,387 INFO  * Debugger PIN: 128-404-608
+2025-09-12 13:45:45,333 INFO 127.0.0.1 - - [12/Sep/2025 13:45:45] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 13:45:45,635 INFO 127.0.0.1 - - [12/Sep/2025 13:45:45] "GET /login HTTP/1.1" 200 -
+2025-09-12 13:47:27,780 INFO 127.0.0.1 - - [12/Sep/2025 13:47:27] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 13:47:27,961 INFO 127.0.0.1 - - [12/Sep/2025 13:47:27] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 13:47:31,240 INFO 127.0.0.1 - - [12/Sep/2025 13:47:31] "GET /faculty/attendance HTTP/1.1" 200 -
+2025-09-12 13:47:36,486 INFO 127.0.0.1 - - [12/Sep/2025 13:47:36] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 13:47:36,627 INFO 127.0.0.1 - - [12/Sep/2025 13:47:36] "GET /login HTTP/1.1" 200 -
+2025-09-12 13:47:37,595 INFO 127.0.0.1 - - [12/Sep/2025 13:47:37] "GET /register HTTP/1.1" 200 -
+2025-09-12 13:47:50,037 INFO 127.0.0.1 - - [12/Sep/2025 13:47:50] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 13:47:50,275 INFO 127.0.0.1 - - [12/Sep/2025 13:47:50] "GET /verify HTTP/1.1" 200 -
+2025-09-12 13:47:56,448 INFO 127.0.0.1 - - [12/Sep/2025 13:47:56] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-12 13:47:56,534 INFO 127.0.0.1 - - [12/Sep/2025 13:47:56] "GET /login HTTP/1.1" 200 -
+2025-09-12 13:48:01,550 INFO 127.0.0.1 - - [12/Sep/2025 13:48:01] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 13:48:01,654 INFO 127.0.0.1 - - [12/Sep/2025 13:48:01] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 13:48:03,194 INFO 127.0.0.1 - - [12/Sep/2025 13:48:03] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 13:48:20,013 INFO 127.0.0.1 - - [12/Sep/2025 13:48:20] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-12 13:48:20,107 INFO 127.0.0.1 - - [12/Sep/2025 13:48:20] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 13:48:22,601 INFO 127.0.0.1 - - [12/Sep/2025 13:48:22] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 13:48:24,533 INFO 127.0.0.1 - - [12/Sep/2025 13:48:24] "GET /student/attendance HTTP/1.1" 200 -
+2025-09-12 13:48:26,988 INFO 127.0.0.1 - - [12/Sep/2025 13:48:26] "GET /student/attendance?start_date=&end_date= HTTP/1.1" 200 -
+2025-09-12 13:48:36,085 INFO 127.0.0.1 - - [12/Sep/2025 13:48:36] "GET /student/attendance?start_date=2025-09-12&end_date=2025-09-13 HTTP/1.1" 200 -
+2025-09-12 13:48:37,325 INFO 127.0.0.1 - - [12/Sep/2025 13:48:37] "GET /student/attendance?start_date=2025-09-12&end_date=2025-09-13 HTTP/1.1" 200 -
+2025-09-12 13:48:47,431 INFO 127.0.0.1 - - [12/Sep/2025 13:48:47] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 13:48:58,275 INFO 127.0.0.1 - - [12/Sep/2025 13:48:58] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 13:48:58,339 INFO 127.0.0.1 - - [12/Sep/2025 13:48:58] "GET /login HTTP/1.1" 200 -
+2025-09-12 13:49:06,025 INFO 127.0.0.1 - - [12/Sep/2025 13:49:06] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 13:49:06,298 INFO 127.0.0.1 - - [12/Sep/2025 13:49:06] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 13:49:08,455 INFO 127.0.0.1 - - [12/Sep/2025 13:49:08] "GET /my-program HTTP/1.1" 200 -
+2025-09-12 13:49:10,031 INFO 127.0.0.1 - - [12/Sep/2025 13:49:10] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 13:49:11,100 INFO 127.0.0.1 - - [12/Sep/2025 13:49:11] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:02:00,761 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 16:02:00,761 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 16:02:00,763 INFO  * Restarting with stat
+2025-09-12 16:02:01,303 WARNING  * Debugger is active!
+2025-09-12 16:02:01,304 INFO  * Debugger PIN: 644-898-804
+2025-09-12 16:02:04,906 INFO 127.0.0.1 - - [12/Sep/2025 16:02:04] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:02:19,466 INFO 127.0.0.1 - - [12/Sep/2025 16:02:19] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:02:36,138 INFO 127.0.0.1 - - [12/Sep/2025 16:02:36] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:06:01,911 INFO 127.0.0.1 - - [12/Sep/2025 16:06:01] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:08:37,498 INFO 127.0.0.1 - - [12/Sep/2025 16:08:37] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:13:09,413 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-12 16:13:09,770 INFO  * Restarting with stat
+2025-09-12 16:13:34,651 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 16:13:34,651 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 16:13:34,652 INFO  * Restarting with stat
+2025-09-12 16:13:35,252 WARNING  * Debugger is active!
+2025-09-12 16:13:35,253 INFO  * Debugger PIN: 644-898-804
+2025-09-12 16:13:38,223 INFO 127.0.0.1 - - [12/Sep/2025 16:13:38] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:13:48,200 INFO 127.0.0.1 - - [12/Sep/2025 16:13:48] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 16:13:48,448 INFO 127.0.0.1 - - [12/Sep/2025 16:13:48] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 16:13:48,449 INFO 127.0.0.1 - - [12/Sep/2025 16:13:48] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 16:13:48,606 INFO 127.0.0.1 - - [12/Sep/2025 16:13:48] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:13:48,765 INFO 127.0.0.1 - - [12/Sep/2025 16:13:48] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:13:56,495 INFO 127.0.0.1 - - [12/Sep/2025 16:13:56] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:15:30,809 INFO 127.0.0.1 - - [12/Sep/2025 16:15:30] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 16:15:31,026 INFO 127.0.0.1 - - [12/Sep/2025 16:15:31] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 16:15:31,033 INFO 127.0.0.1 - - [12/Sep/2025 16:15:31] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 16:15:31,204 INFO 127.0.0.1 - - [12/Sep/2025 16:15:31] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:15:31,381 INFO 127.0.0.1 - - [12/Sep/2025 16:15:31] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:15:38,671 INFO 127.0.0.1 - - [12/Sep/2025 16:15:38] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:16:24,017 INFO 127.0.0.1 - - [12/Sep/2025 16:16:24] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 16:16:24,218 INFO 127.0.0.1 - - [12/Sep/2025 16:16:24] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 16:16:24,220 INFO 127.0.0.1 - - [12/Sep/2025 16:16:24] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 16:16:24,385 INFO 127.0.0.1 - - [12/Sep/2025 16:16:24] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:16:24,526 INFO 127.0.0.1 - - [12/Sep/2025 16:16:24] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:16:36,646 INFO 127.0.0.1 - - [12/Sep/2025 16:16:36] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:18:49,978 INFO 127.0.0.1 - - [12/Sep/2025 16:18:49] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 16:18:51,634 INFO 127.0.0.1 - - [12/Sep/2025 16:18:51] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:21:59,262 INFO 127.0.0.1 - - [12/Sep/2025 16:21:59] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 16:21:59,519 INFO 127.0.0.1 - - [12/Sep/2025 16:21:59] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 16:21:59,551 INFO 127.0.0.1 - - [12/Sep/2025 16:21:59] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 16:21:59,774 INFO 127.0.0.1 - - [12/Sep/2025 16:21:59] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:22:00,003 INFO 127.0.0.1 - - [12/Sep/2025 16:22:00] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:22:29,237 INFO 127.0.0.1 - - [12/Sep/2025 16:22:29] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:22:31,474 INFO 127.0.0.1 - - [12/Sep/2025 16:22:31] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 16:22:38,564 INFO 127.0.0.1 - - [12/Sep/2025 16:22:38] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:24:59,263 INFO 127.0.0.1 - - [12/Sep/2025 16:24:59] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 16:24:59,429 INFO 127.0.0.1 - - [12/Sep/2025 16:24:59] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 16:27:44,035 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/admin_fee.py', reloading
+2025-09-12 16:27:44,572 INFO  * Restarting with stat
+2025-09-12 16:27:45,868 WARNING  * Debugger is active!
+2025-09-12 16:27:45,868 INFO  * Debugger PIN: 644-898-804
+2025-09-12 16:27:46,166 INFO 127.0.0.1 - - [12/Sep/2025 16:27:46] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 16:30:46,739 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-12 16:30:46,807 INFO  * Restarting with stat
+2025-09-12 16:33:31,194 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 16:33:31,194 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 16:33:31,195 INFO  * Restarting with stat
+2025-09-12 16:33:31,720 WARNING  * Debugger is active!
+2025-09-12 16:33:31,721 INFO  * Debugger PIN: 644-898-804
+2025-09-12 16:33:34,610 INFO 127.0.0.1 - - [12/Sep/2025 16:33:34] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-09-12 16:33:34,775 INFO 127.0.0.1 - - [12/Sep/2025 16:33:34] "GET /login?next=/dashboard HTTP/1.1" 200 -
+2025-09-12 16:33:43,574 INFO 127.0.0.1 - - [12/Sep/2025 16:33:43] "[35m[1mPOST /login?next=/dashboard HTTP/1.1[0m" 500 -
+2025-09-12 16:33:43,922 INFO 127.0.0.1 - - [12/Sep/2025 16:33:43] "[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 16:33:43,934 INFO 127.0.0.1 - - [12/Sep/2025 16:33:43] "[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 16:33:44,072 INFO 127.0.0.1 - - [12/Sep/2025 16:33:44] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:33:44,296 INFO 127.0.0.1 - - [12/Sep/2025 16:33:44] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 16:34:47,628 ERROR Error: Directory migrations already exists and is not empty
+2025-09-12 16:39:52,960 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 16:39:52,960 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 16:39:52,961 INFO  * Restarting with stat
+2025-09-12 16:39:53,462 WARNING  * Debugger is active!
+2025-09-12 16:39:53,462 INFO  * Debugger PIN: 644-898-804
+2025-09-12 16:40:00,380 INFO 127.0.0.1 - - [12/Sep/2025 16:40:00] "[32mPOST /login?next=/dashboard HTTP/1.1[0m" 302 -
+2025-09-12 16:40:00,556 INFO 127.0.0.1 - - [12/Sep/2025 16:40:00] "GET /login HTTP/1.1" 200 -
+2025-09-12 16:40:08,200 INFO 127.0.0.1 - - [12/Sep/2025 16:40:08] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 16:40:08,348 INFO 127.0.0.1 - - [12/Sep/2025 16:40:08] "GET /login HTTP/1.1" 200 -
+2025-09-12 16:40:10,815 INFO 127.0.0.1 - - [12/Sep/2025 16:40:10] "GET /register HTTP/1.1" 200 -
+2025-09-12 16:40:22,375 INFO 127.0.0.1 - - [12/Sep/2025 16:40:22] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 16:40:22,517 INFO 127.0.0.1 - - [12/Sep/2025 16:40:22] "GET /verify HTTP/1.1" 200 -
+2025-09-12 16:40:28,531 INFO 127.0.0.1 - - [12/Sep/2025 16:40:28] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-12 16:40:28,655 INFO 127.0.0.1 - - [12/Sep/2025 16:40:28] "GET /login HTTP/1.1" 200 -
+2025-09-12 16:40:31,375 INFO 127.0.0.1 - - [12/Sep/2025 16:40:31] "GET /register HTTP/1.1" 200 -
+2025-09-12 16:40:40,387 INFO 127.0.0.1 - - [12/Sep/2025 16:40:40] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 16:40:40,537 INFO 127.0.0.1 - - [12/Sep/2025 16:40:40] "GET /verify HTTP/1.1" 200 -
+2025-09-12 16:40:46,078 INFO 127.0.0.1 - - [12/Sep/2025 16:40:46] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-12 16:40:46,489 INFO 127.0.0.1 - - [12/Sep/2025 16:40:46] "GET /login HTTP/1.1" 200 -
+2025-09-12 16:40:48,776 INFO 127.0.0.1 - - [12/Sep/2025 16:40:48] "GET /register HTTP/1.1" 200 -
+2025-09-12 16:40:59,627 INFO 127.0.0.1 - - [12/Sep/2025 16:40:59] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-09-12 16:40:59,777 INFO 127.0.0.1 - - [12/Sep/2025 16:40:59] "GET /verify HTTP/1.1" 200 -
+2025-09-12 16:41:06,999 INFO 127.0.0.1 - - [12/Sep/2025 16:41:06] "[32mPOST /verify HTTP/1.1[0m" 302 -
+2025-09-12 16:41:07,155 INFO 127.0.0.1 - - [12/Sep/2025 16:41:07] "GET /login HTTP/1.1" 200 -
+2025-09-12 16:41:15,907 INFO 127.0.0.1 - - [12/Sep/2025 16:41:15] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 16:41:16,074 INFO 127.0.0.1 - - [12/Sep/2025 16:41:16] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 16:41:17,629 INFO 127.0.0.1 - - [12/Sep/2025 16:41:17] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 16:41:42,109 INFO 127.0.0.1 - - [12/Sep/2025 16:41:42] "[32mPOST /student-profile HTTP/1.1[0m" 302 -
+2025-09-12 16:41:42,168 INFO 127.0.0.1 - - [12/Sep/2025 16:41:42] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 16:41:42,247 INFO 127.0.0.1 - - [12/Sep/2025 16:41:42] "GET /static/uploads/user2_705adf3ae5124adbae83f039b7f6432b_ec3e27c6-1f4b-46df-9c94-5cae72411f4f.png HTTP/1.1" 200 -
+2025-09-12 16:41:45,818 INFO 127.0.0.1 - - [12/Sep/2025 16:41:45] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 16:41:47,019 INFO 127.0.0.1 - - [12/Sep/2025 16:41:47] "GET /student/fees/ HTTP/1.1" 200 -
+2025-09-12 16:41:52,469 INFO 127.0.0.1 - - [12/Sep/2025 16:41:52] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 16:41:52,556 INFO 127.0.0.1 - - [12/Sep/2025 16:41:52] "GET /login HTTP/1.1" 200 -
+2025-09-12 16:41:57,810 INFO 127.0.0.1 - - [12/Sep/2025 16:41:57] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 16:41:57,945 INFO 127.0.0.1 - - [12/Sep/2025 16:41:57] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 16:42:00,207 INFO 127.0.0.1 - - [12/Sep/2025 16:42:00] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:47:29,024 INFO 127.0.0.1 - - [12/Sep/2025 16:47:29] "GET /my-program HTTP/1.1" 200 -
+2025-09-12 16:47:30,955 INFO 127.0.0.1 - - [12/Sep/2025 16:47:30] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 16:51:57,680 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/models.py', reloading
+2025-09-12 16:51:57,824 INFO  * Restarting with stat
+2025-09-12 16:51:59,209 WARNING  * Debugger is active!
+2025-09-12 16:51:59,209 INFO  * Debugger PIN: 644-898-804
+2025-09-12 16:52:16,340 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/admin_fee.py', reloading
+2025-09-12 16:52:16,727 INFO  * Restarting with stat
+2025-09-12 16:57:29,610 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 16:57:29,610 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 16:57:29,611 INFO  * Restarting with stat
+2025-09-12 16:57:30,096 WARNING  * Debugger is active!
+2025-09-12 16:57:30,097 INFO  * Debugger PIN: 644-898-804
+2025-09-12 16:57:35,392 INFO 127.0.0.1 - - [12/Sep/2025 16:57:35] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 16:57:37,280 INFO 127.0.0.1 - - [12/Sep/2025 16:57:37] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 16:57:49,509 INFO 127.0.0.1 - - [12/Sep/2025 16:57:49] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 17:00:58,744 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 17:00:58,744 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 17:00:58,745 INFO  * Restarting with stat
+2025-09-12 17:00:59,220 WARNING  * Debugger is active!
+2025-09-12 17:00:59,220 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:01:05,145 INFO 127.0.0.1 - - [12/Sep/2025 17:01:05] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:06:16,753 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2025-09-12 17:06:16,753 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 17:06:16,754 INFO  * Restarting with stat
+2025-09-12 17:06:17,249 WARNING  * Debugger is active!
+2025-09-12 17:06:17,250 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:06:20,988 INFO 127.0.0.1 - - [12/Sep/2025 17:06:20] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:06:25,571 INFO 127.0.0.1 - - [12/Sep/2025 17:06:25] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 17:06:27,514 INFO 127.0.0.1 - - [12/Sep/2025 17:06:27] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:11:19,685 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/fetch_dropdowns.py', reloading
+2025-09-12 17:11:19,806 INFO  * Restarting with stat
+2025-09-12 17:11:20,041 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/fetch_dropdowns.py', reloading
+2025-09-12 17:11:20,238 INFO  * Restarting with stat
+2025-09-12 17:11:20,898 WARNING  * Debugger is active!
+2025-09-12 17:11:20,899 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:11:21,298 WARNING  * Debugger is active!
+2025-09-12 17:11:21,299 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:14:31,908 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/extensions.py', reloading
+2025-09-12 17:14:32,187 INFO  * Restarting with stat
+2025-09-12 17:14:33,108 WARNING  * Debugger is active!
+2025-09-12 17:14:33,108 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:15:25,478 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/init_db.py', reloading
+2025-09-12 17:15:25,577 INFO  * Restarting with stat
+2025-09-12 17:15:26,684 WARNING  * Debugger is active!
+2025-09-12 17:15:26,685 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:17:42,573 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 17:17:42,573 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 17:17:42,574 INFO  * Restarting with stat
+2025-09-12 17:17:43,073 WARNING  * Debugger is active!
+2025-09-12 17:17:43,076 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:17:46,310 INFO 127.0.0.1 - - [12/Sep/2025 17:17:46] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:17:52,673 INFO 127.0.0.1 - - [12/Sep/2025 17:17:52] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 17:17:54,917 INFO 127.0.0.1 - - [12/Sep/2025 17:17:54] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 17:17:55,085 INFO 127.0.0.1 - - [12/Sep/2025 17:17:55] "GET /login HTTP/1.1" 200 -
+2025-09-12 17:18:01,924 INFO 127.0.0.1 - - [12/Sep/2025 17:18:01] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 17:18:02,153 INFO 127.0.0.1 - - [12/Sep/2025 17:18:02] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 17:18:03,660 INFO 127.0.0.1 - - [12/Sep/2025 17:18:03] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:18:52,409 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/fetch_dropdowns.py', reloading
+2025-09-12 17:18:52,487 INFO  * Restarting with stat
+2025-09-12 17:18:53,266 WARNING  * Debugger is active!
+2025-09-12 17:18:53,266 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:19:28,970 INFO 127.0.0.1 - - [12/Sep/2025 17:19:28] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:19:37,246 INFO 127.0.0.1 - - [12/Sep/2025 17:19:37] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:21:03,078 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/dropdowns.py', reloading
+2025-09-12 17:21:03,591 INFO  * Restarting with stat
+2025-09-12 17:21:05,514 WARNING  * Debugger is active!
+2025-09-12 17:21:05,514 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:21:27,688 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-12 17:21:27,834 INFO  * Restarting with stat
+2025-09-12 17:21:29,380 WARNING  * Debugger is active!
+2025-09-12 17:21:29,381 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:21:32,472 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-12 17:21:32,828 INFO  * Restarting with stat
+2025-09-12 17:21:33,562 WARNING  * Debugger is active!
+2025-09-12 17:21:33,565 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:21:35,601 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-12 17:21:35,704 INFO  * Restarting with stat
+2025-09-12 17:21:37,174 WARNING  * Debugger is active!
+2025-09-12 17:21:37,174 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:21:40,257 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-12 17:21:40,423 INFO  * Restarting with stat
+2025-09-12 17:21:41,353 WARNING  * Debugger is active!
+2025-09-12 17:21:41,353 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:21:48,428 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-12 17:21:48,706 INFO  * Restarting with stat
+2025-09-12 17:21:50,101 WARNING  * Debugger is active!
+2025-09-12 17:21:50,102 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:21:54,193 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-12 17:21:54,333 INFO  * Restarting with stat
+2025-09-12 17:21:55,064 WARNING  * Debugger is active!
+2025-09-12 17:21:55,065 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:22:05,154 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/app.py', reloading
+2025-09-12 17:22:05,269 INFO  * Restarting with stat
+2025-09-12 17:22:06,286 WARNING  * Debugger is active!
+2025-09-12 17:22:06,289 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:22:21,514 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-12 17:22:21,514 INFO [33mPress CTRL+C to quit[0m
+2025-09-12 17:22:21,515 INFO  * Restarting with stat
+2025-09-12 17:22:22,338 WARNING  * Debugger is active!
+2025-09-12 17:22:22,339 INFO  * Debugger PIN: 644-898-804
+2025-09-12 17:22:24,954 INFO 127.0.0.1 - - [12/Sep/2025 17:22:24] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:22:28,200 INFO 127.0.0.1 - - [12/Sep/2025 17:22:28] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:23:01,715 INFO 127.0.0.1 - - [12/Sep/2025 17:23:01] "[32mGET / HTTP/1.1[0m" 302 -
+2025-09-12 17:23:02,558 INFO 127.0.0.1 - - [12/Sep/2025 17:23:02] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 17:23:05,730 INFO 127.0.0.1 - - [12/Sep/2025 17:23:05] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:23:14,786 INFO 127.0.0.1 - - [12/Sep/2025 17:23:14] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 17:23:14,867 INFO 127.0.0.1 - - [12/Sep/2025 17:23:14] "GET /login HTTP/1.1" 200 -
+2025-09-12 17:23:24,195 INFO 127.0.0.1 - - [12/Sep/2025 17:23:24] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 17:23:24,453 INFO 127.0.0.1 - - [12/Sep/2025 17:23:24] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 17:23:25,741 INFO 127.0.0.1 - - [12/Sep/2025 17:23:25] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 17:23:25,839 INFO 127.0.0.1 - - [12/Sep/2025 17:23:25] "[36mGET /static/uploads/user2_705adf3ae5124adbae83f039b7f6432b_ec3e27c6-1f4b-46df-9c94-5cae72411f4f.png HTTP/1.1[0m" 304 -
+2025-09-12 17:24:20,475 INFO 127.0.0.1 - - [12/Sep/2025 17:24:20] "GET /student-profile HTTP/1.1" 200 -
+2025-09-12 17:24:20,716 INFO 127.0.0.1 - - [12/Sep/2025 17:24:20] "[36mGET /static/uploads/user2_705adf3ae5124adbae83f039b7f6432b_ec3e27c6-1f4b-46df-9c94-5cae72411f4f.png HTTP/1.1[0m" 304 -
+2025-09-12 17:24:22,715 INFO 127.0.0.1 - - [12/Sep/2025 17:24:22] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-09-12 17:24:22,869 INFO 127.0.0.1 - - [12/Sep/2025 17:24:22] "GET /login HTTP/1.1" 200 -
+2025-09-12 17:24:29,540 INFO 127.0.0.1 - - [12/Sep/2025 17:24:29] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-09-12 17:24:29,622 INFO 127.0.0.1 - - [12/Sep/2025 17:24:29] "GET /dashboard HTTP/1.1" 200 -
+2025-09-12 17:24:31,171 INFO 127.0.0.1 - - [12/Sep/2025 17:24:31] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:24:31,269 INFO 127.0.0.1 - - [12/Sep/2025 17:24:31] "GET /api/dropdowns HTTP/1.1" 200 -
+2025-09-12 17:26:38,593 INFO 127.0.0.1 - - [12/Sep/2025 17:26:38] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:30:36,641 INFO 127.0.0.1 - - [12/Sep/2025 17:30:36] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 17:30:36,844 INFO 127.0.0.1 - - [12/Sep/2025 17:30:36] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 17:30:36,883 INFO 127.0.0.1 - - [12/Sep/2025 17:30:36] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 17:30:37,067 INFO 127.0.0.1 - - [12/Sep/2025 17:30:37] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 17:30:37,218 INFO 127.0.0.1 - - [12/Sep/2025 17:30:37] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 17:31:22,261 INFO 127.0.0.1 - - [12/Sep/2025 17:31:22] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:32:01,126 INFO 127.0.0.1 - - [12/Sep/2025 17:32:01] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 17:32:01,221 INFO 127.0.0.1 - - [12/Sep/2025 17:32:01] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 17:32:01,309 INFO 127.0.0.1 - - [12/Sep/2025 17:32:01] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 17:32:01,514 INFO 127.0.0.1 - - [12/Sep/2025 17:32:01] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 17:32:01,622 INFO 127.0.0.1 - - [12/Sep/2025 17:32:01] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 17:32:11,642 INFO 127.0.0.1 - - [12/Sep/2025 17:32:11] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:33:29,494 INFO 127.0.0.1 - - [12/Sep/2025 17:33:29] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:35:15,386 INFO 127.0.0.1 - - [12/Sep/2025 17:35:15] "GET /student/fees/admin HTTP/1.1" 200 -
+2025-09-12 17:35:21,899 INFO 127.0.0.1 - - [12/Sep/2025 17:35:21] "[35m[1mGET /student/fees/admin HTTP/1.1[0m" 500 -
+2025-09-12 17:35:22,045 INFO 127.0.0.1 - - [12/Sep/2025 17:35:22] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-12 17:35:22,129 INFO 127.0.0.1 - - [12/Sep/2025 17:35:22] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-12 17:35:22,322 INFO 127.0.0.1 - - [12/Sep/2025 17:35:22] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 17:35:22,431 INFO 127.0.0.1 - - [12/Sep/2025 17:35:22] "[36mGET /student/fees/admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-12 17:36:34,549 INFO  * Detected change in '/workspaces/SIH_INDIA_2025-26/admin_fee.py', reloading
+2025-09-12 17:36:34,702 INFO  * Restarting with stat

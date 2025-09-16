@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Attendance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      color: #333;
+    }
+    body.dark { background: #121212; color: #eee; }
+
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    body.dark .container { background: #1e1e1e; }
+
+    h2 { text-align: center; margin-bottom: 20px; }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+      align-items: center;
+      justify-content: center;
+    }
+    .filters label {
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+    }
+    .filters input,
+    .filters select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    .filters button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #2575fc;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .filters button:hover { background: #1255c9; }
+
+    /* Summary Cards */
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .card {
+      background: #f4f6f9;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+    body.dark .card { background: #2a2a2a; }
+    .card span {
+      display: block;
+      font-size: 22px;
+      margin-top: 5px;
+      font-weight: 700;
+    }
+
+    /* History Table */
+    .history {
+      margin-top: 30px;
+      overflow-x: auto;
+    }
+    .history table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+    .history th, .history td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+      font-size: 14px;
+    }
+    .history th {
+      background: #2575fc;
+      color: white;
+      position: sticky;
+      top: 0;
+    }
+    body.dark .history th { background: #444; }
+    .status.Present { color: #155724; font-weight: 600; }
+    .status.Absent { color: #d32f2f; font-weight: 600; }
+
+    /* Buttons row */
+    .export-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .export-buttons button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-csv { background: #28a745; color: white; }
+    .btn-pdf { background: #dc3545; color: white; }
+
+    @media(max-width: 768px) {
+      .filters { flex-direction: column; align-items: stretch; }
+      .filters label { width: 100%; }
+      .export-buttons { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 Student Attendance</h2>
+
+    <!-- Filters -->
+    <div class="filters">
+      <form method="get" id="filterForm" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+        <label>
+          Course:
+          <select name="course_id">
+            <option value="">All Courses</option>
+            {% for c in enrolled_courses %}
+              <option value="{{ c.id }}" {% if course_id == c.id %}selected{% endif %}>
+                {{ c.course_name }} ({{ c.course_code }})
+              </option>
+            {% endfor %}
+          </select>
+        </label>
+
+        <label>Start Date:
+          <input type="date" name="start_date" value="{{ start_date }}">
+        </label>
+        <label>End Date:
+          <input type="date" name="end_date" value="{{ end_date }}">
+        </label>
+
+        <button type="submit">Filter</button>
+      </form>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary">
+      <div class="card">Total Classes<span>{{ total_classes }}</span></div>
+      <div class="card">Present<span>{{ present_count }}</span></div>
+      <div class="card">Absent<span>{{ absent_count }}</span></div>
+      <div class="card">Percentage<span>{{ percentage }}%</span></div>
+    </div>
+
+    <!-- Export Buttons -->
+    <div class="export-buttons">
+      <button class="btn-csv" onclick="downloadCSV()">⬇️ CSV</button>
+      <button class="btn-pdf" onclick="downloadPDF()">⬇️ PDF</button>
+    </div>
+
+    <!-- Attendance History -->
+    <div class="history">
+      <table id="attendanceTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Course</th>
+            <th>Status</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if attendance_records %}
+            {% for a in attendance_records %}
+              <tr title="{{ a.remarks if a.remarks else '' }}">
+                <td>{{ a.date.strftime("%Y-%m-%d") }}</td>
+                <td>{{ a.course.course_name }} ({{ a.course.course_code }})</td>
+                <td><span class="status {{ a.status }}">{{ a.status }}</span></td>
+                <td>{{ a.remarks if a.remarks else '-' }}</td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr><td colspan="4">No attendance records found.</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Scripts for CSV/PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    function downloadCSV() {
+      let csv = "Date,Course,Status,Remarks\\n";
+      const rows = document.querySelectorAll("#attendanceTable tbody tr");
+      rows.forEach(row => {
+        const cols = row.querySelectorAll("td");
+        if (cols.length > 1) {
+          csv += Array.from(cols).map(c => `"${c.textContent.trim()}"`).join(",") + "\\n";
+        }
+      });
+      const blob = new Blob([csv], { type: "text/csv" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "attendance.csv";
+      link.click();
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text("Student Attendance", 10, 10);
+      let y = 20;
+      const rows = document.querySelectorAll("#attendanceTable tbody tr");
+      rows.forEach(row => {
+        const cols = row.querySelectorAll("td");
+        if (cols.length > 1) {
+          doc.text(`${cols[0].textContent} | ${cols[1].textContent} | ${cols[2].textContent} | ${cols[3].textContent}`, 10, y);
+          y += 10;
+        }
+      });
+      doc.save("attendance.pdf");
+    }
+  </script>
+</body>
+</html>

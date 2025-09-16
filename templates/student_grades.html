@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>🎓 My Grades</h2>
+
+    <!-- Semester Filter -->
+    <form method="GET" class="mb-3">
+        <label>Filter by Semester:</label>
+        <select name="semester" onchange="this.form.submit()" class="form-control w-25">
+            <option value="">-- All Semesters --</option>
+            {% for sem in semesters %}
+                <option value="{{ sem }}" {% if selected_semester==sem %}selected{% endif %}>{{ sem }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    {% if results %}
+    <table class="table table-bordered mt-3">
+        <thead class="thead-dark">
+            <tr>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Semester</th>
+                <th>Marks</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in results %}
+            <tr>
+                <td>{{ r.course_code }}</td>
+                <td>{{ r.course_name }}</td>
+                <td>{{ r.semester }}</td>
+                <td>{{ r.marks }}</td>
+                <td>{{ r.grade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No results available.</p>
+    {% endif %}
+</div>
+{% endblock %}

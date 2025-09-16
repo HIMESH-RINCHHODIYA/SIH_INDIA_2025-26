@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>✅ Approve Pending Results</h2>
+
+    {% if results %}
+    <form method="POST">
+        <table class="table table-bordered mt-3">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Student</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Semester</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                    <th>Approve</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in results %}
+                <tr>
+                    <td>{{ r.student.name }} ({{ r.student.roll_no }})</td>
+                    <td>{{ r.course_code }}</td>
+                    <td>{{ r.course_name }}</td>
+                    <td>{{ r.semester }}</td>
+                    <td>{{ r.marks }}</td>
+                    <td>{{ r.grade }}</td>
+                    <td>
+                        <input type="checkbox" name="approve" value="{{ r.id }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Approve Selected</button>
+    </form>
+    {% else %}
+        <p>No pending results to approve.</p>
+    {% endif %}
+</div>
+{% endblock %}

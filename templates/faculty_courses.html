@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+  <!-- College Header with Logo and Name -->
+  <div class="d-flex align-items-center mb-4">
+    <img src="{{ url_for('static', filename='images/college_logo.png') }}" alt="College Logo" style="height: 60px; margin-right: 15px;">
+    <h1 class="h3 mb-0">Awesome College of Engineering</h1>
+  </div>
+
+  <h2 class="text-center mb-4">📘 Courses (Faculty View)</h2>
+
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Assign Faculty to a Course -->
+  <div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">Assign Yourself to a Course</div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('course_bp.faculty_courses') }}">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label" for="course_id">Select Course</label>
+            <select class="form-select" name="course_id" id="course_id" required>
+              <option value="" disabled selected>-- Choose a Course --</option>
+              {% for c in courses %}
+                <option value="{{ c.id }}">{{ c.course_name }} ({{ c.course_code }})</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label" for="course_type">Type</label>
+            <select class="form-select" name="course_type" id="course_type" required>
+              <option value="Theory">📘 Theory</option>
+              <option value="Lab">🧪 Lab</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <label class="form-label" for="program">Program</label>
+            <select class="form-select" name="program" id="program" required>
+              <option value="" disabled selected>-- Select Program --</option>
+              <option value="B.Tech">B.Tech</option>
+              <option value="M.Tech">M.Tech</option>
+              <option value="MBA">MBA</option>
+              <option value="PhD">PhD</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label" for="branch">Branch</label>
+            <select class="form-select" name="branch" id="branch" required>
+              <option value="" disabled selected>-- Select Branch --</option>
+              <option value="CSE">Computer Science (CSE)</option>
+              <option value="CSBS">CSBS</option>
+              <option value="IT">Information Technology (IT)</option>
+              <option value="ECE">Electronics & Communication (ECE)</option>
+              <option value="EEE">Electrical (EEE)</option>
+              <option value="ME">Mechanical (ME)</option>
+              <option value="CE">Civil (CE)</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label" for="year">Year</label>
+            <select class="form-select" name="year" id="year" required>
+              <option value="" disabled selected>-- Select Year --</option>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label" for="semester">Semester</label>
+            <select class="form-select" name="semester" id="semester" required>
+              <option value="" disabled selected>-- Select Semester --</option>
+              {% for sem in range(1,9) %}
+                <option value="{{ sem }}">Semester {{ sem }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">✅ Assign</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Search, Download & Print -->
+  <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+    <input type="text" id="searchInput" class="form-control w-50" placeholder="🔍 Search by course name or code...">
+    <div class="btn-group" role="group" aria-label="Download and Print buttons">
+      <button class="btn btn-success" onclick="downloadCSV()">⬇️ CSV</button>
+      <button class="btn btn-danger" onclick="downloadPDF()">⬇️ PDF</button>
+      <button class="btn btn-primary" onclick="printTable()">🖨️ Print</button>
+    </div>
+  </div>
+
+  <!-- Assigned Courses Table -->
+  <div class="card shadow">
+    <div class="card-header bg-dark text-white">My Assigned Courses</div>
+    <div class="table-responsive">
+      <table class="table table-striped mb-0" id="courseTable">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Course Name</th>
+            <th>Course Code</th>
+            <th>Type</th>
+            <th>Program</th>
+            <th>Branch</th>
+            <th>Year</th>
+            <th>Semester</th>
+          </tr>
+        </thead>
+        <tbody id="courseTableBody">
+          {% for a in assigned %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ a.course.course_name }}</td>
+            <td>{{ a.course.course_code }}</td>
+            <td>{{ a.course_type }}</td>
+            <td>{{ a.program }}</td>
+            <td>{{ a.branch }}</td>
+            <td>{{ a.year }}</td>
+            <td>{{ a.semester }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="8" class="text-center text-muted">No courses assigned yet.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- JS dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const rows = document.querySelectorAll("#courseTableBody tr");
+
+  // Search filter
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    rows.forEach(row => {
+      const name = row.cells[1]?.textContent.toLowerCase();
+      const code = row.cells[2]?.textContent.toLowerCase();
+      row.style.display = (name?.includes(query) || code?.includes(query)) ? "" : "none";
+    });
+  });
+
+  // CSV Download
+  function downloadCSV() {
+    let csv = "Course Name,Course Code,Type,Program,Branch,Year,Semester\n";
+    rows.forEach(row => {
+      if (row.style.display !== "none" && row.cells.length > 1) {
+        csv += [
+          row.cells[1].textContent,
+          row.cells[2].textContent,
+          row.cells[3].textContent,
+          row.cells[4].textContent,
+          row.cells[5].textContent,
+          row.cells[6].textContent,
+          row.cells[7].textContent,
+        ].join(",") + "\n";
+      }
+    });
+    const blob = new Blob([csv], { type: "text/csv" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "faculty_assigned_courses.csv";
+    link.click();
+  }
+
+  // PDF Download with College Logo & Name
+  function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let y = 15;
+
+    // Add college logo
+    const img = new Image();
+    img.src = "{{ url_for('static', filename='images/college_logo.png') }}";
+    img.onload = function() {
+      const imgWidth = 30;
+      const imgHeight = (img.height / img.width) * imgWidth;
+      doc.addImage(img, 'PNG', 10, 5, imgWidth, imgHeight);
+
+      // Add college name centered
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text("Awesome College of Engineering", pageWidth / 2, 15 + imgHeight/2, { align: "center" });
+
+      // Title
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "normal");
+      doc.text("Faculty Assigned Courses", pageWidth / 2, 30 + imgHeight/2, { align: "center" });
+
+      y = 40 + imgHeight / 2;
+
+      // Table content
+      rows.forEach((row, i) => {
+        if (row.style.display !== "none" && row.cells.length > 1) {
+          const line = `${i + 1}. ${row.cells[1].textContent} (${row.cells[2].textContent}) - ${row.cells[3].textContent}, ${row.cells[4].textContent}, ${row.cells[5].textContent}, Year ${row.cells[6].textContent}, Sem ${row.cells[7].textContent}`;
+          if (y > 280) { // add page if needed
+            doc.addPage();
+            y = 20;
+          }
+          doc.text(line, 10, y);
+          y += 10;
+        }
+      });
+
+      doc.save("faculty_assigned_courses.pdf");
+    };
+
+    // If image fails to load, just generate PDF without logo
+    img.onerror = function() {
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text("Awesome College of Engineering", pageWidth / 2, y, { align: "center" });
+
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "normal");
+      doc.text("Faculty Assigned Courses", pageWidth / 2, y + 10, { align: "center" });
+
+      y += 20;
+
+      rows.forEach((row, i) => {
+        if (row.style.display !== "none" && row.cells.length > 1) {
+          const line = `${i + 1}. ${row.cells[1].textContent} (${row.cells[2].textContent}) - ${row.cells[3].textContent}, ${row.cells[4].textContent}, ${row.cells[5].textContent}, Year ${row.cells[6].textContent}, Sem ${row.cells[7].textContent}`;
+          if (y > 280) { // add page if needed
+            doc.addPage();
+            y = 20;
+          }
+          doc.text(line, 10, y);
+          y += 10;
+        }
+      });
+
+      doc.save("faculty_assigned_courses.pdf");
+    };
+  }
+
+  // Print Table function
+  function printTable() {
+    const printWindow = window.open('', '', 'height=700,width=900');
+    printWindow.document.write('<html><head><title>Print Faculty Assigned Courses</title>');
+    printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">');
+    printWindow.document.write('<style>body{margin:20px;} h1, h2{text-align:center;}</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write('<div style="text-align:center;">');
+    printWindow.document.write('<img src="{{ url_for(\'static\', filename=\'images/college_logo.png\') }}" alt="College Logo" style="height:60px; margin-bottom:10px;">');
+    printWindow.document.write('<h1>Awesome College of Engineering</h1>');
+    printWindow.document.write('<h2>Faculty Assigned Courses</h2>');
+    printWindow.document.write('</div>');
+    printWindow.document.write(document.getElementById('courseTable').outerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => printWindow.print(), 500);
+  }
+</script>
+{% endblock %}

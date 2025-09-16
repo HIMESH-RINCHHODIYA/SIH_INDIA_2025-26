@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>✅ Take Attendance</h2>
+
+    <!-- Step 1: Select Branch & Date -->
+    <form method="POST" action="{{ url_for('faculty_stud_bp.faculty_attendance') }}" class="mb-4">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Branch:</label>
+                <select name="branch" class="form-control" required>
+                    <option value="">-- Select Branch --</option>
+                    {% for branch in branches %}
+                        <option value="{{ branch }}" {% if branch == selected_branch %}selected{% endif %}>{{ branch }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label>Date:</label>
+                <input type="date" name="date" value="{{ selected_date }}" class="form-control" required>
+            </div>
+
+            <div class="col-md-3 align-self-end">
+                <button type="submit" name="load_students" class="btn btn-primary">Load Students</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Step 2: Show Students if loaded -->
+    {% if students %}
+    <form method="POST" action="{{ url_for('faculty_stud_bp.save_attendance') }}">
+        <input type="hidden" name="branch" value="{{ selected_branch }}">
+        <input type="hidden" name="date" value="{{ selected_date }}">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Present</th>
+                    <th>Remark (if Absent)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.roll_no }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>
+                        <input type="checkbox" class="attendance-checkbox" name="attendance_{{ student.id }}" {% if student.attendance_today %}checked{% endif %}>
+                    </td>
+                    <td>
+                        <select name="remark_{{ student.id }}" class="form-control remark-select" {% if student.attendance_today %}disabled{% endif %}>
+                            <option value="">-- Select Remark --</option>
+                            <option value="Misbehaviour/Indiscipline">Misbehaviour/Indiscipline</option>
+                            <option value="Leave (Health)">Leave (Health)</option>
+                            <option value="Leave (Personal)">Leave (Personal)</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-success">Save Attendance</button>
+    </form>
+    {% endif %}
+</div>
+
+<script>
+    // Enable/disable remark dropdown based on checkbox state
+    document.querySelectorAll(".attendance-checkbox").forEach(function(checkbox){
+        checkbox.addEventListener("change", function(){
+            const row = this.closest("tr");
+            const remarkSelect = row.querySelector(".remark-select");
+            if(this.checked){
+                remarkSelect.disabled = true;
+                remarkSelect.value = "";
+            } else {
+                remarkSelect.disabled = false;
+            }
+        });
+    });
+</script>
+{% endblock %}

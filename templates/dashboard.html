@@ -6,14 +6,8 @@
     margin-bottom: 30px;
     animation: fadeIn 1s ease-in-out;
   }
-  .dashboard-header h2 {
-    font-weight: bold;
-    color: #333;
-  }
-  .dashboard-header p {
-    font-size: 1.1rem;
-    color: #555;
-  }
+  .dashboard-header h2 { font-weight: bold; color: #333; }
+  .dashboard-header p { font-size: 1.1rem; color: #555; }
 
   .dashboard-card {
     border-radius: 15px;
@@ -29,10 +23,7 @@
     justify-content: center;
     align-items: center;
   }
-  .dashboard-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
-  }
+  .dashboard-card:hover { transform: translateY(-8px); box-shadow: 0px 10px 25px rgba(0,0,0,0.3); }
 
   /* Gradient Themes */
   .student { background: linear-gradient(135deg, #43cea2, #185a9d); }
@@ -42,23 +33,15 @@
 
   .badge-count {
     background-color: rgba(255, 255, 255, 0.3);
-    
     border-radius: 20px;
     padding: 2px 10px;
     font-size: 0.8rem;
     margin-left: 5px;
   }
 
-  .coming-soon {
-    font-size: 0.7rem;
-    opacity: 0.8;
-    margin-top: 5px;
-  }
+  .coming-soon { font-size: 0.7rem; opacity: 0.8; margin-top: 5px; }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 
 <div class="dashboard-header">
@@ -68,133 +51,135 @@
 
 <div class="row g-4">
   {% if role == "Student" %}
-    <!-- Original Student Features -->
+    <!-- Student Dashboard -->
     <div class="col-md-4">
-      <a href="{{ url_for('student_profile') }}" class="text-decoration-none">
+      <a href="{{ url_for('profile_bp.student_profile', student_id=current_user.id) }}" class="text-decoration-none">
         <div class="dashboard-card student">📋 Profile</div>
-      </a>
+     </a>
     </div>
     <div class="col-md-4">
-      <a href="{{ url_for('student_attendance') }}" class="text-decoration-none">
+      <a href="{{ url_for('student_pages', path='attendance') }}" class="text-decoration-none">
         <div class="dashboard-card student">🗓 Attendance</div>
       </a>
     </div>
     <div class="col-md-4">
-      <a href="{{ url_for('student_grades') }}" class="text-decoration-none">
+      <a href="{{ url_for('grades_bp.student_grades') }}" class="text-decoration-none">
         <div class="dashboard-card student">📊 Grades</div>
       </a>
     </div>
     <div class="col-md-4">
-      <a href="{{ url_for('student_fees') }}" class="text-decoration-none">
+      <a href="{{ url_for('student_fee.student_fees') }}" class="text-decoration-none">
         <div class="dashboard-card student">💰 Fees</div>
       </a>
     </div>
 
-    <!-- New Features from the Image - Using actual Flask routes -->
+    <!-- Courses for Student -->
     <div class="col-md-4">
-      <a href="{{ url_for('jobs') }}" class="text-decoration-none">
-        <div class="dashboard-card student">💼 Jobs<div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('webinars') }}" class="text-decoration-none">
-        <div class="dashboard-card student">🎥 Webinars<div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('forums') }}" class="text-decoration-none">
-        <div class="dashboard-card student">💬 Forums<div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('people') }}" class="text-decoration-none">
-        <div class="dashboard-card student">👥 People <span class="badge-count">17K</span><div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('assessments') }}" class="text-decoration-none">
-        <div class="dashboard-card student">📝 Assessments<div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('practice_tests') }}" class="text-decoration-none">
-        <div class="dashboard-card student">🧪 Practice Tests<div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('assignments') }}" class="text-decoration-none">
-        <div class="dashboard-card student">📚 Assignments<div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('resumes') }}" class="text-decoration-none">
-        <div class="dashboard-card student">📄 Resumes<div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('academics') }}" class="text-decoration-none">
-        <div class="dashboard-card student">🎓 Academics<div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('cohorts') }}" class="text-decoration-none">
-        <div class="dashboard-card student">👨‍👩‍👧‍👦 Cohorts<div class="coming-soon">Coming Soon</div></div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('my_program') }}" class="text-decoration-none">
-        <div class="dashboard-card student">📁 My Program<div class="coming-soon">Coming Soon</div></div>
+      <a href="{{ url_for('course_bp.student_courses') }}" class="text-decoration-none">
+        <div class="dashboard-card student">📘 Courses</div>
       </a>
     </div>
 
+    {% for feature, icon in [
+        ('jobs','💼'), ('webinars','🎥'), ('forums','💬'),
+        ('people','👥'), ('assessments','📝'), ('practice_tests','🧪'),
+        ('assignments','📚'), ('resumes','📄'), ('academics','🎓'),
+        ('cohorts','👨‍👩‍👧‍👦'), ('my_program','📁')] %}
+      <div class="col-md-4">
+        <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
+          <div class="dashboard-card student">{{ icon }} {{ feature|replace('_',' ')|capitalize }}
+            {% if feature == 'people' %}<span class="badge-count">17K</span>{% endif %}
+            <div class="coming-soon">Coming Soon</div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+
   {% elif role == "Faculty" %}
+    <!-- Faculty Dashboard -->
     <div class="col-md-4">
-      <a href="{{ url_for('faculty_courses') }}" class="text-decoration-none">
+      <a href="{{ url_for('course_bp.faculty_courses') }}" class="text-decoration-none">
         <div class="dashboard-card faculty">📘 Courses</div>
       </a>
     </div>
     <div class="col-md-4">
-      <a href="{{ url_for('faculty_assignments') }}" class="text-decoration-none">
+      <a href="{{ url_for('faculty_pages', path='assignments') }}" class="text-decoration-none">
         <div class="dashboard-card faculty">📝 Assignments</div>
       </a>
     </div>
     <div class="col-md-4">
-      <a href="{{ url_for('faculty_attendance') }}" class="text-decoration-none">
+      <a href="{{ url_for('faculty_stud_bp.faculty_attendance') }}" class="text-decoration-none">
         <div class="dashboard-card faculty">🗓 Mark Attendance</div>
       </a>
     </div>
-
-  {% elif role == "Admin" %}
     <div class="col-md-4">
-      <a href="{{ url_for('admin_admissions') }}" class="text-decoration-none">
-        <div class="dashboard-card admin">✅ Approve Admissions</div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('admin_reports') }}" class="text-decoration-none">
-        <div class="dashboard-card admin">📊 Reports</div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('admin_users') }}" class="text-decoration-none">
-        <div class="dashboard-card admin">👥 Manage Users</div>
+      <a href="{{ url_for('grades_bp.faculty_upload_grades') }}" class="text-decoration-none">
+        <div class="dashboard-card faculty">📊 Manage Grades</div>
       </a>
     </div>
 
-  {% elif role == "SuperAdmin" %}
+{% elif role == "Admin" %}
+  <!-- Admin Dashboard -->
+  <div class="col-md-4">
+    <a href="{{ url_for('course_bp.admin_courses') }}" class="text-decoration-none">
+      <div class="dashboard-card admin">📘 Manage Courses</div>
+    </a>
+  </div>
+
+  <div class="col-md-4">
+    <a href="{{ url_for('student_fee.admin_fee_dashboard') }}" class="text-decoration-none">
+      <div class="dashboard-card admin">💰 Manage Fees</div>
+    </a>
+  </div>
+
+  <div class="col-md-4">
+    <a href="{{ url_for('grades_bp.admin_approve_grades') }}" class="text-decoration-none">
+      <div class="dashboard-card admin">📊 Approve Grades</div>
+    </a>
+  </div>
+
+  <div class="col-md-4">
+    <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
+      <div class="dashboard-card admin">✅ Approve Admissions
+        <div class="coming-soon">Coming Soon</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-4">
+    <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
+      <div class="dashboard-card admin">👥 Manage Users
+        <div class="coming-soon">Coming Soon</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- ✅ New: Manage Students -->
+  <div class="col-md-4">
+    <a href="{{ url_for('profile_bp.admin_students') }}" class="text-decoration-none">
+      <div class="dashboard-card admin">📋 Manage Students</div>
+    </a>
+  </div>
+{% elif role == "SuperAdmin" %}
+
+    <!-- SuperAdmin Dashboard -->
     <div class="col-md-4">
-      <a href="{{ url_for('superadmin_manage') }}" class="text-decoration-none">
-        <div class="dashboard-card superadmin">🌍 Manage ERP</div>
+      <a href="{{ url_for('superadmin.colleges') }}" class="text-decoration-none">
+        <div class="dashboard-card superadmin">🌍 Manage Colleges</div>
       </a>
     </div>
     <div class="col-md-4">
-      <a href="{{ url_for('superadmin_roles') }}" class="text-decoration-none">
-        <div class="dashboard-card superadmin">🔑 Roles & Permissions</div>
+      <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
+        <div class="dashboard-card superadmin">🔑 Roles & Permissions
+          <div class="coming-soon">Coming Soon</div>
+        </div>
       </a>
     </div>
     <div class="col-md-4">
-      <a href="{{ url_for('superadmin_logs') }}" class="text-decoration-none">
-        <div class="dashboard-card superadmin">📂 System Logs</div>
+      <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
+        <div class="dashboard-card superadmin">📂 System Logs
+          <div class="coming-soon">Coming Soon</div>
+        </div>
       </a>
     </div>
 

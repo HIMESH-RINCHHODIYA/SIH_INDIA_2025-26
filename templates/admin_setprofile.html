@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% block title %}Edit Student Profile{% endblock %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<style>
+.card { box-shadow:0 4px 16px rgba(0,0,0,.08); border:0; }
+.card-header h5 { font-weight:600; }
+.section-title { font-size:1.05rem; font-weight:600; margin:2rem 0 .6rem; }
+label.required::after { content:" *"; color:#dc3545; }
+</style>
+
+<div class="card mx-auto" style="max-width:1200px">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">✏️ Edit Student (ID {{ student.id }})</h5>
+  </div>
+
+  <div class="card-body">
+    <form method="POST" enctype="multipart/form-data">
+
+      {# ───────── Personal Info ───────── #}
+      <div class="section-title">Personal Information</div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label required">Name (English)</label>
+          <input class="form-control" name="name" value="{{ student.name or '' }}" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Name (Hindi)</label>
+          <input class="form-control" name="name_hindi" value="{{ student.name_hindi or '' }}">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label required">DOB</label>
+          <input type="date" name="dob" class="form-control"
+                 value="{{ student.dob if student.dob else '' }}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Gender</label>
+          <select class="form-select select2" name="gender">
+            {% for g in ['Male','Female','Other'] %}
+              <option value="{{ g }}" {{ 'selected' if student.gender==g else '' }}>{{ g }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Blood Group</label>
+          <select class="form-select select2" name="blood_group">
+            {% for bg in ['A+','A-','B+','B-','AB+','AB-','O+','O-'] %}
+              <option value="{{ bg }}" {{ 'selected' if student.blood_group==bg else '' }}>{{ bg }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Nationality</label>
+          <input class="form-control" name="nationality" value="{{ student.nationality or '' }}">
+        </div>
+      </div>
+
+      {# ───────── Academic Info ───────── #}
+      <div class="section-title">Academic Information</div>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">Program</label>
+          <select class="form-select select2" name="program" id="program"></select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Branch</label>
+          <select class="form-select select2" name="branch" id="branch"></select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Year</label>
+          <select class="form-select select2" name="year" id="year"></select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Semester</label>
+          <select class="form-select select2" name="semester" id="semester"></select>
+        </div>
+        <div class="col-md-1">
+          <label class="form-label">Section</label>
+          <select class="form-select select2" name="section" id="section"></select>
+        </div>
+      </div>
+
+      {# ───────── Contact Info ───────── #}
+      <div class="section-title">Contact Information</div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label required">Email</label>
+          <input type="email" class="form-control" name="email" value="{{ student.email or '' }}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label required">Mobile</label>
+          <input class="form-control" name="mobile" value="{{ student.mobile or '' }}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Aadhaar No.</label>
+          <input class="form-control" name="aadhaar_no" value="{{ student.aadhaar_no or '' }}">
+        </div>
+      </div>
+
+      {# ───────── Parent Info ───────── #}
+      <div class="section-title">Father’s Information</div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Father Name (Eng)</label>
+          <input class="form-control" name="father_name" value="{{ student.father_name or '' }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Father Name (Hindi)</label>
+          <input class="form-control" name="father_name_hindi" value="{{ student.father_name_hindi or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Mobile</label>
+          <input class="form-control" name="father_mobile" value="{{ student.father_mobile or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Occupation</label>
+          <input class="form-control" name="father_occupation" value="{{ student.father_occupation or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Annual Income</label>
+          <input class="form-control" name="father_income" value="{{ student.father_income or '' }}">
+        </div>
+      </div>
+
+      <div class="section-title">Mother’s Information</div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Mother Name (Eng)</label>
+          <input class="form-control" name="mother_name" value="{{ student.mother_name or '' }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Mother Name (Hindi)</label>
+          <input class="form-control" name="mother_name_hindi" value="{{ student.mother_name_hindi or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Occupation</label>
+          <input class="form-control" name="mother_occupation" value="{{ student.mother_occupation or '' }}">
+        </div>
+      </div>
+
+      {# ───────── Bank Info ───────── #}
+      <div class="section-title">Bank Details</div>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Bank Name</label>
+          <input class="form-control" name="bank_name" value="{{ student.bank_name or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Branch</label>
+          <input class="form-control" name="bank_branch" value="{{ student.bank_branch or '' }}">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">A/C No.</label>
+          <input class="form-control" name="bank_account_no" value="{{ student.bank_account_no or '' }}">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">IFSC</label>
+          <input class="form-control" name="bank_ifsc" value="{{ student.bank_ifsc or '' }}">
+        </div>
+      </div>
+
+      {# ───────── Uploads ───────── #}
+      <div class="section-title">Photo & Signature</div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Photo</label>
+          <input type="file" class="form-control" name="photo" accept="image/jpeg,image/png">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Signature</label>
+          <input type="file" class="form-control" name="signature" accept="image/jpeg,image/png">
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <button class="btn btn-success">💾 Save</button>
+        <a href="{{ url_for('profile_bp.admin_students') }}" class="btn btn-secondary">← Back</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const PROGRAMS = ["B.Tech","B.E.","M.Tech","M.E.","B.Arch","M.Arch","BCA","MCA","B.Sc","M.Sc","BBA","MBA","B.Com","M.Com","Ph.D"];
+const BRANCHES = ["Computer Science & Engineering (Core)","Artificial Intelligence & Data Science","CSBS","Information Technology","Electronics & Communication Engineering","Electrical Engineering","Mechanical Engineering","Civil Engineering"];
+const YEARS    = [1,2,3,4];
+const SEMS     = [1,2,3,4,5,6,7,8];
+const SECTIONS = ["A","B","C","D"];
+
+function fillSelect(id, arr, current) {
+  const sel = document.getElementById(id);
+  arr.forEach(v=>{
+    const o=document.createElement('option');
+    o.value=o.textContent=v;
+    if(current && current.toString()===v.toString()) o.selected=true;
+    sel.appendChild(o);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  fillSelect("program", PROGRAMS, "{{ student.program }}");
+  fillSelect("branch", BRANCHES, "{{ student.branch }}");
+  fillSelect("year", YEARS, "{{ student.year }}");
+  fillSelect("semester", SEMS, "{{ student.semester }}");
+  fillSelect("section", SECTIONS, "{{ student.section }}");
+  $('.select2').select2({ theme:"bootstrap-5", width:"100%" });
+});
+</script>
+{% endblock %}

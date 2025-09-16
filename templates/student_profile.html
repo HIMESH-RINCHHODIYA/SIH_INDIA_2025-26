@@ -1,27 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
 <style>
+  body {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .profile-container {
-    max-width: 800px;
-    margin: auto;
+    max-width: 1100px;
+    width: 100%;
+    margin: 20px auto;
     background: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0px 8px 25px rgba(0,0,0,0.1);
-    animation: fadeIn 1s ease-in-out;
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.9s ease-in-out;
   }
 
   .profile-header {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
   }
   .profile-header h2 {
-    font-weight: bold;
+    font-weight: 700;
     color: #185a9d;
+  }
+  .profile-header p {
+    color: #666;
+    font-size: 0.95rem;
+  }
+
+  .section-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-left: 5px solid #43cea2;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #185a9d;
+    margin-bottom: 15px;
   }
 
   .form-label {
-    font-weight: bold;
+    font-weight: 600;
     color: #333;
   }
 
@@ -37,8 +65,24 @@
     transform: scale(1.05);
   }
 
+  .readonly {
+    background: #e9ecef !important;
+    cursor: not-allowed;
+  }
+
+  .file-preview img {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    margin-top: 10px;
+    transition: 0.3s;
+  }
+  .file-preview img:hover {
+    transform: scale(1.1);
+    border-color: #43cea2;
+  }
+
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 </style>
@@ -46,91 +90,205 @@
 <div class="profile-container">
   <div class="profile-header">
     <h2>📋 Student Profile</h2>
-    <p class="text-muted">Update your personal and academic details</p>
+    <p class="text-muted">Update your personal, academic & family details</p>
   </div>
 
   <form method="POST" enctype="multipart/form-data">
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label class="form-label">Full Name</label>
-        <input type="text" name="name" class="form-control" value="{{ user.name }}">
+    <!-- Student Info -->
+    <div class="section-card">
+      <h5 class="section-title">👤 Student Information</h5>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Student's Name *</label>
+          <input type="text" name="name" class="form-control" value="{{ student.name }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Student's Name (Hindi)</label>
+          <input type="text" name="name_hindi" class="form-control" value="{{ student.name_hindi }}">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="form-label">Date of Birth</label>
-        <input type="date" name="dob" class="form-control" value="{{ user.dob }}">
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Enrollment No.</label>
+          <input type="text" name="enrollment" class="form-control" value="{{ student.enrollment }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">ABCID</label>
+          <input type="text" name="abcid" class="form-control readonly" value="{{ student.abcid }}" readonly>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Roll No.</label>
+          <input type="text" name="roll_no" class="form-control" value="{{ student.roll_no }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Scholar No.</label>
+          <input type="text" name="scholar_no" class="form-control" value="{{ student.scholar_no }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Class *</label>
+          <input type="text" class="form-control readonly" value="{{ student.program }} - {{ student.branch }} {{ student.semester }} SEM" readonly>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Section *</label>
+          <input type="text" name="section" class="form-control" value="{{ student.section }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Date of Birth *</label>
+          <input type="date" name="dob" class="form-control" value="{{ student.dob }}">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Place of Birth</label>
+          <input type="text" name="pob" class="form-control" value="{{ student.pob }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Blood Group</label>
+          <input type="text" name="blood_group" class="form-control" value="{{ student.blood_group }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Mother Tongue</label>
+          <input type="text" name="mother_tongue" class="form-control" value="{{ student.mother_tongue }}">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Nationality *</label>
+          <input type="text" class="form-control readonly" value="{{ student.nationality }}" readonly>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Religion *</label>
+          <input type="text" class="form-control readonly" value="{{ student.religion }}" readonly>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Category *</label>
+          <input type="text" class="form-control readonly" value="{{ student.caste }}" readonly>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Samagra ID</label>
+          <input type="text" name="samagra_id" class="form-control" value="{{ student.samagra_id }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Gender *</label>
+          <select name="gender" class="form-select">
+            <option value="Male" {% if student.gender == "Male" %}selected{% endif %}>Male</option>
+            <option value="Female" {% if student.gender == "Female" %}selected{% endif %}>Female</option>
+            <option value="Other" {% if student.gender == "Other" %}selected{% endif %}>Other</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Marital Status *</label>
+          <select name="marital_status" class="form-select">
+            <option value="Single" {% if student.marital_status == "Single" %}selected{% endif %}>Single</option>
+            <option value="Married" {% if student.marital_status == "Married" %}selected{% endif %}>Married</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Aadhaar No.</label>
+          <input type="text" name="aadhaar" class="form-control" value="{{ student.aadhaar }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Student Mobile *</label>
+          <input type="text" name="mobile" class="form-control" value="{{ student.mobile }}">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <label class="form-label">Student Email *</label>
+          <input type="email" name="email" class="form-control" value="{{ student.email }}">
+        </div>
       </div>
     </div>
 
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label class="form-label">Contact</label>
-        <input type="text" name="contact" class="form-control" value="{{ user.contact }}">
+    <!-- Father Info -->
+    <div class="section-card">
+      <h5 class="section-title">👨 Father's Information</h5>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Father's Name *</label>
+          <input type="text" name="father_name" class="form-control" value="{{ student.father_name }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Father's Name (Hindi)</label>
+          <input type="text" name="father_name_hindi" class="form-control" value="{{ student.father_name_hindi }}">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="form-label">Program</label>
-        <input type="text" name="program" class="form-control" value="{{ user.program }}">
-      </div>
-    </div>
-
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label class="form-label">Year</label>
-        <input type="text" name="year" class="form-control" value="{{ user.year }}">
-      </div>
-      <div class="col-md-6">
-        <label class="form-label">Branch</label>
-        <input type="text" name="branch" class="form-control" value="{{ user.branch }}">
-      </div>
-    </div>
-
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label class="form-label">Roll No</label>
-        <input type="text" name="roll_no" class="form-control" value="{{ user.roll_no }}">
-      </div>
-      <div class="col-md-6">
-        <label class="form-label">Admission Date</label>
-        <input type="date" name="admission_date" class="form-control" value="{{ user.admission_date }}">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Occupation *</label>
+          <input type="text" name="father_occupation" class="form-control" value="{{ student.father_occupation }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Mobile No. *</label>
+          <input type="text" name="father_mobile" class="form-control" value="{{ student.father_mobile }}">
+        </div>
       </div>
     </div>
 
-    <hr>
-    <h5 class="mb-3">📂 Upload Documents</h5>
-
-    <div class="mb-3">
-      <label class="form-label">Profile Photo</label>
-      <input type="file" name="photo" class="form-control">
-      {% if user.photo %}
-        <img src="{{ url_for('static', filename=user.photo.split('static/')[-1]) }}" 
-             alt="Profile Photo" class="img-thumbnail mt-2" style="max-height: 120px;">
-      {% endif %}
+    <!-- Mother Info -->
+    <div class="section-card">
+      <h5 class="section-title">👩 Mother's Information</h5>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Mother's Name *</label>
+          <input type="text" name="mother_name" class="form-control" value="{{ student.mother_name }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Mother's Name (Hindi)</label>
+          <input type="text" name="mother_name_hindi" class="form-control" value="{{ student.mother_name_hindi }}">
+        </div>
+      </div>
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">ID Card</label>
-      <input type="file" name="id_card" class="form-control">
-      {% if user.id_card %}
-        <a href="{{ url_for('static', filename=user.id_card.split('static/')[-1]) }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">View Uploaded</a>
-      {% endif %}
+    <!-- Addresses -->
+    <div class="section-card">
+      <h5 class="section-title">🏠 Permanent Address</h5>
+      <div class="mb-3">
+        <label class="form-label">Address *</label>
+        <textarea name="permanent_address" class="form-control">{{ student.permanent_address }}</textarea>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">City *</label>
+          <input type="text" name="permanent_city" class="form-control" value="{{ student.permanent_city }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">State *</label>
+          <input type="text" name="permanent_state" class="form-control" value="{{ student.permanent_state }}">
+        </div>
+      </div>
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Certificate</label>
-      <input type="file" name="certificate" class="form-control">
-      {% if user.certificate %}
-        <a href="{{ url_for('static', filename=user.certificate.split('static/')[-1]) }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">View Uploaded</a>
-      {% endif %}
+    <!-- Documents -->
+    <div class="section-card">
+      <h5 class="section-title">📂 Documents Upload</h5>
+      <div class="mb-3">
+        <label class="form-label">Student Photo</label>
+        <input type="file" name="photo" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Student Signature *</label>
+        <input type="file" name="signature" class="form-control">
+      </div>
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Transcript</label>
-      <input type="file" name="transcript" class="form-control">
-      {% if user.transcript %}
-        <a href="{{ url_for('static', filename=user.transcript.split('static/')[-1]) }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">View Uploaded</a>
-      {% endif %}
-    </div>
-
-    <button type="submit" class="btn btn-theme w-100">💾 Save Profile</button>
+    <button type="submit" class="btn btn-theme w-100 py-2 mt-3">💾 Save Profile</button>
   </form>
 </div>
 {% endblock %}
