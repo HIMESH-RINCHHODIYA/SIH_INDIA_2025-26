@@ -2,293 +2,239 @@
 {% block content %}
 <style>
   body {
-    background: linear-gradient(135deg, #43cea2, #185a9d);
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 30px 15px;
   }
 
-  .profile-container {
-    max-width: 1100px;
+  .resume-container {
+    max-width: 1300px; /* Increased width for more content */
     width: 100%;
     margin: 20px auto;
-    background: #fff;
-    padding: 30px 40px;
+    background: #ffffff;
     border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
     animation: fadeIn 0.9s ease-in-out;
   }
+  
+  .resume-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 30px 40px;
+  }
 
-  .profile-header {
+  .resume-sidebar {
+    flex: 0 0 320px; /* Sidebar with a fixed width */
     text-align: center;
-    margin-bottom: 30px;
   }
-  .profile-header h2 {
+  
+  .sidebar-profile-card {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    position: sticky; /* Makes sidebar stick on scroll */
+    top: 30px;
+  }
+
+  .sidebar-profile-card h4 {
     font-weight: 700;
-    color: #185a9d;
+    color: #343a40;
+    margin-top: 15px;
+    margin-bottom: 5px;
   }
-  .profile-header p {
-    color: #666;
-    font-size: 0.95rem;
+
+  .sidebar-profile-card p {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+  }
+  
+  .resume-main {
+    flex: 1;
+    min-width: 300px;
   }
 
   .section-card {
-    background: #f8f9fa;
+    background: #fdfdfd;
+    border: 1px solid #e9ecef;
     border-radius: 12px;
-    padding: 20px;
+    padding: 25px;
     margin-bottom: 25px;
-    border-left: 5px solid #43cea2;
   }
 
   .section-title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #185a9d;
-    margin-bottom: 15px;
+    color: #0056b3;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+  }
+  
+  .passport-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
-  .form-label {
-    font-weight: 600;
-    color: #333;
+  .signature-image {
+    max-width: 180px;
+    height: 60px;
+    object-fit: contain;
+    background-color: #f1f3f5;
+    border: 1px solid #dee2e6;
+    padding: 5px;
+    border-radius: 4px;
+    margin-top: 5px;
   }
 
   .btn-theme {
-    background: linear-gradient(135deg, #43cea2, #185a9d);
+    background: linear-gradient(135deg, #0056b3, #007bff);
     color: white;
     font-weight: bold;
     border: none;
     transition: 0.3s ease;
+    padding: 12px;
+    font-size: 1.1rem;
   }
   .btn-theme:hover {
-    background: linear-gradient(135deg, #185a9d, #43cea2);
-    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
   }
 
-  .readonly {
-    background: #e9ecef !important;
-    cursor: not-allowed;
-  }
-
-  .file-preview img {
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    margin-top: 10px;
-    transition: 0.3s;
-  }
-  .file-preview img:hover {
-    transform: scale(1.1);
-    border-color: #43cea2;
-  }
+  .form-label { font-weight: 600; color: #495057; margin-bottom: .5rem; }
+  .readonly { background: #e9ecef !important; cursor: not-allowed; }
+  textarea.form-control { min-height: 100px; }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  @media (max-width: 992px) {
+    .resume-sidebar {
+      flex: 1 1 100%;
+      position: static; /* Disable sticky sidebar on smaller screens */
+      margin-bottom: 30px;
+    }
+  }
 </style>
 
-<div class="profile-container">
-  <div class="profile-header">
-    <h2>📋 Student Profile</h2>
-    <p class="text-muted">Update your personal, academic & family details</p>
-  </div>
-
+<div class="resume-container">
   <form method="POST" enctype="multipart/form-data">
-    <!-- Student Info -->
-    <div class="section-card">
-      <h5 class="section-title">👤 Student Information</h5>
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">Student's Name *</label>
-          <input type="text" name="name" class="form-control" value="{{ student.name }}">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Student's Name (Hindi)</label>
-          <input type="text" name="name_hindi" class="form-control" value="{{ student.name_hindi }}">
-        </div>
-      </div>
+    <div class="resume-layout">
 
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">Enrollment No.</label>
-          <input type="text" name="enrollment" class="form-control" value="{{ student.enrollment }}">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">ABCID</label>
-          <input type="text" name="abcid" class="form-control readonly" value="{{ student.abcid }}" readonly>
-        </div>
-      </div>
+      <aside class="resume-sidebar">
+        <div class="sidebar-profile-card">
+          {% if student.photo %}
+           <img src="{{ url_for('static', filename=student.photo.replace('static/', '')) }}" alt="Student Photo" class="passport-photo">
+       {% else %}
+         <div class="passport-photo d-flex align-items.center justify-content-center bg-light text-muted">
+        <span>Photo</span>
+         </div>
+       {% endif %}
+          
+          <h4>{{ student.name or 'Student Name' }}</h4>
+          <p>Student ID: {{ student.roll_no or 'N/A' }}</p>
+          <hr>
 
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label class="form-label">Roll No.</label>
-          <input type="text" name="roll_no" class="form-control" value="{{ student.roll_no }}">
+    <div class="mt-3 text-center">
+      <label class="form-label d-block">Signature</label>
+     {% if student.signature %}
+    <img src="{{ url_for('static', filename=student.signature.replace('static/', '')) }}" alt="Signature" class="signature-image">
+     {% else %}
+    <p class="text-muted small mt-2">⚠️ Not Uploaded</p>
+       {% endif %}
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Scholar No.</label>
-          <input type="text" name="scholar_no" class="form-control" value="{{ student.scholar_no }}">
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Class *</label>
-          <input type="text" class="form-control readonly" value="{{ student.program }} - {{ student.branch }} {{ student.semester }} SEM" readonly>
-        </div>
-      </div>
+          <hr>
 
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">Section *</label>
-          <input type="text" name="section" class="form-control" value="{{ student.section }}">
+          <div class="mt-3 text-start">
+            <h6 class="section-title" style="font-size: 1.1rem;">🔐 Account</h6>
+            <p><strong>Username:</strong> {{ student.username }}</p>
+            <p><strong>Last Login:</strong> {{ student.last_login }}</p>
+            <a href="#" class="btn btn-secondary btn-sm w-100">Change Password</a>
+          </div>
         </div>
-        <div class="col-md-6">
-          <label class="form-label">Date of Birth *</label>
-          <input type="date" name="dob" class="form-control" value="{{ student.dob }}">
-        </div>
-      </div>
+      </aside>
 
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label class="form-label">Place of Birth</label>
-          <input type="text" name="pob" class="form-control" value="{{ student.pob }}">
+      <main class="resume-main">
+        <div class="section-card">
+          <h5 class="section-title">👤 Personal Information</h5>
+          <div class="row">
+            <div class="col-md-6 mb-3"><label class="form-label">Full Name *</label><input type="text" name="name" class="form-control" value="{{ student.name }}"></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Date of Birth *</label><input type="date" name="dob" class="form-control" value="{{ student.dob }}"></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Gender *</label>
+              <select name="gender" class="form-select">
+                <option value="Male" {% if student.gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if student.gender == 'Female' %}selected{% endif %}>Female</option>
+                <option value="Other" {% if student.gender == 'Other' %}selected{% endif %}>Other</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3"><label class="form-label">Nationality</label><input type="text" name="nationality" class="form-control" value="{{ student.nationality }}"></div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Blood Group</label>
-          <input type="text" name="blood_group" class="form-control" value="{{ student.blood_group }}">
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Mother Tongue</label>
-          <input type="text" name="mother_tongue" class="form-control" value="{{ student.mother_tongue }}">
-        </div>
-      </div>
 
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label class="form-label">Nationality *</label>
-          <input type="text" class="form-control readonly" value="{{ student.nationality }}" readonly>
+        <div class="section-card">
+          <h5 class="section-title">📞 Contact Information</h5>
+          <div class="row">
+            <div class="col-md-6 mb-3"><label class="form-label">Email Address *</label><input type="email" name="email" class="form-control" value="{{ student.email }}"></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Phone Number *</label><input type="tel" name="phone" class="form-control" value="{{ student.phone }}"></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Current Address</label><textarea name="current_address" class="form-control">{{ student.current_address }}</textarea></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Permanent Address</label><textarea name="permanent_address" class="form-control">{{ student.permanent_address }}</textarea></div>
+            <div class="col-12"><label class="form-label">Emergency Contact Information</label><input type="text" name="emergency_contact" class="form-control" value="{{ student.emergency_contact }}"></div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Religion *</label>
-          <input type="text" class="form-control readonly" value="{{ student.religion }}" readonly>
+        
+        <div class="section-card">
+          <h5 class="section-title">🎓 Academic Information</h5>
+          <div class="row">
+            <div class="col-md-6 mb-3"><label class="form-label">Enrollment Date</label><input type="text" class="form-control readonly" value="{{ student.enrollment_date }}" readonly></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Program / Degree</label><input type="text" class="form-control readonly" value="{{ student.program }}" readonly></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Department / Branch</label><input type="text" class="form-control readonly" value="{{ student.branch }}" readonly></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Current Year / Semester</label><input type="text" class="form-control readonly" value="{{ student.year }} / {{ student.semester }}" readonly></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Academic Advisor</label><input type="text" class="form-control readonly" value="{{ student.advisor }}" readonly></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Academic Status</label><input type="text" class="form-control readonly" value="{{ student.status }}" readonly></div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Category *</label>
-          <input type="text" class="form-control readonly" value="{{ student.caste }}" readonly>
-        </div>
-      </div>
 
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label class="form-label">Samagra ID</label>
-          <input type="text" name="samagra_id" class="form-control" value="{{ student.samagra_id }}">
+        <div class="section-card">
+          <h5 class="section-title">📊 Exam & Results</h5>
+          <div class="row">
+            <div class="col-md-6 mb-3"><label class="form-label">Cumulative GPA (CGPA)</label><input type="text" class="form-control readonly" value="{{ student.gpa }}" readonly></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Class Rank</label><input type="text" class="form-control readonly" value="{{ student.rank }}" readonly></div>
+            <div class="col-12"><a href="#" class="btn btn-outline-primary">View Exam Schedule</a> <a href="#" class="btn btn-outline-primary">Download Transcript</a></div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Gender *</label>
-          <select name="gender" class="form-select">
-            <option value="Male" {% if student.gender == "Male" %}selected{% endif %}>Male</option>
-            <option value="Female" {% if student.gender == "Female" %}selected{% endif %}>Female</option>
-            <option value="Other" {% if student.gender == "Other" %}selected{% endif %}>Other</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Marital Status *</label>
-          <select name="marital_status" class="form-select">
-            <option value="Single" {% if student.marital_status == "Single" %}selected{% endif %}>Single</option>
-            <option value="Married" {% if student.marital_status == "Married" %}selected{% endif %}>Married</option>
-          </select>
-        </div>
-      </div>
 
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">Aadhaar No.</label>
-          <input type="text" name="aadhaar" class="form-control" value="{{ student.aadhaar }}">
+        <div class="section-card">
+          <h5 class="section-title">⚽ Library & Extracurriculars</h5>
+          <div class="row">
+            <div class="col-md-6 mb-3"><label class="form-label">Clubs / Societies Membership</label><textarea name="clubs" class="form-control">{{ student.clubs }}</textarea></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Sports / Achievements</label><textarea name="sports" class="form-control">{{ student.sports }}</textarea></div>
+            <div class="col-md-6"><label class="form-label">Books Issued</label><input type="text" class="form-control readonly" value="{{ student.issued_books }}" readonly></div>
+            <div class="col-md-6"><label class="form-label">Library Fines</label><input type="text" class="form-control readonly" value="{{ student.library_fines }}" readonly></div>
+          </div>
         </div>
-        <div class="col-md-6">
-          <label class="form-label">Student Mobile *</label>
-          <input type="text" name="mobile" class="form-control" value="{{ student.mobile }}">
-        </div>
-      </div>
 
-      <div class="row mb-3">
-        <div class="col-md-12">
-          <label class="form-label">Student Email *</label>
-          <input type="email" name="email" class="form-control" value="{{ student.email }}">
+        <div class="section-card">
+          <h5 class="section-title">📂 Document Uploads</h5>
+          <p class="text-muted small mb-3">Upload a new Photo or Signature to replace the one displayed in the sidebar.</p>
+          <div class="mb-3"><label class="form-label">Upload New Photo</label><input type="file" name="photo" class="form-control"></div>
+          <div class="mb-3"><label class="form-label">Upload New Signature</label><input type="file" name="signature" class="form-control"></div>
         </div>
-      </div>
+        
+        <button type="submit" class="btn btn-theme w-100 mt-3">💾 Save All Changes</button>
+      </main>
     </div>
-
-    <!-- Father Info -->
-    <div class="section-card">
-      <h5 class="section-title">👨 Father's Information</h5>
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">Father's Name *</label>
-          <input type="text" name="father_name" class="form-control" value="{{ student.father_name }}">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Father's Name (Hindi)</label>
-          <input type="text" name="father_name_hindi" class="form-control" value="{{ student.father_name_hindi }}">
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">Occupation *</label>
-          <input type="text" name="father_occupation" class="form-control" value="{{ student.father_occupation }}">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Mobile No. *</label>
-          <input type="text" name="father_mobile" class="form-control" value="{{ student.father_mobile }}">
-        </div>
-      </div>
-    </div>
-
-    <!-- Mother Info -->
-    <div class="section-card">
-      <h5 class="section-title">👩 Mother's Information</h5>
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">Mother's Name *</label>
-          <input type="text" name="mother_name" class="form-control" value="{{ student.mother_name }}">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Mother's Name (Hindi)</label>
-          <input type="text" name="mother_name_hindi" class="form-control" value="{{ student.mother_name_hindi }}">
-        </div>
-      </div>
-    </div>
-
-    <!-- Addresses -->
-    <div class="section-card">
-      <h5 class="section-title">🏠 Permanent Address</h5>
-      <div class="mb-3">
-        <label class="form-label">Address *</label>
-        <textarea name="permanent_address" class="form-control">{{ student.permanent_address }}</textarea>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">City *</label>
-          <input type="text" name="permanent_city" class="form-control" value="{{ student.permanent_city }}">
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">State *</label>
-          <input type="text" name="permanent_state" class="form-control" value="{{ student.permanent_state }}">
-        </div>
-      </div>
-    </div>
-
-    <!-- Documents -->
-    <div class="section-card">
-      <h5 class="section-title">📂 Documents Upload</h5>
-      <div class="mb-3">
-        <label class="form-label">Student Photo</label>
-        <input type="file" name="photo" class="form-control">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Student Signature *</label>
-        <input type="file" name="signature" class="form-control">
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-theme w-100 py-2 mt-3">💾 Save Profile</button>
   </form>
 </div>
 {% endblock %}

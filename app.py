@@ -54,26 +54,26 @@ with app.app_context():
     print("✅ All database tables ensured!")
 
 # ------------------ Blueprints ------------------ #
-# (Your existing blueprints - left unchanged)
 from student_att import student_bp
 from faculty_attendance import faculty_stud_bp
 from student_fee import student_fee_bp
 from admin_fee import admin_fee
-from dropdowns import dropdown_bp
+from dropdowns import dropdowns_bp
 from grades_bp import grades_bp
 from superadmin_routes import superadmin_bp
 from course_routes import course_bp
-from profile import profile_bp # new import
+from profile import profile_bp
 
-app.register_blueprint(student_bp)        # /student/attendance
-app.register_blueprint(faculty_stud_bp)   # /faculty/attendance
-app.register_blueprint(student_fee_bp)    # /student/fees
-app.register_blueprint(admin_fee)         # /admin/fees
-app.register_blueprint(dropdown_bp)       # /dropdowns for dynamic dropdowns
-app.register_blueprint(grades_bp)         # /student/grades, /faculty/grades/upload, /admin/grades/approve
-app.register_blueprint(superadmin_bp)
+# ------------------ Register Blueprints ------------------ #
+app.register_blueprint(student_bp, url_prefix="/student")
+app.register_blueprint(faculty_stud_bp, url_prefix="/faculty")
+app.register_blueprint(student_fee_bp, url_prefix="/student")
+app.register_blueprint(admin_fee, url_prefix="/admin")
+app.register_blueprint(dropdowns_bp, url_prefix="/api")
+app.register_blueprint(grades_bp, url_prefix="/grades")
+app.register_blueprint(superadmin_bp, url_prefix="/superadmin")
 app.register_blueprint(course_bp, url_prefix="/courses")
-app.register_blueprint(profile_bp, url_prefix="/profile")  # ✅ use profile_bp
+app.register_blueprint(profile_bp, url_prefix="/profile")
 
 # ------------------ Routes ------------------ #
 @app.route("/")
@@ -302,49 +302,28 @@ def coming_soon():
     return render_template("coming_soon.html")
 
 # ------------------ Student Dashboard Pages ------------------ #
-@app.route("/student/<path>")
+@app.route("/student/<string:path>")
 @login_required
 def student_pages(path):
-    if current_user.role != "student":
+    # ✅ Ensure role check is case-insensitive
+    if current_user.role.lower() != "student":
         return redirect(url_for("dashboard"))
 
+    # ✅ Allowed pages
     title_map = {
-        "attendance": "📚 Student Attendance",
         "grades": "📊 Student Grades",
         "fees": "💰 Student Fees"
     }
     content_map = {
-        "attendance": "View attendance records",
         "grades": "Check academic grades",
         "fees": "Check/pay fees"
     }
 
+    # ❌ Invalid page -> 404
     if path not in title_map:
         abort(404)
 
-    # 📌 Attendance Page
-    if path == "attendance":
-        attendance_records = Attendance.query.filter_by(student_id=current_user.id).all()
-
-        total_classes = len(attendance_records)
-        present_count = sum(1 for a in attendance_records if a.status.lower() == "present")
-        absent_count = total_classes - present_count
-
-        percentage = round((present_count / total_classes) * 100, 2) if total_classes > 0 else 0.0
-
-        return render_template(
-            "student_attendance.html",
-            user=current_user,
-            title=title_map[path],
-            content=content_map[path],
-            attendance=attendance_records,
-            total_classes=total_classes,
-            present_count=present_count,
-            absent_count=absent_count,
-            percentage=percentage
-        )
-
-    # 📌 Other Pages (grades, fees)
+    # ✅ Render student dashboard page
     return render_template(
         "dashboard_page.html",
         user=current_user,

@@ -22,7 +22,7 @@ label.required::after { content:" *"; color:#dc3545; }
   <div class="card-body">
     <form method="POST" enctype="multipart/form-data">
 
-      {# ───────── Personal Info ───────── #}
+      <!-- ───────── Personal Info ───────── -->
       <div class="section-title">Personal Information</div>
       <div class="row g-3">
         <div class="col-md-6">
@@ -40,27 +40,19 @@ label.required::after { content:" *"; color:#dc3545; }
         </div>
         <div class="col-md-3">
           <label class="form-label">Gender</label>
-          <select class="form-select select2" name="gender">
-            {% for g in ['Male','Female','Other'] %}
-              <option value="{{ g }}" {{ 'selected' if student.gender==g else '' }}>{{ g }}</option>
-            {% endfor %}
-          </select>
+          <select class="form-select select2" name="gender" id="gender"></select>
         </div>
         <div class="col-md-3">
           <label class="form-label">Blood Group</label>
-          <select class="form-select select2" name="blood_group">
-            {% for bg in ['A+','A-','B+','B-','AB+','AB-','O+','O-'] %}
-              <option value="{{ bg }}" {{ 'selected' if student.blood_group==bg else '' }}>{{ bg }}</option>
-            {% endfor %}
-          </select>
+          <select class="form-select select2" name="blood_group" id="blood_group"></select>
         </div>
         <div class="col-md-3">
           <label class="form-label">Nationality</label>
-          <input class="form-control" name="nationality" value="{{ student.nationality or '' }}">
+          <select class="form-select select2" name="nationality" id="nationality"></select>
         </div>
       </div>
 
-      {# ───────── Academic Info ───────── #}
+      <!-- ───────── Academic Info ───────── -->
       <div class="section-title">Academic Information</div>
       <div class="row g-3">
         <div class="col-md-3">
@@ -85,7 +77,7 @@ label.required::after { content:" *"; color:#dc3545; }
         </div>
       </div>
 
-      {# ───────── Contact Info ───────── #}
+      <!-- ───────── Contact Info ───────── -->
       <div class="section-title">Contact Information</div>
       <div class="row g-3">
         <div class="col-md-6">
@@ -102,7 +94,7 @@ label.required::after { content:" *"; color:#dc3545; }
         </div>
       </div>
 
-      {# ───────── Parent Info ───────── #}
+      <!-- ───────── Parent Info ───────── -->
       <div class="section-title">Father’s Information</div>
       <div class="row g-3">
         <div class="col-md-6">
@@ -143,7 +135,7 @@ label.required::after { content:" *"; color:#dc3545; }
         </div>
       </div>
 
-      {# ───────── Bank Info ───────── #}
+      <!-- ───────── Bank Info ───────── -->
       <div class="section-title">Bank Details</div>
       <div class="row g-3">
         <div class="col-md-4">
@@ -164,7 +156,7 @@ label.required::after { content:" *"; color:#dc3545; }
         </div>
       </div>
 
-      {# ───────── Uploads ───────── #}
+      <!-- ───────── Uploads ───────── -->
       <div class="section-title">Photo & Signature</div>
       <div class="row g-3">
         <div class="col-md-6">
@@ -186,29 +178,39 @@ label.required::after { content:" *"; color:#dc3545; }
 </div>
 
 <script>
-const PROGRAMS = ["B.Tech","B.E.","M.Tech","M.E.","B.Arch","M.Arch","BCA","MCA","B.Sc","M.Sc","BBA","MBA","B.Com","M.Com","Ph.D"];
-const BRANCHES = ["Computer Science & Engineering (Core)","Artificial Intelligence & Data Science","CSBS","Information Technology","Electronics & Communication Engineering","Electrical Engineering","Mechanical Engineering","Civil Engineering"];
-const YEARS    = [1,2,3,4];
-const SEMS     = [1,2,3,4,5,6,7,8];
-const SECTIONS = ["A","B","C","D"];
-
 function fillSelect(id, arr, current) {
   const sel = document.getElementById(id);
-  arr.forEach(v=>{
-    const o=document.createElement('option');
-    o.value=o.textContent=v;
-    if(current && current.toString()===v.toString()) o.selected=true;
+  sel.innerHTML = "";
+  arr.forEach(v => {
+    const o = document.createElement('option');
+    o.value = v;
+    o.textContent = v;
+    if (current && current.toString() === v.toString()) o.selected = true;
     sel.appendChild(o);
   });
 }
 
-document.addEventListener("DOMContentLoaded", ()=>{
-  fillSelect("program", PROGRAMS, "{{ student.program }}");
-  fillSelect("branch", BRANCHES, "{{ student.branch }}");
-  fillSelect("year", YEARS, "{{ student.year }}");
-  fillSelect("semester", SEMS, "{{ student.semester }}");
-  fillSelect("section", SECTIONS, "{{ student.section }}");
-  $('.select2').select2({ theme:"bootstrap-5", width:"100%" });
-});
+async function loadDropdowns() {
+  try {
+    const res = await fetch("/api/dropdowns"); // ✅ fetch from backend
+    const data = await res.json();
+
+    fillSelect("gender", data.gender || [], "{{ student.gender }}");
+    fillSelect("blood_group", data.blood_group || [], "{{ student.blood_group }}");
+    fillSelect("nationality", data.nationality || [], "{{ student.nationality }}");
+
+    fillSelect("program", data.program || [], "{{ student.program }}");
+    fillSelect("branch", data.branch || [], "{{ student.branch }}");
+    fillSelect("year", data.year || [], "{{ student.year }}");
+    fillSelect("semester", data.semester || [], "{{ student.semester }}");
+    fillSelect("section", data.section || [], "{{ student.section }}");
+
+    $('.select2').select2({ theme:"bootstrap-5", width:"100%" });
+  } catch (err) {
+    console.error("Failed to load dropdowns:", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadDropdowns);
 </script>
 {% endblock %}

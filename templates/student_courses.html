@@ -33,19 +33,24 @@
             </select>
           </div>
         </div>
-        <!-- Auto-fill student info from DB -->
+
+        <!-- Auto-fill student info -->
         <div class="row">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
             <label class="form-label">Program</label>
-            <input type="text" class="form-control" value="{{ current_user.program }}" disabled>
+            <input type="text" class="form-control" value="{{ current_user.program or 'N/A' }}" disabled>
           </div>
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
             <label class="form-label">Branch</label>
-            <input type="text" class="form-control" value="{{ current_user.branch }}" disabled>
+            <input type="text" class="form-control" value="{{ current_user.branch or 'N/A' }}" disabled>
           </div>
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
             <label class="form-label">Year</label>
-            <input type="text" class="form-control" value="{{ current_user.year }}" disabled>
+            <input type="text" class="form-control" value="{{ current_user.year or 'N/A' }}" disabled>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Semester</label>
+            <input type="text" class="form-control" value="{{ current_user.semester or 'N/A' }}" disabled>
           </div>
         </div>
         <button type="submit" class="btn btn-success">✅ Enroll</button>
@@ -53,14 +58,46 @@
     </div>
   </div>
 
-  <!-- Search -->
-  <div class="mb-3">
-    <input type="text" id="searchInput" class="form-control" placeholder="🔍 Search enrolled courses by name or code...">
+  <!-- Search and Print -->
+  <div class="mb-3 d-flex justify-content-between">
+    <input type="text" id="searchInput" class="form-control w-75" placeholder="🔍 Search enrolled courses by name or code...">
+    <button class="btn btn-outline-primary ms-2" onclick="printCard()">🖨️ Print Card</button>
   </div>
 
-  <!-- Enrolled Courses Table -->
-  <div class="card shadow">
+  <!-- Enrolled Courses Table + Student Card Info -->
+  <div class="card shadow" id="printArea">
     <div class="card-header bg-dark text-white">My Enrolled Courses</div>
+
+    <!-- ✅ Dynamic College Logo + Name -->
+    <div class="p-3 d-flex align-items-center border-bottom">
+      {% if session.get('college_logo') %}
+        <img src="{{ url_for('static', filename=session['college_logo'].replace('static/', '')) }}" 
+             alt="College Logo" width="80" class="me-3">
+      {% else %}
+        <img src="{{ url_for('static', filename='default-logo.png') }}" 
+             alt="Default Logo" width="80" class="me-3">
+      {% endif %}
+      <div>
+        <h5 class="mb-0">🏫 {{ session.get('college_name', 'College ERP') }}</h5>
+        <small></small>
+      </div>
+    </div>
+
+    <!-- Student Info -->
+    <div class="p-3 d-flex">
+      <img src="{{ url_for('static', filename='uploads/' + (current_user.photo or 'default.png')) }}" 
+           alt="Student Photo" width="100" class="me-4 rounded shadow">
+      <div>
+        <p><strong>👤 Name:</strong> {{ current_user.name or 'N/A' }}</p>
+        <p><strong>📚 Program:</strong> {{ current_user.program or 'N/A' }}</p>
+        <p><strong>🏢 Branch:</strong> {{ current_user.branch or 'N/A' }}</p>
+        <p><strong>📅 Year:</strong> {{ current_user.year or 'N/A' }}</p>
+        <p><strong>📖 Semester:</strong> {{ current_user.semester or 'N/A' }}</p>
+        <p><strong>🆔 Enrollment No:</strong> {{ current_user.enrollment_no or 'N/A' }}</p>
+      </div>
+    </div>
+
+    <!-- Enrolled Courses Table -->
     <div class="table-responsive">
       <table class="table table-striped mb-0" id="courseTable">
         <thead class="table-dark">
@@ -71,21 +108,23 @@
             <th>Program</th>
             <th>Branch</th>
             <th>Year</th>
+            <th>Semester</th>
           </tr>
         </thead>
         <tbody id="courseTableBody">
           {% for e in enrolled %}
           <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ e.course.course_name }}</td>
-            <td>{{ e.course.course_code }}</td>
-            <td>{{ e.program }}</td>
-            <td>{{ e.branch }}</td>
-            <td>{{ e.year }}</td>
+            <td>{{ e.course.course_name or 'N/A' }}</td>
+            <td>{{ e.course.course_code or 'N/A' }}</td>
+            <td>{{ e.program or 'N/A' }}</td>
+            <td>{{ e.branch or 'N/A' }}</td>
+            <td>{{ e.year or 'N/A' }}</td>
+            <td>{{ e.semester or 'N/A' }}</td>
           </tr>
           {% else %}
           <tr>
-            <td colspan="6" class="text-center text-muted">No courses enrolled yet.</td>
+            <td colspan="7" class="text-center text-muted">No courses enrolled yet.</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -95,9 +134,9 @@
 </div>
 
 <script>
+  // Search filter
   const searchInput = document.getElementById("searchInput");
   const rows = document.querySelectorAll("#courseTableBody tr");
-
   searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
     rows.forEach(row => {
@@ -106,5 +145,15 @@
       row.style.display = (name?.includes(query) || code?.includes(query)) ? "" : "none";
     });
   });
+
+  // Print function
+  function printCard() {
+    const printContents = document.getElementById("printArea").innerHTML;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    location.reload();
+  }
 </script>
 {% endblock %}

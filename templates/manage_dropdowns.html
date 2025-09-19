@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Dropdowns</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { padding: 20px; background: #f8f9fa; }
+    .card { margin-bottom: 20px; }
+    .list-group-item { display: flex; justify-content: space-between; align-items: center; }
+    .delete-btn { color: red; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="mb-4">⚙️ Manage Dropdown Lists</h2>
+    <div class="row" id="dropdown-cards"></div>
+  </div>
+
+  <script>
+    const SUPPORTED_FIELDS = [
+      "program", "branch", "year", "semester", "enroll", "scholar_no",
+      "class", "section", "blood_group", "nationality", "religion",
+      "category", "gender", "marital_status", "courses"
+    ];
+
+    async function fetchDropdowns() {
+      const res = await fetch("/api/dropdowns");
+      return res.json();
+    }
+
+    async function addDropdownValue(field, value) {
+      const res = await fetch("/api/dropdowns", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ field, value })
+      });
+      const result = await res.json();
+      alert(result.message || result.error);
+      loadDropdownCards();
+    }
+
+    async function deleteDropdownValue(field, value) {
+      const res = await fetch("/api/dropdowns", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ field, value })
+      });
+      const result = await res.json();
+      alert(result.message || result.error);
+      loadDropdownCards();
+    }
+
+    function createCard(field, values) {
+      const col = document.createElement("div");
+      col.className = "col-md-4";
+
+      const card = document.createElement("div");
+      card.className = "card p-3";
+
+      const title = document.createElement("h5");
+      title.textContent = field.charAt(0).toUpperCase() + field.slice(1);
+      card.appendChild(title);
+
+      const inputGroup = document.createElement("div");
+      inputGroup.className = "input-group mb-2";
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.className = "form-control";
+      input.placeholder = `Add new ${field}`;
+
+      const button = document.createElement("button");
+      button.className = "btn btn-primary";
+      button.textContent = "Add";
+      button.onclick = () => {
+        if (input.value.trim() !== "") {
+          addDropdownValue(field, input.value.trim());
+          input.value = "";
+        }
+      };
+
+      inputGroup.appendChild(input);
+      inputGroup.appendChild(button);
+      card.appendChild(inputGroup);
+
+      const list = document.createElement("ul");
+      list.className = "list-group list-group-flush";
+
+      values.forEach(v => {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+
+        const span = document.createElement("span");
+        span.textContent = v;
+
+        const delBtn = document.createElement("span");
+        delBtn.className = "delete-btn";
+        delBtn.innerHTML = "🗑️";
+        delBtn.onclick = () => deleteDropdownValue(field, v);
+
+        li.appendChild(span);
+        li.appendChild(delBtn);
+        list.appendChild(li);
+      });
+
+      card.appendChild(list);
+      col.appendChild(card);
+      return col;
+    }
+
+    async function loadDropdownCards() {
+      const data = await fetchDropdowns();
+      const container = document.getElementById("dropdown-cards");
+      container.innerHTML = "";
+      for (let field of SUPPORTED_FIELDS) {
+        const values = data[field] || [];
+        const card = createCard(field, values);
+        container.appendChild(card);
+      }
+    }
+
+    window.onload = loadDropdownCards;
+  </script>
+</body>
+</html>

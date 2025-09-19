@@ -43,6 +43,7 @@ def set_student_profile(student_id):
         student.program = parse_string(request.form.get("program"))
         student.branch = parse_string(request.form.get("branch"))
         student.year = parse_string(request.form.get("year"))
+        student.semester = parse_string(request.form.get("semester")) # ✅ ADDED SEMESTER
 
         # Date of Birth
         student.dob = parse_date(request.form.get("dob"))
@@ -55,7 +56,7 @@ def set_student_profile(student_id):
         student.religion = parse_string(request.form.get("religion"))
         student.marital_status = parse_string(request.form.get("marital_status"))
         student.aadhaar_no = parse_string(request.form.get("aadhaar_no"))
-        student.contact = parse_string(request.form.get("mobile"))  # ✅ mapped to "contact"
+        student.contact = parse_string(request.form.get("mobile"))
         student.email = parse_string(request.form.get("email"))
         student.category = parse_string(request.form.get("category"))
         student.mother_tongue = parse_string(request.form.get("mother_tongue"))

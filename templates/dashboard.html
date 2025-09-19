@@ -26,7 +26,7 @@
   .dashboard-card:hover { transform: translateY(-8px); box-shadow: 0px 10px 25px rgba(0,0,0,0.3); }
 
   /* Gradient Themes */
-  .student { background: linear-gradient(135deg, #43cea2, #185a9d); }
+  .student { background: linear-gradient(135deg, #a8c0ff, #3f2b96); }
   .faculty { background: linear-gradient(135deg, #FF9A9E, #FAD0C4); }
   .admin { background: linear-gradient(135deg, #FF758C, #FF7EB3); }
   .superadmin { background: linear-gradient(135deg, #7F00FF, #E100FF); }
@@ -153,13 +153,15 @@
       </div>
     </a>
   </div>
-
+   
   <!-- ✅ New: Manage Students -->
   <div class="col-md-4">
     <a href="{{ url_for('profile_bp.admin_students') }}" class="text-decoration-none">
       <div class="dashboard-card admin">📋 Manage Students</div>
     </a>
   </div>
+
+  
 {% elif role == "SuperAdmin" %}
 
     <!-- SuperAdmin Dashboard -->

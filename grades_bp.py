@@ -1,39 +1,55 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
-from models import User, Result
-from extensions import db
-import datetime
+from models import User, Result, Course, db  # Correct imports
+from sqlalchemy import distinct
 
 grades_bp = Blueprint("grades_bp", __name__, template_folder="templates")
+
+def calculate_grade(marks):
+    """Helper function to calculate grade from marks."""
+    try:
+        marks = int(marks)
+        if marks >= 90: return "A+"
+        elif marks >= 80: return "A"
+        elif marks >= 70: return "B+"
+        elif marks >= 60: return "B"
+        elif marks >= 50: return "C"
+        elif marks >= 40: return "D"
+        else: return "F"
+    except (ValueError, TypeError):
+        return "N/A"
 
 # ===========================
 # Student View - See Own Results
 # ===========================
-@grades_bp.route("/student/grades", methods=["GET"])
+@grades_bp.route("/student/grades")
 @login_required
 def student_grades():
     if current_user.role != "Student":
-        flash("Unauthorized access", "danger")
-        return redirect(url_for("student_pages"))  # Redirect to student dashboard
+        flash("Unauthorized access.", "danger")
+        return redirect(url_for("main.index")) # Adjust to your main/home route
 
-    semester = request.args.get("semester")
-    query = Result.query.filter_by(student_id=current_user.id, approved_by_admin=True)
-    if semester:
-        query = query.filter_by(semester=semester)
-
-    results = query.order_by(Result.semester.desc()).all()
-    semesters = sorted(
-        {r.semester for r in Result.query.filter_by(student_id=current_user.id).all()},
-        reverse=True
+    selected_semester = request.args.get("semester")
+    
+    query = Result.query.filter_by(
+        student_id=current_user.id,
+        approved_by_admin=True
     )
+
+    if selected_semester:
+        query = query.filter(Result.semester == selected_semester)
+    
+    results = query.all()
+    
+    semesters_query = db.session.query(distinct(Result.semester)).filter_by(student_id=current_user.id).all()
+    semesters = sorted([s[0] for s in semesters_query], reverse=True)
 
     return render_template(
         "student_grades.html",
         results=results,
         semesters=semesters,
-        selected_semester=semester
+        selected_semester=selected_semester
     )
-
 
 # ===========================
 # Faculty View - Upload Marks
@@ -42,8 +58,8 @@ def student_grades():
 @login_required
 def faculty_upload_grades():
     if current_user.role != "Faculty":
-        flash("Unauthorized access", "danger")
-        return redirect(url_for("grades_bp.student_grades"))
+        flash("Unauthorized access.", "danger")
+        return redirect(url_for("main.index"))
 
     if request.method == "POST":
         student_id = request.form.get("student_id")
@@ -52,35 +68,31 @@ def faculty_upload_grades():
         semester = request.form.get("semester")
         marks_input = request.form.get("marks")
 
-        # Validation
         if not all([student_id, course_code, course_name, semester, marks_input]):
             flash("Please fill all required fields", "danger")
             return redirect(url_for("grades_bp.faculty_upload_grades"))
 
-        try:
-            marks = int(marks_input)
-        except ValueError:
-            flash("Marks must be a number", "danger")
-            return redirect(url_for("grades_bp.faculty_upload_grades"))
+        # =================================================================
+        # CORE FIX: Find or create the Course, then use its ID for the Result
+        # =================================================================
+        
+        # Step 1: Find the course by its unique code.
+        course = Course.query.filter_by(course_code=course_code).first()
 
-        # Grade calculation
-        grade = "F"
-        if marks >= 90: grade = "A+"
-        elif marks >= 80: grade = "A"
-        elif marks >= 70: grade = "B+"
-        elif marks >= 60: grade = "B"
-        elif marks >= 50: grade = "C"
-        elif marks >= 40: grade = "D"
+        # Step 2: If the course doesn't exist, create it.
+        if not course:
+            course = Course(course_name=course_name, course_code=course_code)
+            db.session.add(course)
+            db.session.commit() # Commit here to generate the new course.id
 
+        # Step 3: Now, create the Result object using the correct 'course_id'
         result = Result(
             student_id=student_id,
-            course_code=course_code,
-            course_name=course_name,
+            course_id=course.id, # <-- THIS IS THE FIX
             semester=semester,
-            marks=marks,
-            grade=grade,
-            approved_by_admin=False,
-            created_at=datetime.datetime.utcnow()
+            marks=int(marks_input),
+            grade=calculate_grade(marks_input),
+            approved_by_admin=False
         )
         db.session.add(result)
         db.session.commit()
@@ -88,7 +100,6 @@ def faculty_upload_grades():
         flash("✅ Result uploaded successfully (pending admin approval)", "success")
         return redirect(url_for("grades_bp.faculty_upload_grades"))
 
-    # Fetch students
     students = User.query.filter_by(role="Student").all()
     return render_template("faculty_grades_upload.html", students=students)
 
@@ -100,10 +111,8 @@ def faculty_upload_grades():
 @login_required
 def admin_approve_grades():
     if current_user.role != "Admin":
-        flash("Unauthorized access", "danger")
-        return redirect(url_for("grades_bp.student_grades"))
-
-    pending_results = Result.query.filter_by(approved_by_admin=False).order_by(Result.created_at.desc()).all()
+        flash("Unauthorized access.", "danger")
+        return redirect(url_for("main.index"))
 
     if request.method == "POST":
         approved_ids = request.form.getlist("approve")
@@ -115,4 +124,6 @@ def admin_approve_grades():
         flash("✅ Selected results approved", "success")
         return redirect(url_for("grades_bp.admin_approve_grades"))
 
+    pending_results = Result.query.filter_by(approved_by_admin=False).order_by(Result.created_at.desc()).all()
     return render_template("admin_grades_approve.html", results=pending_results)
+

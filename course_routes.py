@@ -1,11 +1,11 @@
 from flask import Blueprint, request, redirect, url_for, flash, render_template
 from flask_login import login_required, current_user
 from extensions import db
-from models import Course, StudentCourse, FacultyCourse, User
+from models import Course, StudentCourse, FacultyCourse, User  # ✅ use singular consistently
 
 course_bp = Blueprint("course_bp", __name__)
 
-# -------------------- Admin: Add Course --------------------
+# -------------------- Admin: Add Course -------------------- #
 @course_bp.route("/add_course", methods=["POST"])
 @login_required
 def add_course():
@@ -15,11 +15,16 @@ def add_course():
 
     course_name = request.form.get("course_name")
     course_code = request.form.get("course_code")
+    program = request.form.get("program")
+    branch = request.form.get("branch")
+    year = request.form.get("year")
+    semester = request.form.get("semester")
 
     if not course_name or not course_code:
         flash("❌ Course Name and Code are required.", "danger")
         return redirect(url_for("course_bp.admin_courses"))
 
+    # Prevent duplicates
     existing = Course.query.filter(
         (Course.course_name == course_name) | (Course.course_code == course_code)
     ).first()
@@ -27,7 +32,14 @@ def add_course():
         flash("⚠️ Course already exists.", "warning")
         return redirect(url_for("course_bp.admin_courses"))
 
-    new_course = Course(course_name=course_name, course_code=course_code)
+    new_course = Course(
+        course_name=course_name,
+        course_code=course_code,
+        program=program,
+        branch=branch,
+        year=year,
+        semester=semester
+    )
     db.session.add(new_course)
     db.session.commit()
 
@@ -35,8 +47,8 @@ def add_course():
     return redirect(url_for("course_bp.admin_courses"))
 
 
-# -------------------- Admin: Manage Courses --------------------
-@course_bp.route("/admin/courses")
+# -------------------- Admin: Manage Courses -------------------- #
+@course_bp.route("/admin/course")
 @login_required
 def admin_courses():
     if current_user.role != "Admin":
@@ -47,7 +59,7 @@ def admin_courses():
     return render_template("admin_course.html", courses=courses)
 
 
-# -------------------- Student: View & Enroll in Courses --------------------
+# -------------------- Student: View & Enroll in Courses -------------------- #
 @course_bp.route("/student/courses", methods=["GET", "POST"])
 @login_required
 def student_courses():
@@ -64,18 +76,22 @@ def student_courses():
             return redirect(url_for("course_bp.student_courses"))
 
         # Check if already enrolled
-        existing = StudentCourse.query.filter_by(student_id=current_user.id, course_id=course_id).first()
+        existing = StudentCourse.query.filter_by(
+            student_id=current_user.id,
+            course_id=course_id
+        ).first()
         if existing:
             flash("⚠️ You are already enrolled in this course.", "warning")
             return redirect(url_for("course_bp.student_courses"))
 
-        # Auto-fill program, branch, year from User profile
+        # Auto-fill from User profile
         enrollment = StudentCourse(
             student_id=current_user.id,
             course_id=course_id,
             program=current_user.program,
             branch=current_user.branch,
-            year=current_user.year
+            year=current_user.year,
+            semester=current_user.semester
         )
         db.session.add(enrollment)
         db.session.commit()
@@ -84,10 +100,28 @@ def student_courses():
         return redirect(url_for("course_bp.student_courses"))
 
     enrolled_courses = StudentCourse.query.filter_by(student_id=current_user.id).all()
-    return render_template("student_courses.html", courses=courses, enrolled=enrolled_courses)
+
+    student_info = {
+        "name": current_user.name or "N/A",
+        "program": current_user.program or "N/A",
+        "branch": current_user.branch or "N/A",
+        "year": current_user.year or "N/A",
+        "semester": getattr(current_user, "semester", "N/A"),
+        "enrollment_no": getattr(current_user, "enrollment_no", "N/A"),
+        "photo": getattr(current_user, "photo", "default.png"),
+        "college_name": getattr(current_user, "college_name", "My College"),
+        "college_logo": getattr(current_user, "college_logo", "images/college_logo.png"),
+    }
+
+    return render_template(
+        "student_courses.html",
+        courses=courses,
+        enrolled=enrolled_courses,
+        student_info=student_info
+    )
 
 
-# -------------------- Faculty: Assign Teaching Courses --------------------
+# -------------------- Faculty: Assign Teaching Courses -------------------- #
 @course_bp.route("/faculty/courses", methods=["GET", "POST"])
 @login_required
 def faculty_courses():
@@ -102,15 +136,22 @@ def faculty_courses():
         program = request.form.get("program")
         branch = request.form.get("branch")
         year = request.form.get("year")
-        is_theory = request.form.get("is_theory") == "true"
+        semester = request.form.get("semester")
+        course_type = request.form.get("course_type")
 
-        if not all([course_id, program, branch, year]):
+        if not all([course_id, program, branch, year, semester, course_type]):
             flash("❌ All fields are required.", "danger")
             return redirect(url_for("course_bp.faculty_courses"))
 
         # Check if already assigned
         existing = FacultyCourse.query.filter_by(
-            faculty_id=current_user.id, course_id=course_id, program=program, branch=branch, year=year
+            faculty_id=current_user.id,
+            course_id=course_id,
+            program=program,
+            branch=branch,
+            year=year,
+            semester=semester,
+            course_type=course_type
         ).first()
         if existing:
             flash("⚠️ You are already assigned to this course.", "warning")
@@ -122,7 +163,8 @@ def faculty_courses():
             program=program,
             branch=branch,
             year=year,
-            is_theory=is_theory
+            semester=semester,
+            course_type=course_type
         )
         db.session.add(assignment)
         db.session.commit()
