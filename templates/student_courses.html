@@ -2,10 +2,43 @@
 {% block content %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<div class="container mt-5">
-  <h2 class="text-center mb-4">📘 My Courses</h2>
+<style>
+  /* Custom CSS for Passport Photo Size */
+  .passport-photo-display {
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 0;
+    border: 1px solid #ddd;
+  }
 
-  <!-- Flash messages -->
+  /* --- CSS for Printing --- */
+  @media print {
+    /* Hide everything on the page by default */
+    body * {
+      visibility: hidden;
+    }
+    /* Make the print area and everything inside it visible */
+    #printArea, #printArea * {
+      visibility: visible;
+    }
+    /* Position the print area to fill the page */
+    #printArea {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+    /* Hide the non-essential form and search bar when printing */
+    .no-print {
+        display: none;
+    }
+  }
+</style>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">My Courses</h2>
+
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
@@ -17,8 +50,7 @@
     {% endif %}
   {% endwith %}
 
-  <!-- Enroll in a course -->
-  <div class="card shadow mb-4">
+  <div class="card shadow mb-4 no-print">
     <div class="card-header bg-primary text-white">Enroll in a Course</div>
     <div class="card-body">
       <form method="POST" action="{{ url_for('course_bp.student_courses') }}">
@@ -34,7 +66,6 @@
           </div>
         </div>
 
-        <!-- Auto-fill student info -->
         <div class="row">
           <div class="col-md-3 mb-3">
             <label class="form-label">Program</label>
@@ -53,22 +84,19 @@
             <input type="text" class="form-control" value="{{ current_user.semester or 'N/A' }}" disabled>
           </div>
         </div>
-        <button type="submit" class="btn btn-success">✅ Enroll</button>
+        <button type="submit" class="btn btn-success">Enroll</button>
       </form>
     </div>
   </div>
 
-  <!-- Search and Print -->
-  <div class="mb-3 d-flex justify-content-between">
-    <input type="text" id="searchInput" class="form-control w-75" placeholder="🔍 Search enrolled courses by name or code...">
-    <button class="btn btn-outline-primary ms-2" onclick="printCard()">🖨️ Print Card</button>
+  <div class="mb-3 d-flex justify-content-between no-print">
+    <input type="text" id="searchInput" class="form-control w-75" placeholder="Search enrolled courses by name or code...">
+    <button class="btn btn-outline-primary ms-2" onclick="printCard()">Print Card</button>
   </div>
 
-  <!-- Enrolled Courses Table + Student Card Info -->
   <div class="card shadow" id="printArea">
     <div class="card-header bg-dark text-white">My Enrolled Courses</div>
 
-    <!-- ✅ Dynamic College Logo + Name -->
     <div class="p-3 d-flex align-items-center border-bottom">
       {% if session.get('college_logo') %}
         <img src="{{ url_for('static', filename=session['college_logo'].replace('static/', '')) }}" 
@@ -78,26 +106,24 @@
              alt="Default Logo" width="80" class="me-3">
       {% endif %}
       <div>
-        <h5 class="mb-0">🏫 {{ session.get('college_name', 'College ERP') }}</h5>
+        <h5 class="mb-0">{{ session.get('college_name', 'College ERP') }}</h5>
         <small></small>
       </div>
     </div>
 
-    <!-- Student Info -->
     <div class="p-3 d-flex">
-      <img src="{{ url_for('static', filename='uploads/' + (current_user.photo or 'default.png')) }}" 
-           alt="Student Photo" width="100" class="me-4 rounded shadow">
+      <img src="{{ url_for('static', filename=student_photo_path) }}" 
+           alt="Student Photo" class="me-4 shadow passport-photo-display">
       <div>
-        <p><strong>👤 Name:</strong> {{ current_user.name or 'N/A' }}</p>
-        <p><strong>📚 Program:</strong> {{ current_user.program or 'N/A' }}</p>
-        <p><strong>🏢 Branch:</strong> {{ current_user.branch or 'N/A' }}</p>
-        <p><strong>📅 Year:</strong> {{ current_user.year or 'N/A' }}</p>
-        <p><strong>📖 Semester:</strong> {{ current_user.semester or 'N/A' }}</p>
-        <p><strong>🆔 Enrollment No:</strong> {{ current_user.enrollment_no or 'N/A' }}</p>
+        <p><strong>Name:</strong> {{ current_user.name or 'N/A' }}</p>
+        <p><strong>Program:</strong> {{ current_user.program or 'N/A' }}</p>
+        <p><strong>Branch:</strong> {{ current_user.branch or 'N/A' }}</p>
+        <p><strong>Year:</strong> {{ current_user.year or 'N/A' }}</p>
+        <p><strong>Semester:</strong> {{ current_user.semester or 'N/A' }}</p>
+        <p><strong>Enrollment No:</strong> {{ current_user.enrollment_no or 'N/A' }}</p>
       </div>
     </div>
 
-    <!-- Enrolled Courses Table -->
     <div class="table-responsive">
       <table class="table table-striped mb-0" id="courseTable">
         <thead class="table-dark">
@@ -134,7 +160,7 @@
 </div>
 
 <script>
-  // Search filter
+  // Search filter (no changes needed)
   const searchInput = document.getElementById("searchInput");
   const rows = document.querySelectorAll("#courseTableBody tr");
   searchInput.addEventListener("input", () => {
@@ -146,14 +172,9 @@
     });
   });
 
-  // Print function
+  // Simplified Print function
   function printCard() {
-    const printContents = document.getElementById("printArea").innerHTML;
-    const originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
     window.print();
-    document.body.innerHTML = originalContents;
-    location.reload();
   }
 </script>
 {% endblock %}

@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>🏦 Collection Accounts</h2>
+  <form method="POST">
+    <label>Account Name:</label><input type="text" name="account_name" required><br>
+    <label>Fee Type:</label>
+    <select name="fee_type"><option value="ACADEMIC">School/College</option><option value="HOSTEL">Hostel</option></select><br>
+    <label>Account Type:</label>
+    <select name="account_type">
+      <option value="HDFC">HDFC PG</option>
+      <option value="PAYU">PayU</option>
+      <option value="UPI">UPI</option>
+    </select><br>
+    <div>
+      <label>Merchant ID:</label><input type="text" name="merchant_id">
+      <label>API Key:</label><input type="text" name="api_key">
+      <label>API Secret:</label><input type="text" name="api_secret">
+      <label>Salt:</label><input type="text" name="salt">
+      <label>UPI ID:</label><input type="text" name="upi_id">
+    </div>
+    <label>Default:</label><input type="checkbox" name="is_default"><br>
+    <button type="submit">Save</button>
+  </form>
+
+  <h3>Configured Accounts</h3>
+  <table>
+    <tr><th>Name</th><th>Fee Type</th><th>Type</th><th>Default</th></tr>
+    {% for a in accounts %}
+      <tr><td>{{a.account_name}}</td><td>{{a.fee_type}}</td><td>{{a.account_type}}</td><td>{{"✅" if a.is_default else ""}}</td></tr>
+    {% endfor %}
+  </table>
+</div>

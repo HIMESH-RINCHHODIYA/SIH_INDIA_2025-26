@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>🏨 Hostel Management (Admin)</h2>
+  <hr>
+
+  <!-- Create Hostel -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">➕ Add New Hostel</div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('hostel.admin_hostel') }}">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Hostel Name</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Hostel Code</label>
+            <input type="text" name="code" class="form-control" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Type</label>
+            <select name="type" class="form-control" required>
+              <option>Boys</option>
+              <option>Girls</option>
+              <option>Staff</option>
+              <option>Mixed</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-3">
+          <label class="form-label">Address</label>
+          <input type="text" name="address" class="form-control">
+        </div>
+        <div class="mt-3">
+          <label class="form-label">Assign Warden (User ID)</label>
+          <input type="number" name="warden_id" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Create Hostel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Room -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">🛏 Add Room to Hostel</div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('hostel.add_room') }}">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label">Hostel</label>
+            <select name="hostel_id" class="form-control">
+              {% for hostel in hostels %}
+                <option value="{{ hostel.id }}">{{ hostel.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Room No</label>
+            <input type="text" name="room_no" class="form-control" required>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Block</label>
+            <input type="text" name="block" class="form-control">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Floor</label>
+            <input type="text" name="floor" class="form-control">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Capacity</label>
+            <input type="number" name="capacity" class="form-control" required>
+          </div>
+          <div class="col-md-12 mt-3">
+            <label class="form-label">Facilities</label>
+            <input type="text" name="facilities" class="form-control" placeholder="AC, Wi-Fi, Attached Bathroom">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Add Room</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Hostel Overview -->
+  <div class="card shadow-sm">
+    <div class="card-header">📋 Existing Hostels & Rooms</div>
+    <div class="card-body">
+      {% for hostel in hostels %}
+        <h5>{{ hostel.name }} ({{ hostel.type }})</h5>
+        <table class="table table-sm table-bordered">
+          <thead>
+            <tr>
+              <th>Room No</th>
+              <th>Block</th>
+              <th>Floor</th>
+              <th>Capacity</th>
+              <th>Status</th>
+              <th>Occupancy</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for room in hostel.rooms %}
+              <tr>
+                <td>{{ room.room_no }}</td>
+                <td>{{ room.block }}</td>
+                <td>{{ room.floor }}</td>
+                <td>{{ room.capacity }}</td>
+                <td>{{ room.status }}</td>
+                <td>{{ room.allocations|length }}/{{ room.capacity }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

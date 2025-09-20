@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* Fade-in effect */
+  .fade-in { animation: fadeIn 0.6s ease forwards; }
+  @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+  /* Card Styling */
+  .report-card {
+    border-radius: 15px;
+    padding: 20px;
+    color: #fff;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .report-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 12px 25px rgba(0,0,0,0.25);
+  }
+
+  /* Gradient Themes */
+  .bg-gradient-blue { background: linear-gradient(135deg,#2193b0,#6dd5ed); }
+  .bg-gradient-green{ background: linear-gradient(135deg,#56ab2f,#a8e063); }
+  .bg-gradient-red  { background: linear-gradient(135deg,#cb2d3e,#ef473a); }
+  .bg-gradient-purple{background: linear-gradient(135deg,#8e2de2,#4a00e0); }
+  .bg-gradient-yellow{background: linear-gradient(135deg,#f7971e,#ffd200); }
+</style>
+
+<div class="container mt-4 fade-in">
+  <h2 class="mb-4">📊 Hostel Reports Dashboard</h2>
+
+  <!-- Overview Cards -->
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="report-card bg-gradient-blue text-center">
+        <h6>Total Rooms</h6>
+        <p class="display-6">{{ total_rooms }}</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="report-card bg-gradient-purple text-center">
+        <h6>Total Capacity</h6>
+        <p class="display-6">{{ total_capacity }}</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="report-card bg-gradient-green text-center">
+        <h6>Occupied Beds</h6>
+        <p class="display-6">{{ total_allocations }}</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="report-card bg-gradient-red text-center">
+        <h6>Vacant Beds</h6>
+        <p class="display-6">{{ vacant_beds }}</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-4">
+
+  <!-- Hostel-wise breakdown -->
+  <h4 class="mb-3">🏨 Hostel-wise Statistics</h4>
+  <div class="table-responsive fade-in">
+    <table class="table table-hover table-bordered shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>Hostel</th>
+          <th>Total Rooms</th>
+          <th>Total Beds</th>
+          <th>Occupied</th>
+          <th>Vacant</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for hostel in hostels %}
+        <tr>
+          <td>{{ hostel.name }} ({{ hostel.type }})</td>
+          <td>{{ hostel.rooms|length }}</td>
+          <td>{{ hostel.rooms | map(attribute='capacity') | sum }}</td>
+          <td>{{ hostel.rooms | map(attribute='allocations') | map('length') | sum }}</td>
+          <td>{{ (hostel.rooms | map(attribute='capacity') | sum) - (hostel.rooms | map(attribute='allocations') | map('length') | sum) }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" class="text-center text-muted">No hostels found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="my-4">
+
+  <!-- Leave and Complaint Stats -->
+  <h4 class="mb-3">📩 Leaves & 📝 Complaints</h4>
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="report-card bg-gradient-yellow text-center">
+        <h6>Total Leave Requests</h6>
+        <p class="display-6">{{ total_leaves }}</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="report-card bg-gradient-green text-center">
+        <h6>Approved Leaves</h6>
+        <p class="display-6">{{ approved_leaves }}</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="report-card bg-gradient-purple text-center">
+        <h6>Pending Leaves</h6>
+        <p class="display-6">{{ pending_leaves }}</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="report-card bg-gradient-red text-center">
+        <h6>Total Complaints</h6>
+        <p class="display-6">{{ total_complaints }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4 mt-3">
+    <div class="col-md-4">
+      <div class="report-card bg-gradient-red text-center">
+        <h6>Open Complaints</h6>
+        <p class="display-6">{{ open_complaints }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="report-card bg-gradient-yellow text-center">
+        <h6>In Progress</h6>
+        <p class="display-6">{{ inprogress_complaints }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="report-card bg-gradient-green text-center">
+        <h6>Resolved</h6>
+        <p class="display-6">{{ resolved_complaints }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,44 +1,85 @@
 {% extends "base.html" %}
 {% block content %}
+
 <div class="container mt-4">
-    <h2>🎓 My Grades</h2>
 
-    <!-- Semester Filter -->
-    <form method="GET" class="mb-3">
-        <label>Filter by Semester:</label>
-        <select name="semester" onchange="this.form.submit()" class="form-control w-25">
-            <option value="">-- All Semesters --</option>
-            {% for sem in semesters %}
-                <option value="{{ sem }}" {% if selected_semester==sem %}selected{% endif %}>{{ sem }}</option>
-            {% endfor %}
-        </select>
-    </form>
+    <!-- Result Header -->
+    <div class="card shadow-lg border-0">
+        <div class="card-body text-center">
+            <h2 class="fw-bold">{{ current_user.college.name if current_user.college else "My College" }}</h2>
+            <p class="text-muted">Official Student Result</p>
+            <hr>
 
-    {% if results %}
-    <table class="table table-bordered mt-3">
-        <thead class="thead-dark">
-            <tr>
-                <th>Course Code</th>
-                <th>Course Name</th>
-                <th>Semester</th>
-                <th>Marks</th>
-                <th>Grade</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for r in results %}
-            <tr>
-                <td>{{ r.course_code }}</td>
-                <td>{{ r.course_name }}</td>
-                <td>{{ r.semester }}</td>
-                <td>{{ r.marks }}</td>
-                <td>{{ r.grade }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-        <p>No results available.</p>
-    {% endif %}
+            <!-- Student Info -->
+            <div class="row text-start mb-3">
+                <div class="col-md-6">
+                    <p><strong>Name:</strong> {{ current_user.name }}</p>
+                    <p><strong>Enrollment No:</strong> {{ current_user.enrollment_no or 'N/A' }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Program:</strong> {{ current_user.program or 'N/A' }}</p>
+                    <p><strong>Semester:</strong> {{ selected_semester or 'All' }}</p>
+                </div>
+            </div>
+
+            <!-- Semester Filter -->
+            <form method="get" class="mb-3">
+                <label for="semester">📚 Select Semester:</label>
+                <select name="semester" class="form-select d-inline w-auto">
+                    <option value="">All</option>
+                    {% for sem in semesters %}
+                        <option value="{{ sem }}" {% if selected_semester == sem %}selected{% endif %}>{{ sem }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary btn-sm">View</button>
+            </form>
+
+            <!-- Results Table -->
+            {% if results %}
+                <div class="table-responsive mt-3">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Name</th>
+                                <th>Marks</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set total_marks = 0 %}
+                            {% set total_courses = 0 %}
+                            {% for r in results %}
+                                <tr>
+                                    <td>{{ r.course.course_code if r.course else "-" }}</td>
+                                    <td>{{ r.course.course_name if r.course else "-" }}</td>
+                                    <td>{{ r.marks }}</td>
+                                    <td><strong>{{ r.grade }}</strong></td>
+                                </tr>
+                                {% set total_marks = total_marks + r.marks %}
+                                {% set total_courses = total_courses + 1 %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Summary -->
+                <div class="mt-3 text-start">
+                    <p><strong>Total Marks:</strong> {{ total_marks }}</p>
+                    <p><strong>Average Marks:</strong> {{ "%.2f"|format(total_marks / total_courses) if total_courses > 0 else 'N/A' }}</p>
+                </div>
+
+                <!-- Download PDF -->
+                <a href="{{ url_for('grades_bp.student_grades_pdf', semester=selected_semester) }}"
+                   class="btn btn-success mt-3">
+                    📄 Download PDF
+                </a>
+            {% else %}
+                <p class="text-muted">No results found for the selected semester.</p>
+            {% endif %}
+        </div>
+    </div>
+
 </div>
+
 {% endblock %}

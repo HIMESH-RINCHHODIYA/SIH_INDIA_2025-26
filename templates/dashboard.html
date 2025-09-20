@@ -19,13 +19,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
   .dashboard-card:hover { transform: translateY(-8px); box-shadow: 0px 10px 25px rgba(0,0,0,0.3); }
 
-  /* Gradient Themes */
+  /* Role Themes */
   .student { background: linear-gradient(135deg, #a8c0ff, #3f2b96); }
   .faculty { background: linear-gradient(135deg, #FF9A9E, #FAD0C4); }
   .admin { background: linear-gradient(135deg, #FF758C, #FF7EB3); }
@@ -41,7 +40,10 @@
 
   .coming-soon { font-size: 0.7rem; opacity: 0.8; margin-top: 5px; }
 
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 </style>
 
 <div class="dashboard-header">
@@ -50,45 +52,47 @@
 </div>
 
 <div class="row g-4">
+
   {% if role == "Student" %}
-    <!-- Student Dashboard -->
-    <div class="col-md-4">
-      <a href="{{ url_for('profile_bp.student_profile', student_id=current_user.id) }}" class="text-decoration-none">
-        <div class="dashboard-card student">📋 Profile</div>
-     </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('student_pages', path='attendance') }}" class="text-decoration-none">
-        <div class="dashboard-card student">🗓 Attendance</div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('grades_bp.student_grades') }}" class="text-decoration-none">
-        <div class="dashboard-card student">📊 Grades</div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('student_fee.student_fees') }}" class="text-decoration-none">
-        <div class="dashboard-card student">💰 Fees</div>
-      </a>
-    </div>
+    {# ======================= STUDENT DASHBOARD ======================= #}
+    {% set student_cards = [
+      ('profile_bp.student_profile', '📋 Profile'),
+      ('student_pages', '🗓 Attendance', 'attendance'),
+      ('grades_bp.student_grades', '📊 Grades'),
+      ('student_fee.student_fees', '💰 Fees'),
+      ('course_bp.student_courses', '📘 Courses'),
+      ('hostel.student_hostel', '🏨 My Hostel')
+    ] %}
 
-    <!-- Courses for Student -->
-    <div class="col-md-4">
-      <a href="{{ url_for('course_bp.student_courses') }}" class="text-decoration-none">
-        <div class="dashboard-card student">📘 Courses</div>
-      </a>
-    </div>
+    {% for card in student_cards %}
+      <div class="col-md-4">
+        <a href="{% if 'profile' in card[0] %}
+                    {{ url_for(card[0], student_id=current_user.id) }}
+                 {% elif card|length == 3 %}
+                    {{ url_for(card[0], path=card[2]) }}
+                 {% else %}
+                    {{ url_for(card[0]) }}
+                 {% endif %}"
+           class="text-decoration-none">
+          <div class="dashboard-card student">{{ card[1] }}</div>
+        </a>
+      </div>
+    {% endfor %}
 
+    {# Coming Soon features for Students #}
     {% for feature, icon in [
-        ('jobs','💼'), ('webinars','🎥'), ('forums','💬'),
-        ('people','👥'), ('assessments','📝'), ('practice_tests','🧪'),
-        ('assignments','📚'), ('resumes','📄'), ('academics','🎓'),
-        ('cohorts','👨‍👩‍👧‍👦'), ('my_program','📁')] %}
+      ('jobs','💼'), ('webinars','🎥'), ('forums','💬'),
+      ('people','👥'), ('assessments','📝'), ('practice_tests','🧪'),
+      ('assignments','📚'), ('resumes','📄'), ('academics','🎓'),
+      ('cohorts','👨‍👩‍👧‍👦'), ('my_program','📁')
+    ] %}
       <div class="col-md-4">
         <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
-          <div class="dashboard-card student">{{ icon }} {{ feature|replace('_',' ')|capitalize }}
-            {% if feature == 'people' %}<span class="badge-count">17K</span>{% endif %}
+          <div class="dashboard-card student">
+            {{ icon }} {{ feature|replace('_',' ')|capitalize }}
+            {% if feature == 'people' %}
+              <span class="badge-count">17K</span>
+            {% endif %}
             <div class="coming-soon">Coming Soon</div>
           </div>
         </a>
@@ -96,96 +100,86 @@
     {% endfor %}
 
   {% elif role == "Faculty" %}
-    <!-- Faculty Dashboard -->
-    <div class="col-md-4">
-      <a href="{{ url_for('course_bp.faculty_courses') }}" class="text-decoration-none">
-        <div class="dashboard-card faculty">📘 Courses</div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('faculty_pages', path='assignments') }}" class="text-decoration-none">
-        <div class="dashboard-card faculty">📝 Assignments</div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('faculty_stud_bp.faculty_attendance') }}" class="text-decoration-none">
-        <div class="dashboard-card faculty">🗓 Mark Attendance</div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('grades_bp.faculty_upload_grades') }}" class="text-decoration-none">
-        <div class="dashboard-card faculty">📊 Manage Grades</div>
-      </a>
-    </div>
+    {# ======================= FACULTY DASHBOARD ======================= #}
+    {% set faculty_cards = [
+      ('course_bp.faculty_courses', '📘 Courses'),
+      ('faculty_pages', '📝 Assignments', 'assignments'),
+      ('faculty_stud_bp.faculty_attendance', '🗓 Mark Attendance'),
+      ('grades_bp.faculty_upload_grades', '📊 Manage Grades')
+    ] %}
 
-{% elif role == "Admin" %}
-  <!-- Admin Dashboard -->
-  <div class="col-md-4">
-    <a href="{{ url_for('course_bp.admin_courses') }}" class="text-decoration-none">
-      <div class="dashboard-card admin">📘 Manage Courses</div>
-    </a>
-  </div>
-
-  <div class="col-md-4">
-    <a href="{{ url_for('student_fee.admin_fee_dashboard') }}" class="text-decoration-none">
-      <div class="dashboard-card admin">💰 Manage Fees</div>
-    </a>
-  </div>
-
-  <div class="col-md-4">
-    <a href="{{ url_for('grades_bp.admin_approve_grades') }}" class="text-decoration-none">
-      <div class="dashboard-card admin">📊 Approve Grades</div>
-    </a>
-  </div>
-
-  <div class="col-md-4">
-    <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
-      <div class="dashboard-card admin">✅ Approve Admissions
-        <div class="coming-soon">Coming Soon</div>
+    {% for card in faculty_cards %}
+      <div class="col-md-4">
+        <a href="{% if card|length == 3 %}
+                    {{ url_for(card[0], path=card[2]) }}
+                 {% else %}
+                    {{ url_for(card[0]) }}
+                 {% endif %}"
+           class="text-decoration-none">
+          <div class="dashboard-card faculty">{{ card[1] }}</div>
+        </a>
       </div>
-    </a>
-  </div>
+    {% endfor %}
 
-  <div class="col-md-4">
-    <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
-      <div class="dashboard-card admin">👥 Manage Users
-        <div class="coming-soon">Coming Soon</div>
+  {% elif role == "Admin" %}
+    {# ======================= ADMIN DASHBOARD ======================= #}
+    {% set admin_cards = [
+      ('course_bp.admin_courses', '📘 Manage Courses'),
+      ('admin_fee.admin_fee_dashboard', '💰 Manage Fees'),  
+      ('grades_bp.admin_approve_grades', '📊 Approve Grades'),
+      ('profile_bp.admin_students', '📋 Manage Students'),
+      ('hostel.admin_hostel', '🏨 Manage Hostel'),
+      ('hostel.admin_allocation', '🛏 Room Allocation'),
+      ('hostel.admin_reports', '📊 Hostel Reports'),
+      ('hostel.admin_complaints', '📝 Manage Complaints'),
+      ('hostel.admin_leaves', '📩 Manage Leaves')
+    ] %}
+
+    {% for card in admin_cards %}
+      <div class="col-md-4">
+        <a href="{{ url_for(card[0]) }}" class="text-decoration-none">
+          <div class="dashboard-card admin">{{ card[1] }}</div>
+        </a>
       </div>
-    </a>
-  </div>
-   
-  <!-- ✅ New: Manage Students -->
-  <div class="col-md-4">
-    <a href="{{ url_for('profile_bp.admin_students') }}" class="text-decoration-none">
-      <div class="dashboard-card admin">📋 Manage Students</div>
-    </a>
-  </div>
+    {% endfor %}
 
-  
-{% elif role == "SuperAdmin" %}
+    {# Coming Soon for Admin #}
+    {% for feature, icon in [
+      ('approve_admissions','✅'), ('manage_users','👥')
+    ] %}
+      <div class="col-md-4">
+        <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
+          <div class="dashboard-card admin">
+            {{ icon }} {{ feature|replace('_',' ')|capitalize }}
+            <div class="coming-soon">Coming Soon</div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
 
-    <!-- SuperAdmin Dashboard -->
-    <div class="col-md-4">
-      <a href="{{ url_for('superadmin.colleges') }}" class="text-decoration-none">
-        <div class="dashboard-card superadmin">🌍 Manage Colleges</div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
-        <div class="dashboard-card superadmin">🔑 Roles & Permissions
-          <div class="coming-soon">Coming Soon</div>
-        </div>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
-        <div class="dashboard-card superadmin">📂 System Logs
-          <div class="coming-soon">Coming Soon</div>
-        </div>
-      </a>
-    </div>
+  {% elif role == "SuperAdmin" %}
+    {# ======================= SUPERADMIN DASHBOARD ======================= #}
+    {% set super_cards = [
+      ('superadmin.colleges', '🌍 Manage Colleges'),
+      ('coming_soon', '🔑 Roles & Permissions'),
+      ('coming_soon', '📂 System Logs')
+    ] %}
+
+    {% for card in super_cards %}
+      <div class="col-md-4">
+        <a href="{{ url_for(card[0]) }}" class="text-decoration-none">
+          <div class="dashboard-card superadmin">
+            {{ card[1] }}
+            {% if "coming" in card[0] %}
+              <div class="coming-soon">Coming Soon</div>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
 
   {% else %}
+    <!-- Fallback -->
     <p class="text-center text-danger">❌ No dashboard available for your role.</p>
   {% endif %}
 </div>

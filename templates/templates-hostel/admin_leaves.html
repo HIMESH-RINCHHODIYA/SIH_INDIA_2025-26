@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4 fade-in">
+  <h2>📩 Hostel Leave Requests</h2>
+  <p class="text-muted">Review and manage student leave/out-pass requests.</p>
+
+  <!-- Filter Buttons -->
+  <div class="btn-group mb-3" role="group">
+    <a href="{{ url_for('hostel.admin_leaves') }}" class="btn btn-outline-dark {% if not filter %}active{% endif %}">All</a>
+    <a href="{{ url_for('hostel.admin_leaves', filter='Pending') }}" class="btn btn-outline-warning {% if filter=='Pending' %}active{% endif %}">Pending</a>
+    <a href="{{ url_for('hostel.admin_leaves', filter='Approved') }}" class="btn btn-outline-success {% if filter=='Approved' %}active{% endif %}">Approved</a>
+    <a href="{{ url_for('hostel.admin_leaves', filter='Rejected') }}" class="btn btn-outline-danger {% if filter=='Rejected' %}active{% endif %}">Rejected</a>
+  </div>
+
+  <!-- Leaves Table -->
+  <div class="table-responsive shadow-sm">
+    <table class="table table-hover table-bordered align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>ID</th>
+          <th>Student</th>
+          <th>Enrollment</th>
+          <th>Hostel & Room</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Reason</th>
+          <th>Status</th>
+          <th>Requested On</th>
+          <th>Approved By</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for l in leaves %}
+        <tr>
+          <td>#{{ l.id }}</td>
+          <td>{{ l.student.name }}</td>
+          <td>{{ l.student.enrollment_no }}</td>
+          <td>
+            {% if l.student.hostel_allocation %}
+              {{ l.student.hostel_allocation.room.hostel.name }} - {{ l.student.hostel_allocation.room.room_no }}
+            {% else %}
+              N/A
+            {% endif %}
+          </td>
+          <td>{{ l.from_date.strftime('%d-%b-%Y') }}</td>
+          <td>{{ l.to_date.strftime('%d-%b-%Y') }}</td>
+          <td>{{ l.reason }}</td>
+          <td class="text-center">
+            {% if l.status == 'Pending' %}
+              <span class="badge bg-warning text-dark">Pending</span>
+            {% elif l.status == 'Approved' %}
+              <span class="badge bg-success">Approved</span>
+            {% else %}
+              <span class="badge bg-danger">Rejected</span>
+            {% endif %}
+          </td>
+          <td>{{ l.created_at.strftime('%d-%b-%Y %H:%M') }}</td>
+          <td>{{ l.approver.name if l.approver else '---' }}</td>
+          <td>
+            <form method="POST" action="{{ url_for('hostel.update_leave', leave_id=l.id) }}" class="d-flex">
+              <select name="status" class="form-select form-select-sm me-2">
+                <option value="Pending" {% if l.status=='Pending' %}selected{% endif %}>Pending</option>
+                <option value="Approved" {% if l.status=='Approved' %}selected{% endif %}>Approved</option>
+                <option value="Rejected" {% if l.status=='Rejected' %}selected{% endif %}>Rejected</option>
+              </select>
+              <button type="submit" class="btn btn-sm btn-primary">Update</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="11" class="text-center text-muted">🎉 No leave requests</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

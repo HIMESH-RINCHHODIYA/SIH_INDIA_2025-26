@@ -3,297 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin Fee Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-body { font-family:'Inter',sans-serif; margin:0; padding:0;
-  background:linear-gradient(135deg,#00c6ff 0%,#0072ff 100%); color:#333; }
+  body { font-family:'Inter',sans-serif; margin:0; padding:0;
+    background:linear-gradient(135deg,#00c6ff 0%,#0072ff 100%); color:#333; }
 
-.container { max-width:1100px; margin:40px auto; padding:30px; background:#fff;
-  border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,0.2); }
+  .container { max-width:1200px; margin:20px auto; padding:20px; background:#fff;
+    border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.1); }
 
-h1,h2 { text-align:center; margin:10px 0; }
-h1 { font-size:26px; font-weight:700; color:#0072ff; }
-h2 { font-weight:700; color:#0072ff; margin-bottom:25px; }
+  h1,h2,h3 { margin:10px 0; text-align:center; }
+  h1 { color:#0072ff; font-size:24px; }
+  h2,h3 { color:#0072ff; font-size:20px; }
 
-.logo { display:block; margin:0 auto 10px; max-height:80px; }
+  .dashboard-btn { display:inline-block; margin:10px 0; background:#0072ff;
+    color:#fff; padding:8px 14px; border-radius:6px; text-decoration:none; font-size:14px; }
+  .dashboard-btn:hover { background:#0056cc; }
 
-.dashboard-btn { display:inline-block; margin-bottom:20px; background:#0072ff;
-  color:#fff; padding:10px 18px; border-radius:8px; font-size:14px; text-decoration:none; transition:.3s; }
-.dashboard-btn:hover { background:#0056cc; transform:scale(1.05); }
+  .card { background:#f9fbff; padding:15px; border-radius:10px; margin-bottom:20px;
+    border-left:5px solid #0072ff; }
+  .card h3 { font-size:18px; margin-bottom:10px; }
+  label { font-weight:600; margin-right:5px; }
+  select,input[type="number"],input[type="date"]{padding:6px;border:1px solid #ccc;border-radius:6px; margin:4px 0;}
 
-.card { background:#f4f9ff; padding:20px; border-radius:12px; margin-bottom:30px;
-  border-left:6px solid #0072ff; }
-.card:hover { box-shadow:0 4px 15px rgba(0,0,0,0.08); }
+  button { background:#0072ff; color:white; border:none; padding:7px 12px;
+    border-radius:6px; cursor:pointer; font-size:13px; }
+  button:hover { background:#0056cc; }
 
-label { font-weight:600; margin-right:10px; }
-select,input[type="number"],input[type="date"] { padding:8px; border:1px solid #ccc;
-  border-radius:6px; margin:5px 10px 15px 0; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  table th, table td { border:1px solid #ddd; padding:8px; text-align:center; }
+  table th { background:#0072ff; color:white; }
+  table tr:nth-child(even){background:#f9f9f9;}
 
-button { background:#0072ff; color:white; border:none; padding:8px 14px;
-  border-radius:8px; cursor:pointer; transition:.3s; font-size:14px; }
-button:hover { background:#0056cc; transform:translateY(-2px); }
+  .status { font-weight:bold; padding:3px 8px; border-radius:5px; font-size:12px;}
+  .Unpaid { background:#ffe6e6; color:#d32f2f; }
+  .Pending { background:#fff4cc; color:#856404; }
+  .Paid { background:#d4edda; color:#155724; }
+  .Failed { background:#f8d7da; color:#721c24; }
 
-table { width:100%; border-collapse:collapse; margin-top:15px; }
-table th,table td { border:1px solid #ddd; padding:10px; text-align:center; }
-table th { background:#0072ff; color:white; }
-table tr:nth-child(even){background:#f9f9f9;}
-
-.status { font-weight:bold; padding:4px 10px; border-radius:6px; }
-.Unpaid { background:#ffe6e6; color:#d32f2f; }
-.Pending { background:#fff4cc; color:#856404; }
-.Paid { background:#d4edda; color:#155724; }
-.Failed { background:#f8d7da; color:#721c24; }
-
-/* Modal */
-.modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.6); }
-.modal-content { background:#fff; margin:10% auto; padding:20px; border-radius:12px;
-  max-width:600px; }
-.modal-close { float:right; font-size:20px; cursor:pointer; }
+  .modal {display:none; position:fixed; top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,0.6); z-index:1000; }
+  .modal-content { background:#fff; margin:10% auto; padding:20px; border-radius:12px;
+    max-width:700px; }
+  @media(max-width:768px){
+    body{font-size:14px;}
+    table{font-size:12px;}
+    .container{padding:10px;}
+    .card{padding:10px;}
+    .card h3{font-size:16px;}
+  }
 </style>
 </head>
 <body>
-  <div class="container">
-    {% if college_logo %}
-      <img src="{{ college_logo }}" alt="College Logo" class="logo">
-    {% endif %}
-    <h1>{{ college_name or "College Admin Panel" }}</h1>
-    <a href="/dashboard" class="dashboard-btn">⬅ Back to Dashboard</a>
+<div class="container">
+  {% if college_logo %}
+    <img src="{{ college_logo }}" alt="College Logo" class="logo" style="display:block;margin:0 auto;max-height:60px;">
+  {% endif %}
+  <h1>{{ college_name or "College Admin Panel" }}</h1>
+  <a href="/dashboard" class="dashboard-btn">⬅ Back to Dashboard</a>
+  <h2>💼 Admin Fee Dashboard</h2>
 
-    <h2>💼 Admin Fee Dashboard</h2>
+  <!-- Fee Config -->
+  <div class="card">
+    <h3>⚙️ Set Fee Configuration</h3>
+    <form id="feeConfigForm">
+      <label>Fee Category:</label>
+      <select id="cfgFeeType">
+        <option value="ACADEMIC">School/College Fee</option>
+        <option value="HOSTEL">Hostel Fee</option>
+      </select><br>
+      <label>Program:</label><select id="cfgProgram"></select>
+      <label>Branch:</label><select id="cfgBranch"></select>
+      <label>Year:</label><select id="cfgYear"></select><br>
+      <label>Amount (₹):</label><input type="number" step="0.01" id="cfgAmount" required>
+      <label>Last Date:</label><input type="date" id="cfgLastDate" required>
+      <button type="submit">💾 Save</button>
+    </form>
+  </div>
 
-    <!-- Save Fee Configuration -->
-    <div class="card">
-      <h3>⚙️ Set Fee Configuration</h3>
-      <form id="feeConfigForm">
-        <label>Program:</label><select id="cfgProgram"></select>
-        <label>Branch:</label><select id="cfgBranch"></select>
-        <label>Year:</label><select id="cfgYear"></select>
-        <br>
-        <label>Amount (₹):</label>
-        <input type="number" step="0.01" id="cfgAmount" required>
-        <label>Last Date:</label>
-        <input type="date" id="cfgLastDate">
-        <button type="submit">💾 Save Config</button>
-      </form>
-    </div>
-
-    <!-- Filter Students -->
-    <div class="card">
-      <h3>🔍 Filter Students</h3>
+  <!-- Filters -->
+  <div class="card">
+    <h3>🔍 Filter Students</h3>
+    <label>Mode:</label>
+    <select id="filterMode">
+      <option value="academic">By Academic</option>
+      <option value="hostel">By Hostel</option>
+    </select>
+    <div id="academicFilters" style="margin-top:8px;">
       <label>Program:</label><select id="program"></select>
       <label>Branch:</label><select id="branch"></select>
       <label>Year:</label><select id="year"></select>
-      <button id="filterBtn">Filter</button>
-      <button id="downloadCSV">⬇ CSV</button>
-      <button id="downloadPDF">⬇ PDF</button>
     </div>
-
-    <!-- Students Table -->
-    <div class="card">
-      <h3>📑 Students</h3>
-      <table id="studentsTable">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Program / Branch / Year</th>
-            <th>Applied Fee (₹)</th>
-            <th>Paid Amount (₹)</th>
-            <th>Status</th>
-            <th>Payments</th>
-            <th>Update Fee</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    <div id="hostelFilters" style="margin-top:8px;display:none">
+      <label>Hostel:</label><select id="hostelId"></select>
     </div>
+    <button id="filterBtn" style="margin-top:8px;">Apply</button>
   </div>
 
-  <!-- Payment History Modal -->
-  <div id="historyModal" class="modal">
-    <div class="modal-content">
-      <span class="modal-close" onclick="closeModal()">&times;</span>
-      <h3>📜 Payment History</h3>
-      <table>
-        <thead>
-          <tr><th>Date</th><th>Amount</th><th>Status</th><th>Receipt</th></tr>
-        </thead>
-        <tbody id="historyBody"></tbody>
-      </table>
-    </div>
+  <!-- Students -->
+  <div class="card">
+    <h3>📑 Students</h3>
+    <table id="studentsTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Program / Branch / Year</th>
+          <th>Academic Fee</th>
+          <th>Hostel Fee</th>
+          <th>Payments</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
+</div>
+
+<!-- Modal -->
+<div id="historyModal" class="modal">
+  <div class="modal-content">
+    <span onclick="closeModal()" style="float:right;cursor:pointer">&times;</span>
+    <h3>📜 Payment History</h3>
+    <table>
+      <thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Fee Type</th></tr></thead>
+      <tbody id="historyBody"></tbody>
+    </table>
+  </div>
+</div>
 
 <script>
-// API endpoints
-const apiDropdown="/admin/fees/api/dropdowns";
-const studentsApi="/admin/fees/api/students";
+function showToast(msg){ alert(msg); }
 
-// Toast utility
-function showToast(message,type="info"){
-  const toast=document.createElement("div");
-  toast.className=`toast ${type}`;
-  toast.innerText=message;
-  Object.assign(toast.style,{
-    position:"fixed",bottom:"20px",right:"20px",background:type==="error"?"#e74c3c":"#2ecc71",
-    color:"#fff",padding:"10px 16px",borderRadius:"6px",zIndex:2000,boxShadow:"0 4px 12px rgba(0,0,0,.2)"
-  });
-  document.body.appendChild(toast);
-  setTimeout(()=>toast.remove(),3000);
-}
-
-// Populate dropdowns safely
+// Populate dropdowns
 async function populateDropdowns(){
-  try {
-    const res=await fetch(apiDropdown); 
-    if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  try{
+    const res=await fetch("/admin/fees/api/dropdowns");
     const data=await res.json();
+    if(data.error)return showToast(data.error);
+    function fill(id,arr){const sel=document.getElementById(id);sel.innerHTML="";arr.forEach(v=>sel.appendChild(new Option(v,v)));}
+    fill("cfgProgram",data.programs); fill("cfgBranch",data.branches); fill("cfgYear",data.years);
+    fill("program",["",...data.programs]); fill("branch",["",...data.branches]); fill("year",["",...data.years]);
 
-    function fillSelect(sel,items,addAll=true){
-      sel.innerHTML="";
-      if(addAll) sel.innerHTML="<option value=''>--All--</option>";
-      if(items && Array.isArray(items)){
-        items.forEach(i=> sel.appendChild(new Option(i,i)));
-      }
-    }
-
-    // Filter dropdowns
-    fillSelect(document.getElementById("program"),data.programs,true);
-    fillSelect(document.getElementById("branch"),data.branches,true);
-    fillSelect(document.getElementById("year"),data.years,true);
-
-    // Config dropdowns
-    fillSelect(document.getElementById("cfgProgram"),data.programs,false);
-    fillSelect(document.getElementById("cfgBranch"),data.branches,false);
-    fillSelect(document.getElementById("cfgYear"),data.years,false);
-
-  } catch(err){
-    console.error("Dropdown fetch error:",err);
-    showToast("Failed to load dropdowns","error");
-  }
+    // load hostels for hostel filter if API exists (replace with your /api/hostels)
+    try{
+      const rh=await fetch("/hostel/api/list"); // create this endpoint to return hostels
+      const hd=await rh.json(); const sel=document.getElementById("hostelId");
+      sel.innerHTML=""; hd.forEach(h=>sel.appendChild(new Option(h.name,h.id)));
+    }catch{}
+  }catch(err){console.error(err);showToast("Dropdown error");}
 }
 
-// Fetch students
+// Student list
 async function fetchStudents(){
-  const p=program.value,b=branch.value,y=year.value;
-  try {
-    const res=await fetch(`${studentsApi}?program=${p}&branch=${b}&year=${y}`);
-    if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const students=await res.json();
-
-    const tbody=document.querySelector("#studentsTable tbody");
-    tbody.innerHTML="";
-
-    students.forEach(st=>{
-      const tr=document.createElement("tr");
-      tr.innerHTML=`
-        <td>${st.name}</td>
-        <td>${st.email}</td>
-        <td>${st.program||"-"} / ${st.branch||"-"} / ${st.year||"-"}</td>
-        <td>${st.applied_fee?.amount?.toFixed(2)||"-"}</td>
-        <td>${st.paid_amount?.toFixed(2)||"-"}</td>
-        <td><span class="status ${st.status}">${st.status}</span></td>
-        <td><button onclick="viewPayments(${st.id})">🔍 View</button></td>
-        <td>
-          <input type="number" step="0.01" value="${st.applied_fee?.amount||0}" id="amt_${st.id}">
-          <button onclick="updateAmount(${st.id})">Update</button>
-        </td>`;
-      tbody.appendChild(tr);
-    });
-
-  } catch(err){
-    console.error("Fetch students error:",err);
-    showToast("Failed to fetch students","error");
+  const mode=document.getElementById("filterMode").value;
+  let url=`/admin/fees/api/students?mode=${mode}`;
+  if(mode==="academic"){
+    url+=`&program=${program.value}&branch=${branch.value}&year=${year.value}`;
+  } else if(mode==="hostel"){
+    url+=`&hostel_id=${hostelId.value}`;
   }
+  const res=await fetch(url);
+  const students=await res.json();
+
+  const tbody=document.querySelector("#studentsTable tbody");
+  tbody.innerHTML="";
+  students.forEach(s=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${s.name}</td>
+      <td>${s.email}</td>
+      <td>${s.program||"-"} / ${s.branch||"-"} / ${s.year||"-"}</td>
+      <td>Applied ₹${s.academic_fee.applied} | Paid ₹${s.academic_fee.paid} | Dues ₹${s.academic_fee.dues}</td>
+      <td>Applied ₹${s.hostel_fee.applied} | Paid ₹${s.hostel_fee.paid} | Dues ₹${s.hostel_fee.dues}</td>
+      <td><button onclick="viewPayments(${s.id})">🔍 View</button></td>`;
+    tbody.appendChild(tr);
+  });
 }
 
-// Update student fee
-async function updateAmount(studentId){
-  const amt=parseFloat(document.getElementById(`amt_${studentId}`).value);
-  try {
-    const res=await fetch(`/admin/fees/api/update_fee/${studentId}`,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({amount:amt})
-    });
-    const data=await res.json();
-    if(data.error) showToast(data.error,"error"); 
-    else showToast(data.message,"success");
-    fetchStudents();
-  } catch(err){
-    console.error(err);
-    showToast("Failed to update fee","error");
-  }
+// Save config
+async function saveFeeConfig(e){
+  e.preventDefault();
+  const data={fee_type:cfgFeeType.value, program:cfgProgram.value, branch:cfgBranch.value, year:cfgYear.value,
+              amount:parseFloat(cfgAmount.value), last_date:cfgLastDate.value};
+  const res=await fetch("/admin/fees/api/save_fee_config",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+  const r=await res.json(); showToast(r.message||r.error); fetchStudents();
 }
 
-// Save fee config
-async function saveFeeConfig(e) {
-    e.preventDefault();
-    const data = {
-        program: cfgProgram.value,
-        branch: cfgBranch.value,
-        year: cfgYear.value,
-        amount: parseFloat(cfgAmount.value),
-        last_date: cfgLastDate.value
-    };
-    try {
-        const res = await fetch("/admin/fees/api/save_fee_config", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
-        const r = await res.json();
-        if (r.error) showToast(r.error, "error");
-        else showToast(r.message, "success");
-        fetchStudents();
-    } catch (err) {
-        console.error(err);
-        showToast("Failed to save fee config.", "error");
-    }
+// Payment history
+async function viewPayments(sid){
+  const res=await fetch(`/admin/fees/api/payments/${sid}`); const pays=await res.json();
+  const tbody=document.getElementById("historyBody"); tbody.innerHTML="";
+  pays.forEach(p=>{const tr=document.createElement("tr"); tr.innerHTML=`<td>${p.created_at}</td><td>₹${p.amount}</td>
+    <td><span class="status ${p.status}">${p.status}</span></td><td>${p.fee_type}</td>`;tbody.appendChild(tr);});
+  document.getElementById("historyModal").style.display="block";
 }
-
-// Payment history modal
-async function viewPayments(studentId){
-  try {
-    const res=await fetch(`/admin/fees/api/payments/${studentId}`);
-    if(!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const payments=await res.json();
-    const tbody=document.getElementById("historyBody"); 
-    tbody.innerHTML="";
-    payments.forEach(p=>{
-      const tr=document.createElement("tr");
-      tr.innerHTML=`
-        <td>${p.created_at}</td>
-        <td>₹${p.amount}</td>
-        <td><span class="status ${p.status}">${p.status}</span></td>
-        <td>${p.status==="Paid"?`<a href="/admin/fees/receipt/${p.id}" target="_blank">⬇ Receipt</a>`:"-"}</td>`;
-      tbody.appendChild(tr);
-    });
-    document.getElementById("historyModal").style.display="block";
-  } catch(err){
-    console.error(err);
-    showToast("Failed to load payments","error");
-  }
-}
-
-function closeModal(){ document.getElementById("historyModal").style.display="none"; }
-
-// Download CSV/PDF
-function downloadFile(type){
-  const p=program.value,b=branch.value,y=year.value;
-  window.location.href=`/admin/fees/download_students/${type}?program=${p}&branch=${b}&year=${y}`;
-}
-
-// Events
-filterBtn.addEventListener("click",fetchStudents);
-downloadCSV.addEventListener("click",()=>downloadFile("csv"));
-downloadPDF.addEventListener("click",()=>downloadFile("pdf"));
-feeConfigForm.addEventListener("submit",saveFeeConfig);
+function closeModal(){document.getElementById("historyModal").style.display="none";}
 
 // Init
-populateDropdowns(); 
-fetchStudents();
+populateDropdowns(); fetchStudents();
+document.getElementById("feeConfigForm").addEventListener("submit",saveFeeConfig);
+document.getElementById("filterMode").addEventListener("change",()=>{
+  document.getElementById("academicFilters").style.display=filterMode.value==="academic"?"block":"none";
+  document.getElementById("hostelFilters").style.display=filterMode.value==="hostel"?"block":"none";
+});
+document.getElementById("filterBtn").addEventListener("click",fetchStudents);
 </script>
 </body>
 </html>

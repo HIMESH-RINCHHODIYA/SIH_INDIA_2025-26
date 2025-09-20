@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .header { text-align: center; }
+        .header img { height: 80px; }
+        .college-name { font-size: 22px; font-weight: bold; }
+        .subtitle { font-size: 14px; color: gray; }
+        .student-info { margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 8px; text-align: center; }
+        .footer { margin-top: 50px; text-align: right; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        {% if college and college.logo %}
+        <img src="{{ college.logo }}" alt="College Logo">
+        {% endif %}
+        <div class="college-name">{{ college.name if college else "Your College" }}</div>
+        <div class="subtitle">Official Examination Result</div>
+    </div>
+
+    <div class="student-info">
+        <p><strong>Name:</strong> {{ student.name }}</p>
+        <p><strong>Roll No:</strong> {{ student.roll_no }}</p>
+        <p><strong>Program:</strong> {{ student.program }} | <strong>Branch:</strong> {{ student.branch }}</p>
+        <p><strong>Semester:</strong> {{ semester if semester else "All" }}</p>
+        <p><strong>Date Issued:</strong> {{ generated_on }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Marks</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in results %}
+            <tr>
+                <td>{{ r.course.course_code }}</td>
+                <td>{{ r.course.course_name }}</td>
+                <td>{{ r.marks }}</td>
+                <td>{{ r.grade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p>________________________</p>
+        <p>Authorized Digital Signature</p>
+    </div>
+
+</body>
+</html>

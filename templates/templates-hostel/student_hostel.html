@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>🏨 My Hostel</h2>
+  <hr>
+
+  <!-- Current Room Info -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5>Room Details</h5>
+      {% if allocation %}
+        <p><b>Hostel:</b> {{ allocation.room.hostel.name }}</p>
+        <p><b>Room No:</b> {{ allocation.room.room_no }}</p>
+        <p><b>Capacity:</b> {{ allocation.room.capacity }}</p>
+        <p><b>Status:</b> {{ allocation.status }}</p>
+        <p><b>Admission Date:</b> {{ allocation.admission_date }}</p>
+      {% else %}
+        <p>You are not currently allocated a hostel room.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Leave Request -->
+  <!-- Leave Request -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">📩 Leave Request</div>
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('hostel.submit_leave') }}">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label>From Date</label>
+          <input type="date" name="from_date" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label>To Date</label>
+          <input type="date" name="to_date" class="form-control" required>
+        </div>
+        <div class="col-md-12 mt-3">
+          <label>Reason</label>
+          <textarea class="form-control" name="reason" rows="2" required></textarea>
+        </div>
+      </div>
+      <button class="btn btn-warning mt-3">Request Leave</button>
+    </form>
+  </div>
+</div>
+
+<!-- Leave Requests History -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">📜 My Leave Applications</div>
+  <div class="card-body">
+    <table class="table table-sm table-striped text-center">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Reason</th>
+          <th>Status</th>
+          <th>Applied On</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in leaves %}
+          <tr>
+            <td>#{{ l.id }}</td>
+            <td>{{ l.from_date.strftime('%d-%b-%Y') }}</td>
+            <td>{{ l.to_date.strftime('%d-%b-%Y') }}</td>
+            <td>{{ l.reason }}</td>
+            <td>
+              {% if l.status == 'Pending' %}
+                <span class="badge bg-warning text-dark">⏳ Pending</span>
+              {% elif l.status == 'Approved' %}
+                <span class="badge bg-success">✅ Approved</span>
+              {% else %}
+                <span class="badge bg-danger">❌ Rejected</span>
+              {% endif %}
+            </td>
+            <td>{{ l.created_at.strftime('%d-%b-%Y %H:%M') }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6" class="text-muted">No leave applications yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  <!-- Complaints -->
+  <!-- Complaints History -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">📝 My Complaints</div>
+  <div class="card-body">
+    <table class="table table-sm table-striped text-center">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Resolved At</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in complaints %}
+          <tr>
+            <td>#{{ c.id }}</td>
+            <td>{{ c.type }}</td>
+            <td>{{ c.description }}</td>
+            <td>
+              {% if c.status == 'Open' %}
+                <span class="badge bg-danger">⛔ Open</span>
+              {% elif c.status == 'In Progress' %}
+                <span class="badge bg-warning text-dark">⏳ In Progress</span>
+              {% else %}
+                <span class="badge bg-success">✅ Resolved</span>
+              {% endif %}
+            </td>
+            <td>{{ c.created_at.strftime('%d-%b-%Y %H:%M') }}</td>
+            <td>
+              {{ c.resolved_at.strftime('%d-%b-%Y %H:%M') if c.resolved_at else '---' }}
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6" class="text-muted">No complaints submitted yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+  <!-- Fee Status -->
+  <div class="card shadow-sm">
+    <div class="card-header">💰 Hostel Fees</div>
+    <div class="card-body">
+      <p><b>Status:</b> {{ fee_status if fee_status else "Not Assigned" }}</p>
+      <p><b>Amount:</b> {{ fee_amount if fee_amount else "N/A" }}</p>
+      <p><b>Due Date:</b> {{ due_date if due_date else "N/A" }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

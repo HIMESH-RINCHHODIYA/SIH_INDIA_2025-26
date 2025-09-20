@@ -14,6 +14,8 @@ from extensions import db
 from models import User, Attendance, FeePayment, FeeConfig, College
 from utils import save_uploaded_file, role_required
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+# Import models so they are registered with SQLAlchemy
+from hostel_models import Hostel, HostelRoom, HostelAllocation, HostelLeave, HostelComplaint
 
 # ------------------ App Setup ------------------ #
 app = Flask(__name__, template_folder="templates")
@@ -53,27 +55,29 @@ with app.app_context():
     print("✅ All tables created or already exist")
     print("✅ All database tables ensured!")
 
-# ------------------ Blueprints ------------------ #
+# Import your blueprints
 from student_att import student_bp
 from faculty_attendance import faculty_stud_bp
 from student_fee import student_fee_bp
-from admin_fee import admin_fee
+from admin_fee import admin_fee_bp
 from dropdowns import dropdowns_bp
 from grades_bp import grades_bp
 from superadmin_routes import superadmin_bp
 from course_routes import course_bp
 from profile import profile_bp
+from hostel import hostel_bp
 
-# ------------------ Register Blueprints ------------------ #
+# Register Blueprints
 app.register_blueprint(student_bp, url_prefix="/student")
 app.register_blueprint(faculty_stud_bp, url_prefix="/faculty")
-app.register_blueprint(student_fee_bp, url_prefix="/student")
-app.register_blueprint(admin_fee, url_prefix="/admin")
+app.register_blueprint(student_fee_bp)
+app.register_blueprint(admin_fee_bp)
 app.register_blueprint(dropdowns_bp, url_prefix="/api")
 app.register_blueprint(grades_bp, url_prefix="/grades")
 app.register_blueprint(superadmin_bp, url_prefix="/superadmin")
 app.register_blueprint(course_bp, url_prefix="/courses")
 app.register_blueprint(profile_bp, url_prefix="/profile")
+app.register_blueprint(hostel_bp)
 
 # ------------------ Routes ------------------ #
 @app.route("/")

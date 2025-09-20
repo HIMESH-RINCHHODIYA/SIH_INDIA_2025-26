@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4 fade-in">
+  <h2>📝 Hostel Complaints</h2>
+  <p class="text-muted">Track, review, and resolve student maintenance/discipline issues.</p>
+
+  <!-- Filter Buttons -->
+  <div class="btn-group mb-3" role="group">
+    <a href="{{ url_for('hostel.admin_complaints') }}" class="btn btn-outline-dark {% if not filter %}active{% endif %}">All</a>
+    <a href="{{ url_for('hostel.admin_complaints', filter='Open') }}" class="btn btn-outline-danger {% if filter=='Open' %}active{% endif %}">Open</a>
+    <a href="{{ url_for('hostel.admin_complaints', filter='In Progress') }}" class="btn btn-outline-warning {% if filter=='In Progress' %}active{% endif %}">In Progress</a>
+    <a href="{{ url_for('hostel.admin_complaints', filter='Resolved') }}" class="btn btn-outline-success {% if filter=='Resolved' %}active{% endif %}">Resolved</a>
+  </div>
+
+  <!-- Complaints Table -->
+  <div class="table-responsive shadow-sm">
+    <table class="table table-hover table-bordered align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>ID</th>
+          <th>Student</th>
+          <th>Enrollment</th>
+          <th>Hostel</th>
+          <th>Room</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Resolved By</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for c in complaints %}
+        <tr class="fade-in">
+          <td class="text-center">#{{ c.id }}</td>
+          <td>{{ c.student.name if c.student else 'N/A' }}</td>
+          <td>{{ c.student.enrollment_no if c.student else 'N/A' }}</td>
+
+          <td>
+            {% if c.student and c.student.hostel_allocation %}
+              {{ c.student.hostel_allocation.room.hostel.name if c.student.hostel_allocation.room else 'N/A' }}
+            {% else %} N/A {% endif %}
+          </td>
+          <td>
+            {% if c.student and c.student.hostel_allocation %}
+              {{ c.student.hostel_allocation.room.room_no if c.student.hostel_allocation.room else 'N/A' }}
+            {% else %} N/A {% endif %}
+          </td>
+
+          <td>{{ c.type }}</td>
+          <td style="max-width: 200px;">{{ c.description }}</td>
+
+          <td class="text-center">
+            {% if c.status == 'Open' %}
+              <span class="badge bg-danger">Open</span>
+            {% elif c.status == 'In Progress' %}
+              <span class="badge bg-warning text-dark">In Progress</span>
+            {% else %}
+              <span class="badge bg-success">Resolved</span>
+            {% endif %}
+          </td>
+
+          <td>{{ c.created_at.strftime('%d-%b-%Y %H:%M') }}</td>
+          <td>{% if c.resolver %} {{ c.resolver.name }} {% else %} --- {% endif %}</td>
+
+          <td>
+            <form method="POST" action="{{ url_for('hostel.update_complaint', complaint_id=c.id) }}" class="d-flex">
+              <select name="status" class="form-select form-select-sm me-2">
+                <option value="Open" {% if c.status=='Open' %}selected{% endif %}>Open</option>
+                <option value="In Progress" {% if c.status=='In Progress' %}selected{% endif %}>In Progress</option>
+                <option value="Resolved" {% if c.status=='Resolved' %}selected{% endif %}>Resolved</option>
+              </select>
+              <button type="submit" class="btn btn-sm btn-primary">Update</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="11" class="text-center text-muted">🎉 No complaints</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* Smooth fade-in animations */
+  .fade-in {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(15px);}
+    to   {opacity: 1; transform: translateY(0);}
+  }
+
+  /* Card hover effect */
+  .allocation-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+  }
+  .allocation-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,0.05);
+    transition: background-color 0.3s ease;
+  }
+</style>
+
+<div class="container mt-4 fade-in">
+  <h2 class="mb-4">🛏 Student Room Allocation</h2>
+
+  <!-- New Allocation Form -->
+  <div class="card shadow-sm mb-4 allocation-card">
+    <div class="card-header bg-primary text-white">
+      ➕ Allocate Room to Student
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('hostel.admin_allocation') }}">
+        <div class="row g-3 align-items-end">
+
+          <!-- Student Dropdown -->
+          <div class="col-md-5">
+            <label for="student_id" class="form-label">Select Student</label>
+            <select name="student_id" id="student_id" class="form-select" required>
+              <option value="">-- Choose Student --</option>
+              {% for student in students %}
+                <option value="{{ student.id }}">{{ student.name }} ({{ student.enrollment_no }})</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Room Dropdown -->
+          <div class="col-md-5">
+            <label for="room_id" class="form-label">Select Room</label>
+            <select name="room_id" id="room_id" class="form-select" required>
+              <option value="">-- Choose Room --</option>
+              {% for room in rooms %}
+                <option value="{{ room.id }}">
+                  Hostel: {{ room.hostel.name }} | Room: {{ room.room_no }} | Capacity: {{ room.capacity }} | Occupied: {{ room.allocations|length }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Submit -->
+          <div class="col-md-2 text-center">
+            <button type="submit" class="btn btn-success w-100 shadow-sm">
+              ✅ Allocate
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Current Allocations Table -->
+  <div class="card shadow-sm allocation-card fade-in">
+    <div class="card-header bg-dark text-white">
+      📋 Current Allocations
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Student</th>
+            <th>Enrollment</th>
+            <th>Room No</th>
+            <th>Hostel</th>
+            <th>Status</th>
+            <th>Admission Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for allocation in allocations %}
+            <tr class="fade-in">
+              <td>{{ allocation.student.name }}</td>
+              <td>{{ allocation.student.enrollment_no }}</td>
+              <td>{{ allocation.room.room_no }}</td>
+              <td>{{ allocation.room.hostel.name }}</td>
+              <td>
+                <span class="badge {% if allocation.status == 'Active' %}bg-success{% else %}bg-secondary{% endif %}">
+                  {{ allocation.status }}
+                </span>
+              </td>
+              <td>{{ allocation.admission_date }}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-danger">❌ Remove</button>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="7" class="text-center text-muted">No allocations yet.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
