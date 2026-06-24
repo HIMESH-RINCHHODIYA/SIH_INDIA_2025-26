@@ -1,16 +1,21 @@
 # models.py
+import hashlib
+import json
+import uuid
 from datetime import datetime
-from decimal import Decimal, ROUND_HALF_UP
-from extensions import db
-from flask import Blueprint, current_app, request, url_for, render_template_string
-from flask_login import UserMixin, login_required, current_user
-from sqlalchemy.exc import SQLAlchemyError
-import hashlib, uuid, json
+from decimal import ROUND_HALF_UP, Decimal
 
+from flask import (Blueprint, current_app, render_template_string, request,
+                   url_for)
+from flask_login import UserMixin, current_user, login_required
+from sqlalchemy.exc import SQLAlchemyError
+
+from extensions import db
 
 # ======================================================================
 # 1. COLLEGE & ACADEMIC STRUCTURE
 # ======================================================================
+
 
 class College(db.Model):
     __tablename__ = "colleges"
@@ -23,13 +28,14 @@ class College(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     updated_at = db.Column(
-        db.DateTime, default=datetime.utcnow,
-        onupdate=datetime.utcnow, nullable=False
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
     )
 
     # Relationships
     users = db.relationship("User", back_populates="college", lazy="dynamic")
-    fee_payments = db.relationship("FeePayment", back_populates="college", lazy="dynamic")
+    fee_payments = db.relationship(
+        "FeePayment", back_populates="college", lazy="dynamic"
+    )
 
     def __repr__(self):
         return f"<College id={self.id} name={self.name}>"
@@ -44,7 +50,9 @@ class Program(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
     # Relationships
-    branches = db.relationship("Branch", back_populates="program", cascade="all, delete-orphan")
+    branches = db.relationship(
+        "Branch", back_populates="program", cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"<Program id={self.id} name={self.name}>"
@@ -92,8 +100,7 @@ class Course(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     updated_at = db.Column(
-        db.DateTime, default=datetime.utcnow,
-        onupdate=datetime.utcnow, nullable=False
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
     )
 
     # Relationships
@@ -109,6 +116,7 @@ class Course(db.Model):
 # ======================================================================
 # 2. USER MODEL
 # ======================================================================
+
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
@@ -184,11 +192,27 @@ class User(UserMixin, db.Model):
 
     # Relationships
     college = db.relationship("College", back_populates="users")
-    attendance_records = db.relationship("Attendance", back_populates="student", cascade="all, delete-orphan", lazy="dynamic")
-    fee_payments = db.relationship("FeePayment", back_populates="student", cascade="all, delete-orphan", lazy="dynamic")
-    results = db.relationship("Result", back_populates="student", cascade="all, delete-orphan", lazy="dynamic")
-    student_courses = db.relationship("StudentCourse", back_populates="student", lazy="dynamic")
-    faculty_courses = db.relationship("FacultyCourse", back_populates="faculty", lazy="dynamic")
+    attendance_records = db.relationship(
+        "Attendance",
+        back_populates="student",
+        cascade="all, delete-orphan",
+        lazy="dynamic",
+    )
+    fee_payments = db.relationship(
+        "FeePayment",
+        back_populates="student",
+        cascade="all, delete-orphan",
+        lazy="dynamic",
+    )
+    results = db.relationship(
+        "Result", back_populates="student", cascade="all, delete-orphan", lazy="dynamic"
+    )
+    student_courses = db.relationship(
+        "StudentCourse", back_populates="student", lazy="dynamic"
+    )
+    faculty_courses = db.relationship(
+        "FacultyCourse", back_populates="faculty", lazy="dynamic"
+    )
 
     def __repr__(self):
         return f"<User id={self.id} email={self.email} role={self.role}>"
@@ -197,7 +221,6 @@ class User(UserMixin, db.Model):
 # ======================================================================
 # 3. ACADEMIC RECORD MODELS
 # ======================================================================
-
 class Result(db.Model):
     __tablename__ = "results"
     __table_args__ = (db.Index("ix_results_student_semester", "student_id", "semester"),)
@@ -206,12 +229,18 @@ class Result(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey("courses.id"), nullable=False)
     semester = db.Column(db.String(10), nullable=False)
+
     marks = db.Column(db.Integer, nullable=False)
+    out_of = db.Column(db.Integer, default=100)
+    credits = db.Column(db.Integer, default=4)
     grade = db.Column(db.String(5), nullable=False)
+    grade_point = db.Column(db.Float, default=0.0)
+
     approved_by_admin = db.Column(db.Boolean, default=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow,
+                            onupdate=datetime.utcnow, nullable=False)
 
     student = db.relationship("User", back_populates="results")
     course = db.relationship("Course", back_populates="results")
@@ -301,7 +330,9 @@ class FeePayment(db.Model):
     pg_type = db.Column(db.String(20))  # Added: to store gateway type e.g., PAYU
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
 
     # Relationships
     student = db.relationship("User", back_populates="fee_payments")
@@ -327,7 +358,9 @@ class FeeConfig(db.Model):
     fee_type = db.Column(db.String(50), default="ACADEMIC")
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
+    )
 
     def __repr__(self):
         return (
@@ -346,6 +379,7 @@ class FeeConfig(db.Model):
 # ======================================================================
 # 5. DROPDOWN VALUES (Utility Table)
 # ======================================================================
+
 
 class DropdownValue(db.Model):
     __tablename__ = "dropdown_values"
@@ -378,7 +412,9 @@ class InstitutionAccount(db.Model):
 
     is_default = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
 
     payments = db.relationship("FeePayment", back_populates="account")
 
@@ -390,7 +426,9 @@ class InstitutionAccount(db.Model):
 # 6. PAYU INTEGRATION (Blueprint + Routes)
 # ======================================================================
 
-student_fee_bp = Blueprint("student_fee", __name__)  # If you already define this elsewhere, import that instead.
+student_fee_bp = Blueprint(
+    "student_fee", __name__
+)  # If you already define this elsewhere, import that instead.
 
 
 def _format_amount_str(amount) -> str:
@@ -402,8 +440,16 @@ def _format_amount_str(amount) -> str:
     return format(dec.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP), "f")
 
 
-def _build_payu_request_hash(key: str, salt: str, txnid: str, amount_str: str,
-                             productinfo: str, firstname: str, email: str, udfs=None) -> str:
+def _build_payu_request_hash(
+    key: str,
+    salt: str,
+    txnid: str,
+    amount_str: str,
+    productinfo: str,
+    firstname: str,
+    email: str,
+    udfs=None,
+) -> str:
     """
     Request hash per PayU: sha512(key|txnid|amount|productinfo|firstname|email|udf1|...|udf10|salt)
     """
@@ -461,7 +507,9 @@ def pay_payu(payment_id):
         if not account or (account.account_type or "").upper() != "PAYU":
             return "Invalid payment gateway configured", 400
 
-        txnid = str(uuid.uuid4()).replace("-", "")[:20]  # PayU allows up to 25; using 20
+        txnid = str(uuid.uuid4()).replace("-", "")[
+            :20
+        ]  # PayU allows up to 25; using 20
         productinfo = "College Fee Payment"
 
         amount_str = _format_amount_str(payment.amount)
@@ -478,7 +526,7 @@ def pay_payu(payment_id):
             productinfo=productinfo,
             firstname=firstname,
             email=email,
-            udfs=[""] * 10
+            udfs=[""] * 10,
         )
 
         # Update payment record
@@ -487,10 +535,13 @@ def pay_payu(payment_id):
         db.session.commit()
 
         # PayU endpoint from config, default to test
-        payu_url = current_app.config.get("PAYU_PAYMENT_URL", "https://test.payu.in/_payment")
+        payu_url = current_app.config.get(
+            "PAYU_PAYMENT_URL", "https://test.payu.in/_payment"
+        )
 
         # Render auto-submit form (Jinja escapes values to minimize XSS risk)
-        form_html = render_template_string("""
+        form_html = render_template_string(
+            """
         <!DOCTYPE html>
         <html>
         <head><title>Redirecting…</title></head>
@@ -516,17 +567,18 @@ def pay_payu(payment_id):
         </body>
         </html>
         """,
-        payu_url=payu_url,
-        api_key=account.api_key,
-        txnid=txnid,
-        amount=amount_str,
-        productinfo=productinfo,
-        firstname=firstname,
-        email=email,
-        phone=phone,
-        surl=url_for("student_fee.payu_callback", _external=True),
-        furl=url_for("student_fee.payu_callback", _external=True),
-        req_hash=req_hash)
+            payu_url=payu_url,
+            api_key=account.api_key,
+            txnid=txnid,
+            amount=amount_str,
+            productinfo=productinfo,
+            firstname=firstname,
+            email=email,
+            phone=phone,
+            surl=url_for("student_fee.payu_callback", _external=True),
+            furl=url_for("student_fee.payu_callback", _external=True),
+            req_hash=req_hash,
+        )
 
         return form_html
 
@@ -555,17 +607,23 @@ def payu_callback():
 
         account = payment.account
         if not account:
-            current_app.logger.error(f"PayU callback: payment {payment.id} has no linked account")
+            current_app.logger.error(
+                f"PayU callback: payment {payment.id} has no linked account"
+            )
             return "Account misconfigured", 500
 
         # Validate response hash (critical)
         if not _validate_payu_response(data, account.salt, account.api_key):
-            current_app.logger.error(f"PayU callback hash validation failed for txnid={txnid}")
+            current_app.logger.error(
+                f"PayU callback hash validation failed for txnid={txnid}"
+            )
             return "Invalid hash", 403
 
         # Avoid updating an already successful payment (idempotency)
         if payment.status == "Paid":
-            current_app.logger.info(f"PayU callback: payment {payment.id} already paid, skipping update")
+            current_app.logger.info(
+                f"PayU callback: payment {payment.id} already paid, skipping update"
+            )
             return "OK"
 
         # Map status
@@ -579,12 +637,16 @@ def payu_callback():
         else:
             payment.status = "Unknown"
 
-        payment.transaction_id = data.get("mihpayid") or data.get("payuMoneyId") or payment.transaction_id
+        payment.transaction_id = (
+            data.get("mihpayid") or data.get("payuMoneyId") or payment.transaction_id
+        )
         payment.payment_method = data.get("mode") or payment.payment_method
         payment.response = json.dumps(data, separators=(",", ":"))
 
         db.session.commit()
-        current_app.logger.info(f"Payment {payment.id} ({txnid}) updated to {payment.status}")
+        current_app.logger.info(
+            f"Payment {payment.id} ({txnid}) updated to {payment.status}"
+        )
 
         return "OK"
 

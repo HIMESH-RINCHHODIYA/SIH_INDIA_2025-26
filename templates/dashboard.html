@@ -1,186 +1,244 @@
 {% extends "base.html" %}
 {% block content %}
+
 <style>
-  .dashboard-header {
-    text-align: center;
-    margin-bottom: 30px;
-    animation: fadeIn 1s ease-in-out;
-  }
-  .dashboard-header h2 { font-weight: bold; color: #333; }
-  .dashboard-header p { font-size: 1.1rem; color: #555; }
+/* ===== Base Theme Vars (Light Default) ===== */
+:root {
+  --bg-color: #f5f7fa;
+  --card-bg: #ffffffcc;
+  --text-color: #1f2937;
+  --subtext-color: #6b7280;
+  --nav-bg: #ffffff;
+  --nav-text: #111827;
+  --border-color: rgba(0,0,0,0.08);
+  --shadow-color: rgba(0,0,0,0.12);
+  --primary-gradient: linear-gradient(135deg, #2E3192, #1BFFFF);
+}
 
-  .dashboard-card {
-    border-radius: 15px;
-    padding: 25px;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .dashboard-card:hover { transform: translateY(-8px); box-shadow: 0px 10px 25px rgba(0,0,0,0.3); }
+/* ===== DARK THEME ===== */
+[data-theme="dark"] {
+  --bg-color: #0d1117;
+  --card-bg: rgba(22,27,34,0.9);
+  --text-color: #e6edf3;
+  --subtext-color: #9baecf;
+  --nav-bg: #161b22;
+  --nav-text: #f5faff;
+  --border-color: rgba(255,255,255,0.05);
+  --shadow-color: rgba(0,0,0,0.6);
+  --primary-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
 
-  /* Role Themes */
-  .student { background: linear-gradient(135deg, #a8c0ff, #3f2b96); }
-  .faculty { background: linear-gradient(135deg, #FF9A9E, #FAD0C4); }
-  .admin { background: linear-gradient(135deg, #FF758C, #FF7EB3); }
-  .superadmin { background: linear-gradient(135deg, #7F00FF, #E100FF); }
+/* ===== PREMIUM BLUE THEME ===== */
+[data-theme="blue"] {
+  --bg-color: #eaf6ff;
+  --card-bg: rgba(255,255,255,0.9);
+  --text-color: #1e3a8a;
+  --subtext-color: #334155;
+  --nav-bg: #ffffff;
+  --nav-text: #1e293b;
+  --border-color: rgba(30,64,175,0.15);
+  --shadow-color: rgba(30,64,175,0.25);
+  --primary-gradient: linear-gradient(135deg, #3b82f6, #06b6d4);
+}
 
-  .badge-count {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 2px 10px;
-    font-size: 0.8rem;
-    margin-left: 5px;
-  }
+/* ===== PREMIUM PURPLE THEME ===== */
+[data-theme="purple"] {
+  --bg-color: #f5f3ff;
+  --card-bg: rgba(255,255,255,0.9);
+  --text-color: #4c1d95;
+  --subtext-color: #5b21b6;
+  --nav-bg: #fff;
+  --nav-text: #372f6b;
+  --border-color: rgba(91,33,182,0.2);
+  --shadow-color: rgba(91,33,182,0.25);
+  --primary-gradient: linear-gradient(135deg, #8b5cf6, #ec4899);
+}
 
-  .coming-soon { font-size: 0.7rem; opacity: 0.8; margin-top: 5px; }
+/* ===== PREMIUM EMERALD THEME ===== */
+[data-theme="emerald"] {
+  --bg-color: #ecfdf5;
+  --card-bg: rgba(255,255,255,0.9);
+  --text-color: #064e3b;
+  --subtext-color: #047857;
+  --nav-bg: #ffffff;
+  --nav-text: #064e3b;
+  --border-color: rgba(5,150,105,0.2);
+  --shadow-color: rgba(5,150,105,0.25);
+  --primary-gradient: linear-gradient(135deg, #10b981, #14b8a6);
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* General */
+body {
+  margin:0; background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Sidebar */
+.erp-layout { display:flex; min-height:100vh; }
+.sidebar {
+  width: clamp(220px,18%,260px);
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  border-right: 1px solid var(--border-color);
+  display:flex; flex-direction:column;
+}
+.sidebar h3 {
+  font-weight:700; text-align:center; padding:1.2rem;
+  background: var(--primary-gradient);
+  -webkit-background-clip:text;
+  color: transparent;
+}
+.sidebar nav a {
+  padding:1rem; text-decoration:none; color:var(--nav-text);
+  display:block; transition: all 0.25s;
+}
+.sidebar nav a:hover { background: rgba(0,0,0,0.05); }
+
+/* Top Nav */
+.topnav {
+  display:flex; justify-content:space-between; align-items:center;
+  background:var(--nav-bg); color:var(--nav-text);
+  padding:0.8rem 1.2rem;
+  border-bottom:1px solid var(--border-color);
+  position:sticky; top:0; z-index:10;
+}
+.topnav input[type="search"] {
+  padding:0.4rem 0.8rem;
+  border-radius:20px;
+  border:1px solid var(--border-color);
+  background:var(--card-bg);
+  color: var(--text-color);
+}
+.topnav .actions { display:flex; gap:1rem; align-items:center; }
+
+/* Header */
+.dashboard-header { padding:1.5rem; }
+.dashboard-header h2 {
+  background: var(--primary-gradient);
+  -webkit-background-clip:text;
+  color:transparent;
+  font-size:2rem; font-weight:800;
+}
+.dashboard-header p { color:var(--subtext-color); }
+
+/* Cards */
+.dashboard-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem; padding:1rem 1.5rem 2rem;
+}
+.dashboard-card {
+  height:160px; border-radius:16px;
+  background: var(--card-bg);
+  border:1px solid var(--border-color);
+  color:var(--text-color);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:600; text-decoration:none;
+  box-shadow: 0 6px 16px var(--shadow-color);
+  transition: all 0.25s;
+}
+.dashboard-card:hover {
+  transform:translateY(-5px);
+  box-shadow: 0 12px 28px var(--shadow-color);
+}
+.coming-soon { font-size:0.7rem; margin-top:0.4rem; opacity:0.75; color:var(--subtext-color); }
+
 </style>
 
-<div class="dashboard-header">
-  <h2>Welcome, {{ name }} 🎓</h2>
-  <p>Your role: <b>{{ role }}</b></p>
+<div class="erp-layout">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>ERP Premium</h3>
+    <nav><a href="#">🏠 Dashboard</a></nav>
+  </div>
+
+  <div class="main" style="flex:1">
+    <div class="topnav">
+      <b>ERP Dashboard</b>
+      <div class="actions">
+        <input type="search" placeholder="Search… 🔍">
+        <span style="cursor:pointer" onclick="cycleTheme()">🎨</span>
+        <span>🔔</span>
+        <span>👤 {{ name }}</span>
+      </div>
+    </div>
+
+    <div class="dashboard-header">
+      <h2>Welcome, {{ name }}</h2>
+      <p>Role: <b>{{ role }}</b></p>
+    </div>
+
+    <div class="dashboard-grid">
+      {% if role=="Student" %}
+        {% set student_cards = [
+          ('profile_bp.student_profile','📋 Profile'),
+          ('student_pages','🗓 Attendance','attendance'),
+          ('grades_bp.student_grades','📊 Grades'),
+          ('student_fee.student_fees','💰 Fees'),
+          ('course_bp.student_courses','📘 Courses'),
+          ('assignment_bp.student_assignments','📝 Assignments'),
+          ('hostel.student_hostel','🏨 Hostel'),
+          ('library_bp.library_dashboard','📚 Library'),
+          ('library_bp.list_resources','💻 Resources'),
+          ('chatbot_bp.chatbot_page','🤖 Assistant')
+        ] %}
+        {% for card in student_cards %}
+          <a href="{% if card|length==3 %}
+                      {{ url_for(card[0], path=card[2]) }}
+                   {% elif 'profile' in card[0] %}
+                      {{ url_for(card[0], student_id=current_user.id) }}
+                   {% else %}
+                      {{ url_for(card[0]) }}{% endif %}"
+             class="dashboard-card">{{ card[1] }}</a>
+        {% endfor %}
+        <a href="{{ url_for('coming_soon') }}" class="dashboard-card">💼 Jobs<div class="coming-soon">Coming Soon</div></a>
+      {% elif role=="Faculty" %}
+        {% set faculty_cards=[('course_bp.faculty_courses','📘 Courses'),
+          ('assignment_bp.faculty_assignments','📝 Assignments'),
+          ('faculty_stud_bp.faculty_attendance','🗓 Attendance'),
+          ('grades_bp.faculty_upload_grades','📊 Upload Grades')] %}
+        {% for card in faculty_cards %}
+          <a href="{{ url_for(card[0]) }}" class="dashboard-card">{{ card[1] }}</a>
+        {% endfor %}
+      {% elif role=="Admin" %}
+        {% set admin_cards=[('course_bp.admin_courses','📘 Manage Courses'),
+          ('admin_fee.admin_fee_dashboard','💰 Fees'),
+          ('grades_bp.admin_approve_grades','📊 Approve Grades'),
+          ('profile_bp.admin_students','👨‍🎓 Students'),
+          ('hostel.admin_hostel','🏨 Hostel'),
+          ('library_bp.library_dashboard','📚 Library'),
+          ('library_bp.upload_resource','📤 Upload'),
+          ('library_bp.list_resources','💻 Resources'),
+          ('chatbot_bp.chatbot_page','🤖 Assistant')
+        ] %}
+        {% for card in admin_cards %}
+          <a href="{{ url_for(card[0]) }}" class="dashboard-card">{{ card[1] }}</a>
+        {% endfor %}
+      {% elif role=="SuperAdmin" %}
+        {% set super_cards=[('superadmin.colleges','🌍 Colleges'),
+          ('coming_soon','🔑 Permissions'),('coming_soon','📂 Logs')] %}
+        {% for card in super_cards %}
+          <a href="{{ url_for(card[0]) }}" class="dashboard-card">{{card[1]}}
+            {% if "coming" in card[0] %}<div class="coming-soon">Coming Soon</div>{% endif %}
+          </a>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
 </div>
 
-<div class="row g-4">
+<script>
+const themes=["light","dark","blue","purple","emerald"];
+let index=0;
+function cycleTheme(){
+  index=(index+1)%themes.length;
+  document.documentElement.dataset.theme=themes[index];
+  localStorage.setItem("erp-theme",themes[index]);
+}
+(function(){
+  let saved=localStorage.getItem("erp-theme");
+  if(saved){ document.documentElement.dataset.theme=saved; index=themes.indexOf(saved); }
+})();
+</script>
 
-  {% if role == "Student" %}
-    {# ======================= STUDENT DASHBOARD ======================= #}
-    {% set student_cards = [
-      ('profile_bp.student_profile', '📋 Profile'),
-      ('student_pages', '🗓 Attendance', 'attendance'),
-      ('grades_bp.student_grades', '📊 Grades'),
-      ('student_fee.student_fees', '💰 Fees'),
-      ('course_bp.student_courses', '📘 Courses'),
-      ('hostel.student_hostel', '🏨 My Hostel')
-    ] %}
-
-    {% for card in student_cards %}
-      <div class="col-md-4">
-        <a href="{% if 'profile' in card[0] %}
-                    {{ url_for(card[0], student_id=current_user.id) }}
-                 {% elif card|length == 3 %}
-                    {{ url_for(card[0], path=card[2]) }}
-                 {% else %}
-                    {{ url_for(card[0]) }}
-                 {% endif %}"
-           class="text-decoration-none">
-          <div class="dashboard-card student">{{ card[1] }}</div>
-        </a>
-      </div>
-    {% endfor %}
-
-    {# Coming Soon features for Students #}
-    {% for feature, icon in [
-      ('jobs','💼'), ('webinars','🎥'), ('forums','💬'),
-      ('people','👥'), ('assessments','📝'), ('practice_tests','🧪'),
-      ('assignments','📚'), ('resumes','📄'), ('academics','🎓'),
-      ('cohorts','👨‍👩‍👧‍👦'), ('my_program','📁')
-    ] %}
-      <div class="col-md-4">
-        <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
-          <div class="dashboard-card student">
-            {{ icon }} {{ feature|replace('_',' ')|capitalize }}
-            {% if feature == 'people' %}
-              <span class="badge-count">17K</span>
-            {% endif %}
-            <div class="coming-soon">Coming Soon</div>
-          </div>
-        </a>
-      </div>
-    {% endfor %}
-
-  {% elif role == "Faculty" %}
-    {# ======================= FACULTY DASHBOARD ======================= #}
-    {% set faculty_cards = [
-      ('course_bp.faculty_courses', '📘 Courses'),
-      ('faculty_pages', '📝 Assignments', 'assignments'),
-      ('faculty_stud_bp.faculty_attendance', '🗓 Mark Attendance'),
-      ('grades_bp.faculty_upload_grades', '📊 Manage Grades')
-    ] %}
-
-    {% for card in faculty_cards %}
-      <div class="col-md-4">
-        <a href="{% if card|length == 3 %}
-                    {{ url_for(card[0], path=card[2]) }}
-                 {% else %}
-                    {{ url_for(card[0]) }}
-                 {% endif %}"
-           class="text-decoration-none">
-          <div class="dashboard-card faculty">{{ card[1] }}</div>
-        </a>
-      </div>
-    {% endfor %}
-
-  {% elif role == "Admin" %}
-    {# ======================= ADMIN DASHBOARD ======================= #}
-    {% set admin_cards = [
-      ('course_bp.admin_courses', '📘 Manage Courses'),
-      ('admin_fee.admin_fee_dashboard', '💰 Manage Fees'),  
-      ('grades_bp.admin_approve_grades', '📊 Approve Grades'),
-      ('profile_bp.admin_students', '📋 Manage Students'),
-      ('hostel.admin_hostel', '🏨 Manage Hostel'),
-      ('hostel.admin_allocation', '🛏 Room Allocation'),
-      ('hostel.admin_reports', '📊 Hostel Reports'),
-      ('hostel.admin_complaints', '📝 Manage Complaints'),
-      ('hostel.admin_leaves', '📩 Manage Leaves')
-    ] %}
-
-    {% for card in admin_cards %}
-      <div class="col-md-4">
-        <a href="{{ url_for(card[0]) }}" class="text-decoration-none">
-          <div class="dashboard-card admin">{{ card[1] }}</div>
-        </a>
-      </div>
-    {% endfor %}
-
-    {# Coming Soon for Admin #}
-    {% for feature, icon in [
-      ('approve_admissions','✅'), ('manage_users','👥')
-    ] %}
-      <div class="col-md-4">
-        <a href="{{ url_for('coming_soon') }}" class="text-decoration-none">
-          <div class="dashboard-card admin">
-            {{ icon }} {{ feature|replace('_',' ')|capitalize }}
-            <div class="coming-soon">Coming Soon</div>
-          </div>
-        </a>
-      </div>
-    {% endfor %}
-
-  {% elif role == "SuperAdmin" %}
-    {# ======================= SUPERADMIN DASHBOARD ======================= #}
-    {% set super_cards = [
-      ('superadmin.colleges', '🌍 Manage Colleges'),
-      ('coming_soon', '🔑 Roles & Permissions'),
-      ('coming_soon', '📂 System Logs')
-    ] %}
-
-    {% for card in super_cards %}
-      <div class="col-md-4">
-        <a href="{{ url_for(card[0]) }}" class="text-decoration-none">
-          <div class="dashboard-card superadmin">
-            {{ card[1] }}
-            {% if "coming" in card[0] %}
-              <div class="coming-soon">Coming Soon</div>
-            {% endif %}
-          </div>
-        </a>
-      </div>
-    {% endfor %}
-
-  {% else %}
-    <!-- Fallback -->
-    <p class="text-center text-danger">❌ No dashboard available for your role.</p>
-  {% endif %}
-</div>
 {% endblock %}

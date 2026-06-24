@@ -1,6 +1,6 @@
+from app import app  # import your Flask app
 from extensions import db
 from models import College
-from app import app   # import your Flask app
 
 with app.app_context():
     colleges = College.query.all()

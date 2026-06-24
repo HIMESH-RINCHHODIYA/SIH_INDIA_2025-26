@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+
+  <h3>✍️ Take Assignment: {{ assignment.title }}</h3>
+  <p class="text-muted">
+    Course: {{ assignment.course.course_name }} |
+    Due: {{ assignment.deadline.strftime('%d-%b-%Y') }}
+  </p>
+
+  {% if attachments %}
+    <div class="mb-3">
+      <h6>📎 Attachments / Resources</h6>
+      <ul>
+        {% for att in attachments %}
+          {% if att.file_path %}
+            <li><a href="{{ url_for('static', filename=att.file_path.split('static/')[-1]) }}" target="_blank">📂 {{ att.file_path.split('/')[-1] }}</a></li>
+          {% elif att.link_url %}
+            <li><a href="{{ att.link_url }}" target="_blank">🔗 {{ att.link_url }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <form method="POST" enctype="multipart/form-data" class="mt-4">
+
+    {% for q in questions %}
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <h6>
+          Q{{ loop.index }}. {{ q.question_text }}
+          <span class="badge bg-info">{{ q.points }} pts</span>
+          {% if q.required %}<span class="badge bg-danger">Required</span>{% endif %}
+        </h6>
+
+        <!-- Short answer -->
+        {% if q.question_type == "short" %}
+          <input class="form-control mt-2" type="text" name="q_{{ q.id }}">
+
+        <!-- Long answer -->
+        {% elif q.question_type == "long" %}
+          <textarea class="form-control mt-2" name="q_{{ q.id }}" rows="4"></textarea>
+
+        <!-- True/False -->
+        {% elif q.question_type == "truefalse" %}
+          {% for opt in q.options %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" 
+                     name="q_{{ q.id }}" value="{{ opt.option_text }}" id="opt{{opt.id}}">
+              <label class="form-check-label" for="opt{{opt.id}}">{{ opt.option_text }}</label>
+            </div>
+          {% endfor %}
+
+        <!-- Single-choice MCQ -->
+        {% elif q.question_type == "mcq" %}
+          {% for opt in q.options %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" 
+                     name="opt_{{ q.id }}" value="{{ opt.id }}" id="opt{{opt.id}}">
+              <label class="form-check-label" for="opt{{opt.id}}">{{ opt.option_text }}</label>
+            </div>
+          {% endfor %}
+
+        <!-- Multi-choice -->
+        {% elif q.question_type == "multi" %}
+          {% for opt in q.options %}
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" 
+                     name="opt_{{ q.id }}" value="{{ opt.id }}" id="opt{{opt.id}}">
+              <label class="form-check-label" for="opt{{opt.id}}">{{ opt.option_text }}</label>
+            </div>
+          {% endfor %}
+
+        <!-- File upload -->
+        {% elif q.question_type == "file" %}
+          <input type="file" name="file_{{ q.id }}" class="form-control mt-2">
+
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <button class="btn btn-success">📬 Submit Assignment</button>
+  </form>
+</div>
+{% endblock %}

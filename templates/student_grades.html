@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-
 <div class="container mt-4">
 
-    <!-- Result Header -->
     <div class="card shadow-lg border-0">
         <div class="card-body text-center">
+
+            <!-- College name & Logo -->
             <h2 class="fw-bold">{{ current_user.college.name if current_user.college else "My College" }}</h2>
+            {% if current_user.college and current_user.college.logo %}
+              <img src="{{ url_for('static', filename=current_user.college.logo.split('static/')[-1]) }}" 
+                   alt="College Logo" height="80" class="mb-2"/>
+            {% endif %}
             <p class="text-muted">Official Student Result</p>
             <hr>
 
@@ -28,7 +32,7 @@
                 <select name="semester" class="form-select d-inline w-auto">
                     <option value="">All</option>
                     {% for sem in semesters %}
-                        <option value="{{ sem }}" {% if selected_semester == sem %}selected{% endif %}>{{ sem }}</option>
+                      <option value="{{ sem }}" {% if selected_semester == sem %}selected{% endif %}>{{ sem }}</option>
                     {% endfor %}
                 </select>
                 <button type="submit" class="btn btn-primary btn-sm">View</button>
@@ -43,43 +47,46 @@
                                 <th>Course Code</th>
                                 <th>Course Name</th>
                                 <th>Marks</th>
+                                <th>Out Of</th>
+                                <th>Credits</th>
                                 <th>Grade</th>
+                                <th>Grade Point</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% set total_marks = 0 %}
-                            {% set total_courses = 0 %}
                             {% for r in results %}
-                                <tr>
-                                    <td>{{ r.course.course_code if r.course else "-" }}</td>
-                                    <td>{{ r.course.course_name if r.course else "-" }}</td>
-                                    <td>{{ r.marks }}</td>
-                                    <td><strong>{{ r.grade }}</strong></td>
-                                </tr>
-                                {% set total_marks = total_marks + r.marks %}
-                                {% set total_courses = total_courses + 1 %}
+                            <tr>
+                                <td>{{ r.course.course_code }}</td>
+                                <td>{{ r.course.course_name }}</td>
+                                <td>{{ r.marks }}</td>
+                                <td>{{ r.out_of }}</td>
+                                <td>{{ r.credits }}</td>
+                                <td>{{ r.grade }}</td>
+                                <td>{{ r.grade_point }}</td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
 
-                <!-- Summary -->
-                <div class="mt-3 text-start">
-                    <p><strong>Total Marks:</strong> {{ total_marks }}</p>
-                    <p><strong>Average Marks:</strong> {{ "%.2f"|format(total_marks / total_courses) if total_courses > 0 else 'N/A' }}</p>
+                <!-- Summary Section -->
+                <div class="mt-4 text-start">
+                    <p><strong>SGPA:</strong> {{ sgpa }}</p>
+                    <p><strong>CGPA:</strong> {{ cgpa }}</p>
+                    <p><strong>Percentage:</strong> {{ percentage }}%</p>
+                    <p><strong>Percentile:</strong> {{ percentile }}</p>
                 </div>
 
                 <!-- Download PDF -->
-                <a href="{{ url_for('grades_bp.student_grades_pdf', semester=selected_semester) }}"
-                   class="btn btn-success mt-3">
-                    📄 Download PDF
-                </a>
+                <a href="{{ url_for('grades_bp.student_grades_pdf', semester=selected_semester) }}" 
+                   class="btn btn-success mt-3">📄 Download PDF</a>
             {% else %}
                 <p class="text-muted">No results found for the selected semester.</p>
             {% endif %}
+
+            <!-- Generated Timestamp -->
+            <p class="text-muted mt-3">Generated on: {{ timestamp }}</p>
         </div>
     </div>
-
 </div>
-
 {% endblock %}

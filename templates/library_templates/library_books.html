@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.hero-header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.table thead { background: #667eea; color: #fff; }
+.action-btn { margin-right: 5px; }
+</style>
+
+<div class="hero-header">
+  <h2>📚 Library Management</h2>
+  <p>Manage books, issue/return, reports, and digital resources</p>
+  <a href="{{ url_for('library_bp.add_book') }}" class="btn btn-light mt-2">➕ Add Book</a>
+  <a href="{{ url_for('library_bp.upload_resource') }}" class="btn btn-warning mt-2">📤 Upload Resource</a>
+  <a href="{{ url_for('library_bp.library_reports') }}" class="btn btn-info mt-2">📊 Reports</a>
+</div>
+
+<div class="container">
+  <h4>📖 Books Catalog</h4>
+  <table class="table table-bordered table-hover align-middle mt-3">
+    <thead>
+      <tr>
+        <th>Title</th><th>Author</th><th>Category</th>
+        <th>Available</th><th>Total</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for b in books %}
+      <tr>
+        <td>{{ b.title }}</td>
+        <td>{{ b.author }}</td>
+        <td>{{ b.category }}</td>
+        <td>{{ b.copies_available }}</td>
+        <td>{{ b.copies_total }}</td>
+        <td>
+          <!-- Action Buttons -->
+          <button class="btn btn-sm btn-primary action-btn" data-bs-toggle="modal" data-bs-target="#editModal{{ b.id }}">✏️ Edit</button>
+          <button class="btn btn-sm btn-danger action-btn" data-bs-toggle="modal" data-bs-target="#deleteModal{{ b.id }}">❌ Delete</button>
+          <button class="btn btn-sm btn-success action-btn" data-bs-toggle="modal" data-bs-target="#issueModal{{ b.id }}">📖 Issue</button>
+          <button class="btn btn-sm btn-warning action-btn" data-bs-toggle="modal" data-bs-target="#returnModal{{ b.id }}">📥 Return</button>
+        </td>
+      </tr>
+
+      <!-- Edit Book Modal -->
+      <div class="modal fade" id="editModal{{ b.id }}" tabindex="-1">
+        <div class="modal-dialog">
+          <form method="POST" action="{{ url_for('library_bp.edit_book', book_id=b.id) }}">
+            <div class="modal-content">
+              <div class="modal-header"><h5 class="modal-title">✏️ Edit Book</h5></div>
+              <div class="modal-body">
+                <div class="mb-2"><label>Title</label><input type="text" name="title" value="{{ b.title }}" class="form-control"></div>
+                <div class="mb-2"><label>Author</label><input type="text" name="author" value="{{ b.author }}" class="form-control"></div>
+                <div class="mb-2"><label>Category</label><input type="text" name="category" value="{{ b.category }}" class="form-control"></div>
+                <div class="mb-2"><label>Total Copies</label><input type="number" name="copies_total" value="{{ b.copies_total }}" class="form-control"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">💾 Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Delete Book Modal -->
+      <div class="modal fade" id="deleteModal{{ b.id }}" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">❌ Delete Book</h5></div>
+            <div class="modal-body">
+              Are you sure you want to delete <b>{{ b.title }}</b>?
+            </div>
+            <div class="modal-footer">
+              <a href="{{ url_for('library_bp.delete_book', book_id=b.id) }}" class="btn btn-danger">Yes, Delete</a>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Issue Book Modal -->
+      <div class="modal fade" id="issueModal{{ b.id }}" tabindex="-1">
+        <div class="modal-dialog">
+          <form method="POST" action="{{ url_for('library_bp.issue_book', book_id=b.id) }}">
+            <div class="modal-content">
+              <div class="modal-header"><h5 class="modal-title">📖 Issue Book</h5></div>
+              <div class="modal-body">
+                <label>Select Student</label>
+                <select name="user_id" class="form-select student-search" style="width:100%" required></select>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">✅ Issue</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Return Book Modal -->
+      <div class="modal fade" id="returnModal{{ b.id }}" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">📥 Return Book</h5></div>
+            <div class="modal-body">
+              <p>Select the borrow record to mark as returned for <b>{{ b.title }}</b>.</p>
+              {% set borrows = b.borrow_records | selectattr("return_date","none") | list %}
+              {% if borrows %}
+                <ul class="list-group">
+                  {% for br in borrows %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ br.user.name }} (Due: {{ br.due_date.strftime('%Y-%m-%d') }})
+                    <a href="{{ url_for('library_bp.return_book', borrow_id=br.id) }}" class="btn btn-sm btn-warning">📥 Mark Returned</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="text-muted">No active borrow records (all returned).</p>
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <tr><td colspan="6" class="text-center text-muted">No books in library yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- jQuery + Select2 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+$(function(){
+  $('.student-search').select2({
+    placeholder: "Search by Name / Roll / Enrollment",
+    ajax: {
+      url: "{{ url_for('library_bp.search_students') }}",
+      dataType: 'json',
+      delay: 250,
+      data: params => ({ q: params.term }),
+      processResults: data => ({ results: data.results }),
+      cache: true
+    },
+    minimumInputLength: 1,
+    width: '100%'
+  });
+
+  // Fix dropdown inside bootstrap modal
+  $(document).on('shown.bs.modal', '.modal', function(){
+    $(this).find('.student-search').select2({
+      dropdownParent: $(this),
+      placeholder: "Search student..."
+    });
+  });
+});
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

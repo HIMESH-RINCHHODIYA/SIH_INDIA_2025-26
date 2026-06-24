@@ -1,13 +1,17 @@
-import datetime, io
+import datetime
+import io
 from decimal import Decimal
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash, send_file
-from flask_login import login_required, current_user
+
+from flask import (Blueprint, flash, jsonify, redirect, render_template,
+                   request, send_file, url_for)
+from flask_login import current_user, login_required
+
 from extensions import db
-from models import FeePayment, FeeConfig, College
 from hostel_models import HostelAllocation
-from models import InstitutionAccount
+from models import College, FeeConfig, FeePayment, InstitutionAccount
 
 student_fee_bp = Blueprint("student_fee", __name__, url_prefix="/student/fees")
+
 
 # -------------------------------------------------------
 # STUDENT DASHBOARD
@@ -15,33 +19,69 @@ student_fee_bp = Blueprint("student_fee", __name__, url_prefix="/student/fees")
 @student_fee_bp.route("/")
 @login_required
 def student_fees():
-    payments = FeePayment.query.filter_by(student_id=current_user.id).order_by(FeePayment.created_at.desc()).all()
+    payments = (
+        FeePayment.query.filter_by(student_id=current_user.id)
+        .order_by(FeePayment.created_at.desc())
+        .all()
+    )
 
     def fetch_config(ftype):
-        return FeeConfig.query.filter_by(
-            program=current_user.program.strip().upper() if current_user.program else None,
-            branch=current_user.branch.strip().upper() if current_user.branch else None,
-            year=str(current_user.year).strip() if current_user.year else None,
-            fee_type=ftype
-        ).order_by(FeeConfig.updated_at.desc()).first()
+        return (
+            FeeConfig.query.filter_by(
+                program=(
+                    current_user.program.strip().upper()
+                    if current_user.program
+                    else None
+                ),
+                branch=(
+                    current_user.branch.strip().upper() if current_user.branch else None
+                ),
+                year=str(current_user.year).strip() if current_user.year else None,
+                fee_type=ftype,
+            )
+            .order_by(FeeConfig.updated_at.desc())
+            .first()
+        )
 
     # Academic
     academic_cfg = fetch_config("ACADEMIC")
-    academic_paid = sum(float(p.amount) for p in payments if p.status=="Paid" and p.fee_type=="ACADEMIC")
-    academic_due = max((float(academic_cfg.amount) if academic_cfg else 0) - academic_paid, 0)
+    academic_paid = sum(
+        float(p.amount)
+        for p in payments
+        if p.status == "Paid" and p.fee_type == "ACADEMIC"
+    )
+    academic_due = max(
+        (float(academic_cfg.amount) if academic_cfg else 0) - academic_paid, 0
+    )
 
     # Hostel allocation check
-    allocation = HostelAllocation.query.filter_by(student_id=current_user.id, status="Active").first()
+    allocation = HostelAllocation.query.filter_by(
+        student_id=current_user.id, status="Active"
+    ).first()
     hostel_cfg = fetch_config("HOSTEL") if allocation else None
-    hostel_paid = sum(float(p.amount) for p in payments if p.status=="Paid" and p.fee_type=="HOSTEL")
-    hostel_due = max((float(hostel_cfg.amount) if hostel_cfg else 0) - hostel_paid, 0) if hostel_cfg else 0
-
-    return render_template("student_fees.html",
-        payments=payments,
-        academic_config=academic_cfg, academic_paid=academic_paid, academic_due=academic_due,
-        hostel_config=hostel_cfg, hostel_paid=hostel_paid, hostel_due=hostel_due,
-        hostel_allowed=allocation is not None
+    hostel_paid = sum(
+        float(p.amount)
+        for p in payments
+        if p.status == "Paid" and p.fee_type == "HOSTEL"
     )
+    hostel_due = (
+        max((float(hostel_cfg.amount) if hostel_cfg else 0) - hostel_paid, 0)
+        if hostel_cfg
+        else 0
+    )
+
+    return render_template(
+        "student_fees.html",
+        payments=payments,
+        academic_config=academic_cfg,
+        academic_paid=academic_paid,
+        academic_due=academic_due,
+        hostel_config=hostel_cfg,
+        hostel_paid=hostel_paid,
+        hostel_due=hostel_due,
+        hostel_allowed=allocation is not None,
+    )
+
 
 # -------------------------------------------------------
 # STUDENT CREATES PAYMENT
@@ -65,7 +105,7 @@ def create_fee():
         amount=float(amount),
         status="Pending",
         fee_type=fee_type,
-        account_id=account.id
+        account_id=account.id,
     )
     db.session.add(payment)
     db.session.commit()
@@ -83,48 +123,55 @@ def create_fee():
 
     return jsonify({"error": "Unsupported Payment Gateway"}), 400
 
+
 @student_fee_bp.route("/mock_netbanking/<int:payment_id>")
 @login_required
 def mock_netbanking(payment_id):
-    pay=FeePayment.query.get_or_404(payment_id)
-    if pay.student_id!=current_user.id:
-        flash("Unauthorized","danger")
+    pay = FeePayment.query.get_or_404(payment_id)
+    if pay.student_id != current_user.id:
+        flash("Unauthorized", "danger")
         return redirect(url_for("student_fee.student_fees"))
-    pay.status="Paid"
-    pay.updated_at=datetime.datetime.utcnow()
+    pay.status = "Paid"
+    pay.updated_at = datetime.datetime.utcnow()
     db.session.commit()
-    flash("✅ NetBanking payment successful!","success")
+    flash("✅ NetBanking payment successful!", "success")
     return redirect(url_for("student_fee.student_fees"))
+
 
 @student_fee_bp.route("/receipt/<int:payment_id>")
 @login_required
 def receipt(payment_id):
-    pay=FeePayment.query.get_or_404(payment_id)
-    if pay.student_id!=current_user.id and current_user.role!="Admin":
-        flash("Unauthorized","danger")
+    pay = FeePayment.query.get_or_404(payment_id)
+    if pay.student_id != current_user.id and current_user.role != "Admin":
+        flash("Unauthorized", "danger")
         return redirect(url_for("student_fee.student_fees"))
 
-    college=pay.college or College.query.first()
-    student=pay.student
-    output=io.BytesIO()
-    from reportlab.pdfgen import canvas
+    college = pay.college or College.query.first()
+    student = pay.student
+    output = io.BytesIO()
     from reportlab.lib.pagesizes import A4
-    pdf=canvas.Canvas(output,pagesize=A4)
-    y=A4[1]-50
+    from reportlab.pdfgen import canvas
+
+    pdf = canvas.Canvas(output, pagesize=A4)
+    y = A4[1] - 50
     if college and college.name:
-        pdf.setFont("Helvetica-Bold",16)
-        pdf.drawString(140,y-20,college.name)
-    y-=100
-    pdf.setFont("Helvetica-Bold",14)
-    pdf.drawString(50,y,"Fee Receipt")
-    y-=30
-    pdf.setFont("Helvetica",12)
-    pdf.drawString(60,y,f"Fee Type: {pay.fee_type}")
-    pdf.drawString(60,y-20,f"Amount: ₹{pay.amount}")
-    pdf.drawString(60,y-40,f"Method: {pay.payment_method}")
-    pdf.drawString(60,y-60,f"Status: {pay.status}")
-    pdf.drawString(60,y-80,f"Date: {pay.created_at.strftime('%Y-%m-%d')}")
+        pdf.setFont("Helvetica-Bold", 16)
+        pdf.drawString(140, y - 20, college.name)
+    y -= 100
+    pdf.setFont("Helvetica-Bold", 14)
+    pdf.drawString(50, y, "Fee Receipt")
+    y -= 30
+    pdf.setFont("Helvetica", 12)
+    pdf.drawString(60, y, f"Fee Type: {pay.fee_type}")
+    pdf.drawString(60, y - 20, f"Amount: ₹{pay.amount}")
+    pdf.drawString(60, y - 40, f"Method: {pay.payment_method}")
+    pdf.drawString(60, y - 60, f"Status: {pay.status}")
+    pdf.drawString(60, y - 80, f"Date: {pay.created_at.strftime('%Y-%m-%d')}")
     pdf.save()
     output.seek(0)
-    return send_file(output, mimetype="application/pdf", as_attachment=True,
-                     download_name=f"receipt_{student.roll_no}.pdf")
+    return send_file(
+        output,
+        mimetype="application/pdf",
+        as_attachment=True,
+        download_name=f"receipt_{student.roll_no}.pdf",
+    )

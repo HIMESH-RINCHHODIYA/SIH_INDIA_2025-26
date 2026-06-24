@@ -1,4 +1,5 @@
 import os
+
 from app import app, db  # Make sure your app imports SQLAlchemy db
 
 # ---------- Path to SQLite DB ----------

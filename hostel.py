@@ -1,12 +1,13 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import login_required, current_user
-from extensions import db
 from datetime import datetime
-from flask import jsonify
 
+from flask import (Blueprint, flash, jsonify, redirect, render_template,
+                   request, url_for)
+from flask_login import current_user, login_required
+
+from extensions import db
 # Hostel-specific models
-from hostel_models import Hostel, HostelRoom, HostelAllocation, HostelLeave, HostelComplaint
-
+from hostel_models import (Hostel, HostelAllocation, HostelComplaint,
+                           HostelLeave, HostelRoom)
 # ✅ MAIN User model from ERP
 from models import User
 
@@ -16,6 +17,7 @@ hostel_bp = Blueprint("hostel", __name__, url_prefix="/hostel")
 # ===============================
 # ADMIN ROUTES
 # ===============================
+
 
 @hostel_bp.route("/admin", methods=["GET", "POST"])
 @login_required
@@ -32,11 +34,7 @@ def admin_hostel():
         warden_id = request.form.get("warden_id")
 
         new_hostel = Hostel(
-            name=name,
-            code=code,
-            type=hostel_type,
-            address=address,
-            warden_id=warden_id
+            name=name, code=code, type=hostel_type, address=address, warden_id=warden_id
         )
         db.session.add(new_hostel)
         db.session.commit()
@@ -66,7 +64,7 @@ def add_room():
         block=block,
         floor=floor,
         capacity=capacity,
-        facilities=facilities
+        facilities=facilities,
     )
     db.session.add(new_room)
     db.session.commit()
@@ -89,11 +87,16 @@ def admin_allocation():
 
         # ✅ Capacity check - don’t over-allocate
         if len(room.allocations) >= room.capacity:
-            flash(f"⚠️ Room {room.room_no} in {room.hostel.name} is already full!", "danger")
+            flash(
+                f"⚠️ Room {room.room_no} in {room.hostel.name} is already full!",
+                "danger",
+            )
             return redirect(url_for("hostel.admin_allocation"))
 
         # ✅ Prevent allocating same student twice
-        existing = HostelAllocation.query.filter_by(student_id=student_id, status="Active").first()
+        existing = HostelAllocation.query.filter_by(
+            student_id=student_id, status="Active"
+        ).first()
         if existing:
             flash("⚠️ Student already has an active hostel allocation!", "warning")
             return redirect(url_for("hostel.admin_allocation"))
@@ -111,7 +114,7 @@ def admin_allocation():
         "templates-hostel/admin_allocation.html",
         allocations=allocations,
         rooms=rooms,
-        students=students
+        students=students,
     )
 
 
@@ -136,7 +139,9 @@ def admin_reports():
     # Complaint stats
     total_complaints = HostelComplaint.query.count()
     open_complaints = HostelComplaint.query.filter_by(status="Open").count()
-    inprogress_complaints = HostelComplaint.query.filter_by(status="In Progress").count()
+    inprogress_complaints = HostelComplaint.query.filter_by(
+        status="In Progress"
+    ).count()
     resolved_complaints = HostelComplaint.query.filter_by(status="Resolved").count()
 
     return render_template(
@@ -152,9 +157,10 @@ def admin_reports():
         total_complaints=total_complaints,
         open_complaints=open_complaints,
         inprogress_complaints=inprogress_complaints,
-        resolved_complaints=resolved_complaints
+        resolved_complaints=resolved_complaints,
     )
-    
+
+
 @hostel_bp.route("/admin/complaints")
 @login_required
 def admin_complaints():
@@ -163,11 +169,22 @@ def admin_complaints():
 
     filter_status = request.args.get("filter")
     if filter_status:
-        complaints = HostelComplaint.query.filter_by(status=filter_status).order_by(HostelComplaint.created_at.desc()).all()
+        complaints = (
+            HostelComplaint.query.filter_by(status=filter_status)
+            .order_by(HostelComplaint.created_at.desc())
+            .all()
+        )
     else:
-        complaints = HostelComplaint.query.order_by(HostelComplaint.created_at.desc()).all()
+        complaints = HostelComplaint.query.order_by(
+            HostelComplaint.created_at.desc()
+        ).all()
 
-    return render_template("templates-hostel/admin_complaints.html", complaints=complaints, filter=filter_status) 
+    return render_template(
+        "templates-hostel/admin_complaints.html",
+        complaints=complaints,
+        filter=filter_status,
+    )
+
 
 @hostel_bp.route("/admin/complaints/update/<int:complaint_id>", methods=["POST"])
 @login_required
@@ -185,11 +202,13 @@ def update_complaint(complaint_id):
 
     db.session.commit()
     flash(f"Complaint #{complaint.id} status updated to {status}", "success")
-    return redirect(url_for("hostel.admin_complaints"))  
+    return redirect(url_for("hostel.admin_complaints"))
+
 
 # ===============================
 # ADMIN Leave Management
 # ===============================
+
 
 @hostel_bp.route("/admin/leaves")
 @login_required
@@ -199,11 +218,17 @@ def admin_leaves():
 
     filter_status = request.args.get("filter")
     if filter_status:
-        leaves = HostelLeave.query.filter_by(status=filter_status).order_by(HostelLeave.created_at.desc()).all()
+        leaves = (
+            HostelLeave.query.filter_by(status=filter_status)
+            .order_by(HostelLeave.created_at.desc())
+            .all()
+        )
     else:
         leaves = HostelLeave.query.order_by(HostelLeave.created_at.desc()).all()
 
-    return render_template("templates-hostel/admin_leaves.html", leaves=leaves, filter=filter_status)
+    return render_template(
+        "templates-hostel/admin_leaves.html", leaves=leaves, filter=filter_status
+    )
 
 
 @hostel_bp.route("/admin/leaves/update/<int:leave_id>", methods=["POST"])
@@ -234,13 +259,23 @@ def student_hostel():
         return "Unauthorized", 403
 
     # Active hostel allocation
-    allocation = HostelAllocation.query.filter_by(student_id=current_user.id, status="Active").first()
+    allocation = HostelAllocation.query.filter_by(
+        student_id=current_user.id, status="Active"
+    ).first()
 
     # Leave requests
-    leaves = HostelLeave.query.filter_by(student_id=current_user.id).order_by(HostelLeave.created_at.desc()).all()
+    leaves = (
+        HostelLeave.query.filter_by(student_id=current_user.id)
+        .order_by(HostelLeave.created_at.desc())
+        .all()
+    )
 
     # Complaints
-    complaints = HostelComplaint.query.filter_by(student_id=current_user.id).order_by(HostelComplaint.created_at.desc()).all()
+    complaints = (
+        HostelComplaint.query.filter_by(student_id=current_user.id)
+        .order_by(HostelComplaint.created_at.desc())
+        .all()
+    )
 
     # Placeholder finance (integrate with ERP later)
     fee_status = "Paid"
@@ -251,10 +286,10 @@ def student_hostel():
         "templates-hostel/student_hostel.html",
         allocation=allocation,
         leaves=leaves,
-        complaints=complaints,   # ✅ pass complaints
+        complaints=complaints,  # ✅ pass complaints
         fee_status=fee_status,
         fee_amount=fee_amount,
-        due_date=due_date
+        due_date=due_date,
     )
 
 
@@ -272,10 +307,7 @@ def submit_leave():
     to_date = datetime.strptime(to_date_str, "%Y-%m-%d").date()
 
     leave_request = HostelLeave(
-        student_id=current_user.id,
-        from_date=from_date,
-        to_date=to_date,
-        reason=reason
+        student_id=current_user.id, from_date=from_date, to_date=to_date, reason=reason
     )
     db.session.add(leave_request)
     db.session.commit()
@@ -294,15 +326,14 @@ def submit_complaint():
     description = request.form.get("description")
 
     complaint = HostelComplaint(
-        student_id=current_user.id,
-        type=complaint_type,
-        description=description
+        student_id=current_user.id, type=complaint_type, description=description
     )
     db.session.add(complaint)
     db.session.commit()
     flash("📝 Complaint submitted successfully!", "success")
 
     return redirect(url_for("hostel.student_hostel"))
+
 
 @hostel_bp.route("/api/list")
 @login_required
@@ -311,10 +342,15 @@ def api_hostel_list():
         return jsonify({"error": "Unauthorized"}), 403
 
     hostels = Hostel.query.all()
-    return jsonify([{
-        "id": h.id,
-        "name": h.name,
-        "type": h.type,
-        "capacity": sum(room.capacity for room in h.rooms),
-        "occupied": sum(len(room.allocations) for room in h.rooms)
-    } for h in hostels])
+    return jsonify(
+        [
+            {
+                "id": h.id,
+                "name": h.name,
+                "type": h.type,
+                "capacity": sum(room.capacity for room in h.rooms),
+                "occupied": sum(len(room.allocations) for room in h.rooms),
+            }
+            for h in hostels
+        ]
+    )

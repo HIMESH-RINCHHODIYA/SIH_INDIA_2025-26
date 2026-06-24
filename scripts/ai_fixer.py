@@ -1,4 +1,5 @@
 import os
+
 import openai
 
 LOG_FILE = "app.log"
@@ -6,6 +7,7 @@ PATCH_FILE = "ai_patch.diff"
 TEMPLATE_DIR = "templates"
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 def collect_errors():
     errors = ""
@@ -21,9 +23,12 @@ def collect_errors():
                 with open(path, "r") as f:
                     content = f.read()
                     if "{{" in content and "}}" not in content:
-                        errors += f"\n⚠️ Possible broken Jinja tag in {file}\n{content}\n"
+                        errors += (
+                            f"\n⚠️ Possible broken Jinja tag in {file}\n{content}\n"
+                        )
 
     return errors.strip()
+
 
 def generate_patch(errors):
     if not errors:
@@ -35,13 +40,22 @@ def generate_patch(errors):
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are an AI code fixer. Fix Python Flask backend and HTML frontend issues. Return only a unified diff patch."},
-            {"role": "user", "content": f"Errors found:\n{errors}\n\nGenerate a git diff patch to fix them."}
-        ]
+            {
+                "role": "system",
+                "content": "You are an AI code fixer. Fix Python Flask backend and HTML frontend issues. Return only a unified diff patch.",
+            },
+            {
+                "role": "user",
+                "content": f"Errors found:\n{errors}\n\nGenerate a git diff patch to fix them.",
+            },
+        ],
     )
 
     patch = response["choices"][0]["message"]["content"]
+
+
 import os
+
 import openai
 
 # Get API key from environment
@@ -51,12 +65,14 @@ LOG_FILE = "app.log"
 REQUEST_FILE = "ai_request.txt"
 PATCH_FILE = "ai_patch.diff"
 
+
 def read_file_safe(path):
     """Read a file if it exists, else return empty string."""
     if os.path.exists(path):
         with open(path, "r", encoding="utf-8", errors="ignore") as f:
             return f.read().strip()
     return ""
+
 
 def main():
     errors = read_file_safe(LOG_FILE)
@@ -99,6 +115,7 @@ Respond ONLY with a git diff patch.
         f.write(patch)
 
     print(f"✅ Patch saved to {PATCH_FILE}")
+
 
 if __name__ == "__main__":
     main()

@@ -1,16 +1,31 @@
-from flask import Blueprint, jsonify, request, render_template, flash, redirect, url_for
-from flask_login import login_required, current_user
+from flask import (Blueprint, flash, jsonify, redirect, render_template,
+                   request, url_for)
+from flask_login import current_user, login_required
+
 from extensions import db
-from models import DropdownValue, Course
+from models import Course, DropdownValue
 
 dropdowns_bp = Blueprint("dropdowns_bp", __name__)
 
 # Supported dropdown fields
 SUPPORTED_FIELDS = [
-    "program", "branch", "year", "semester", "enroll", "scholar_no",
-    "class", "section", "blood_group", "nationality", "religion",
-    "category", "gender", "marital_status", "courses"
+    "program",
+    "branch",
+    "year",
+    "semester",
+    "enroll",
+    "scholar_no",
+    "class",
+    "section",
+    "blood_group",
+    "nationality",
+    "religion",
+    "category",
+    "gender",
+    "marital_status",
+    "courses",
 ]
+
 
 # -------------------- Admin UI -------------------- #
 @dropdowns_bp.route("/manage")
@@ -20,6 +35,7 @@ def manage_dropdowns():
         flash("⛔ Access Denied.", "danger")
         return redirect(url_for("dashboard"))
     return render_template("manage_dropdowns.html")
+
 
 # -------------------- GET API -------------------- #
 @dropdowns_bp.route("/dropdowns", methods=["GET"])
@@ -39,6 +55,7 @@ def get_dropdowns():
             )
             dropdown_data[field] = [v[0] for v in values]
     return jsonify(dropdown_data)
+
 
 # -------------------- POST API -------------------- #
 @dropdowns_bp.route("/dropdowns", methods=["POST"])
@@ -67,9 +84,16 @@ def add_dropdown_value():
             new_course = Course(course_name=value, course_code=course_code)
             db.session.add(new_course)
         else:
-            exists = db.session.query(DropdownValue).filter_by(field=field, value=value).first()
+            exists = (
+                db.session.query(DropdownValue)
+                .filter_by(field=field, value=value)
+                .first()
+            )
             if exists:
-                return jsonify({"message": f"Value '{value}' already exists in {field}."}), 200
+                return (
+                    jsonify({"message": f"Value '{value}' already exists in {field}."}),
+                    200,
+                )
             db.session.add(DropdownValue(field=field, value=value))
 
         db.session.commit()
@@ -77,6 +101,7 @@ def add_dropdown_value():
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
+
 
 # -------------------- DELETE API -------------------- #
 @dropdowns_bp.route("/dropdowns", methods=["DELETE"])
@@ -100,7 +125,11 @@ def delete_dropdown_value():
                 return jsonify({"error": f"Course '{value}' not found."}), 404
             db.session.delete(course)
         else:
-            record = db.session.query(DropdownValue).filter_by(field=field, value=value).first()
+            record = (
+                db.session.query(DropdownValue)
+                .filter_by(field=field, value=value)
+                .first()
+            )
             if not record:
                 return jsonify({"error": f"Value '{value}' not found in {field}."}), 404
             db.session.delete(record)

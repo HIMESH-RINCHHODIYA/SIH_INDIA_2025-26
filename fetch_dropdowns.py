@@ -1,13 +1,16 @@
-from flask import Flask
-from extensions import db
 import os
 
+from flask import Flask
+
+from extensions import db
 # Import your models
-from models import User, Attendance, FeePayment, FeeConfig
+from models import Attendance, FeeConfig, FeePayment, User
 
 # Create Flask app
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///db.sqlite3")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+    "DATABASE_URL", "sqlite:///db.sqlite3"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
@@ -23,7 +26,7 @@ with app.app_context():
         "programs": programs,
         "branches": branches,
         "years": years,
-        "sections": sections
+        "sections": sections,
     }
 
     print("Dropdown Data:")

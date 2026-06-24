@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.hero-header {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border-radius: 15px;
+  color: white;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.table thead {
+  background: #4facfe;
+  color: #fff;
+}
+.card-glass {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+</style>
+
+<div class="hero-header">
+  <h2>📚 My Library Dashboard</h2>
+  <p>Hello <b>{{ current_user.name }}</b> ({{ current_user.role }})</p>
+</div>
+
+<div class="container">
+  <!-- Borrowed Books -->
+  <div class="card-glass">
+    <h4>📖 Borrowed Books</h4>
+    <table class="table table-bordered table-hover align-middle mt-3">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Issued</th>
+          <th>Due</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in borrows %}
+        <tr>
+          <td>{{ b.book.title }} <small class="text-muted">by {{ b.book.author }}</small></td>
+          <td>{{ b.issue_date.strftime('%Y-%m-%d') }}</td>
+          <td>{{ b.due_date.strftime('%Y-%m-%d') }}</td>
+          <td>
+            {% if b.return_date %}
+              <span class="badge bg-success">✅ Returned</span>
+            {% elif b.due_date < now().date() %}
+              <span class="badge bg-danger">❌ Overdue</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">📖 Borrowed</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="text-center text-muted">📭 No borrowed books</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Penalties -->
+  <div class="card-glass">
+    <h4>💰 Penalties & Fines</h4>
+    <table class="table table-sm table-striped mt-3">
+      <thead>
+        <tr><th>Borrow ID</th><th>Amount</th></tr>
+      </thead>
+      <tbody>
+      {% for p in penalties %}
+        <tr>
+          <td>#{{ p.borrow_id }}</td>
+          <td><span class="badge bg-danger">₹{{ p.amount }}</span></td>
+        </tr>
+      {% else %}
+        <tr><td colspan="2" class="text-muted text-center">No active penalties 🎉</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="d-flex gap-3">
+    <a href="{{ url_for('library_bp.library_catalog') }}" class="btn btn-primary btn-lg flex-fill">
+      🔎 Search Catalog
+    </a>
+    <a href="{{ url_for('library_bp.list_resources') }}" class="btn btn-success btn-lg flex-fill">
+      💻 Digital Resources
+    </a>
+  </div>
+</div>
+{% endblock %}

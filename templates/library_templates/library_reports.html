@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.hero-header {
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.chart-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+</style>
+
+<div class="hero-header">
+  <h2>📊 Library Reports & Analytics</h2>
+  <p>Visual insights for your library’s performance</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="chart-card">
+        <h5>🔥 Most Borrowed Books</h5>
+        <canvas id="mostBorrowedChart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="chart-card">
+        <h5>⚠️ Overdue vs Returned</h5>
+        <canvas id="overdueChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h5>💰 Penalty Overview</h5>
+    <canvas id="penaltyChart"></canvas>
+  </div>
+
+  <!-- Detailed Tables -->
+  <div class="mt-5">
+    <h4>📖 Detailed Borrowing Records</h4>
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr><th>Book</th><th>User</th><th>Issued</th><th>Due</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for b in overdue %}
+        <tr>
+          <td>{{ b.book.title }}</td>
+          <td>{{ b.user.name }}</td>
+          <td>{{ b.issue_date.strftime('%Y-%m-%d') }}</td>
+          <td>{{ b.due_date.strftime('%Y-%m-%d') }}</td>
+          <td>{% if b.return_date %}✅ Returned{% else %}⚠️ Overdue{% endif %}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-center text-muted">No active overdue data</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// ---------- Most Borrowed ----------
+const ctxBorrow = document.getElementById('mostBorrowedChart');
+new Chart(ctxBorrow, {
+  type: 'bar',
+  data: {
+    labels: {{ most_borrowed|map(attribute=0)|list|tojson }},
+    datasets: [{
+      label: 'Times Borrowed',
+      data: {{ most_borrowed|map(attribute=1)|list|tojson }},
+      backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } }
+  }
+});
+
+// ---------- Overdue Books ----------
+const ctxOverdue = document.getElementById('overdueChart');
+new Chart(ctxOverdue, {
+  type: 'doughnut',
+  data: {
+    labels: ['Overdue', 'Returned On Time'],
+    datasets: [{
+      data: [{{ overdue|length }}, {{ most_borrowed|map(attribute=1)|sum - overdue|length if most_borrowed else 0 }}],
+      backgroundColor: ['rgba(255, 99, 132, 0.7)', 'rgba(54, 162, 235, 0.7)'],
+    }]
+  },
+  options: { responsive: true, cutout: '70%' }
+});
+
+// ---------- Penalty Chart ----------
+const ctxPenalty = document.getElementById('penaltyChart');
+new Chart(ctxPenalty, {
+  type: 'line',
+  data: {
+    labels: {{ penalties|map(attribute='created_on')|map('strftime','%Y-%m-%d')|list|tojson }},
+    datasets: [{
+      label: 'Penalty Amount (₹)',
+      data: {{ penalties|map(attribute='amount')|list|tojson }},
+      fill: true,
+      backgroundColor: 'rgba(255, 206, 86, 0.2)',
+      borderColor: 'rgba(255, 159, 64,1)',
+      tension: 0.3,
+      borderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'top' } },
+    scales: {
+      y: { beginAtZero: true }
+    }
+  }
+});
+</script>
+{% endblock %}

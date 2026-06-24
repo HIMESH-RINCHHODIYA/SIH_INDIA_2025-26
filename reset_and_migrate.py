@@ -1,6 +1,8 @@
 import os
-from alembic.config import Config
+
 from alembic import command
+from alembic.config import Config
+
 from app import app
 
 # ---------- Path to SQLite DB ----------

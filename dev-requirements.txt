@@ -1,0 +1,22 @@
+# ================================
+# Development Dependencies
+# ================================
+
+# --- Testing ---
+pytest==8.3.3             # Unit testing framework
+pytest-cov==5.0.0         # Coverage reporting for pytest
+
+# --- Linting & Formatting ---
+black==24.10.0            # Opinionated code formatter
+flake8==7.1.1             # Lightweight linting
+isort==5.13.2             # Sort imports consistently
+pylint==3.3.2             # Deep linting
+mypy==1.14.1              # Optional type checking
+bandit==1.8.0             # Security scanning for Python code
+
+# --- Interactive Dev Tools ---
+ipython==8.30.0           # Rich interactive shell
+Faker==30.6.0             # Generate fake data (great for testing)
+
+# --- Monitoring & Debugging ---
+coverage==7.6.1           # Standalone coverage analysis

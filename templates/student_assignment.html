@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+
+  <h3>🎓 My Assignments</h3>
+
+  {% if assignments %}
+  <div class="accordion mt-3" id="assignmentList">
+    {% for a in assignments %}
+    <div class="accordion-item mb-2">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#assignment{{ a.id }}">
+          {{ a.title }} ({{ a.course.course_name }})
+        </button>
+      </h2>
+
+      <div id="assignment{{ a.id }}" 
+           class="accordion-collapse collapse"
+           data-bs-parent="#assignmentList">
+        <div class="accordion-body">
+          
+          <p><b>📖 Description:</b> {{ a.description or "—" }}</p>
+          <p><b>📅 Deadline:</b> {{ a.deadline.strftime('%d-%b-%Y') }}</p>
+          <p><b>Course:</b> {{ a.course.course_name }} ({{ a.course.course_code }})</p>
+          <p>
+            <b>Target Group:</b>
+            {{ a.program }} / {{ a.branch }} / Year {{ a.year }}, Sem {{ a.semester }} (Section {{ a.section or "-" }})
+          </p>
+
+          {% if submissions.get(a.id) %}
+            {% set s = submissions[a.id] %}
+            <hr>
+            <h6>✅ Submission Status: Submitted on {{ s.submitted_at.strftime('%d-%b-%Y %H:%M') }}</h6>
+
+            {% if s.grade %}
+              <p><b>Grade:</b> {{ s.grade }}</p>
+              <p><b>Feedback:</b> {{ s.feedback or "—" }}</p>
+            {% else %}
+              <span class="badge bg-warning text-dark">Awaiting grading...</span>
+            {% endif %}
+
+            <!-- Student’s answers -->
+            <h6 class="mt-3">📂 Your Answers</h6>
+            <ul class="list-group">
+              {% for ans in s.answers %}
+                <li class="list-group-item">
+                  <b>Q{{ ans.question_id }}</b>: {{ ans.question.question_text }}
+                  {% if ans.answer_text %}
+                    <br><i>Answer:</i> {{ ans.answer_text }}
+                  {% endif %}
+                  {% if ans.selected_option_texts %}
+                    <br><i>Chosen options:</i> {{ ", ".join(ans.selected_option_texts) }}
+                  {% endif %}
+                  {% if ans.file_path %}
+                    <br><a href="{{ url_for('static', filename=ans.file_path.split('static/')[-1]) }}" target="_blank">📎 View Uploaded File</a>
+                  {% endif %}
+                </li>
+              {% else %}
+                <li class="list-group-item text-muted">No answers submitted.</li>
+              {% endfor %}
+            </ul>
+
+          {% else %}
+            <!-- No submission -->
+            {% if a.deadline > now() %}
+              <a href="{{ url_for('assignment_bp.take_assignment', assignment_id=a.id) }}"
+                 class="btn btn-sm btn-primary mt-2">✍️ Take Assignment</a>
+            {% else %}
+              <span class="badge bg-danger">Deadline Passed</span>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <div class="alert alert-info mt-3">🎉 No assignments available right now.</div>
+  {% endif %}
+</div>
+{% endblock %}

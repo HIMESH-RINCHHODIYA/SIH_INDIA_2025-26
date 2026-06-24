@@ -1,9 +1,12 @@
-from flask import Blueprint, request, redirect, url_for, flash, render_template
-from flask_login import login_required, current_user
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
+
 from extensions import db
-from models import Course, StudentCourse, FacultyCourse, User  # ✅ use singular consistently
+from models import (Course, FacultyCourse,  # ✅ use singular consistently
+                    StudentCourse, User)
 
 course_bp = Blueprint("course_bp", __name__)
+
 
 # -------------------- Admin: Add Course -------------------- #
 # -------------------- Admin: Add Course -------------------- #
@@ -30,10 +33,7 @@ def add_course():
         return redirect(url_for("course_bp.admin_courses"))
 
     # ✅ Only store the fields actually defined in Course model
-    new_course = Course(
-        course_name=course_name,
-        course_code=course_code
-    )
+    new_course = Course(course_name=course_name, course_code=course_code)
     db.session.add(new_course)
     db.session.commit()
 
@@ -54,6 +54,7 @@ def admin_courses():
 
 
 # FILE: courses_routes.py
+
 
 # -------------------- Student: View & Enroll in Courses -------------------- #
 @course_bp.route("/student/courses", methods=["GET", "POST"])
@@ -95,7 +96,7 @@ def student_courses():
         return redirect(url_for("course_bp.student_courses"))
 
     # 3. Prepare Data for GET Request
-    
+
     # Set a reliable default photo path
     photo_path = "uploads/default.png"
     # If the user has a photo, process its path to remove the 'static/' prefix
@@ -111,8 +112,10 @@ def student_courses():
         "student_courses.html",
         courses=all_courses,
         enrolled=enrolled_courses,
-        student_photo_path=photo_path  # Pass the corrected path to the template
+        student_photo_path=photo_path,  # Pass the corrected path to the template
     )
+
+
 # -------------------- Faculty: Assign Teaching Courses -------------------- #
 @course_bp.route("/faculty/courses", methods=["GET", "POST"])
 @login_required
@@ -143,7 +146,7 @@ def faculty_courses():
             branch=branch,
             year=year,
             semester=semester,
-            course_type=course_type
+            course_type=course_type,
         ).first()
         if existing:
             flash("⚠️ You are already assigned to this course.", "warning")
@@ -156,7 +159,7 @@ def faculty_courses():
             branch=branch,
             year=year,
             semester=semester,
-            course_type=course_type
+            course_type=course_type,
         )
         db.session.add(assignment)
         db.session.commit()
@@ -165,4 +168,6 @@ def faculty_courses():
         return redirect(url_for("course_bp.faculty_courses"))
 
     assigned_courses = FacultyCourse.query.filter_by(faculty_id=current_user.id).all()
-    return render_template("faculty_courses.html", courses=courses, assigned=assigned_courses)
+    return render_template(
+        "faculty_courses.html", courses=courses, assigned=assigned_courses
+    )

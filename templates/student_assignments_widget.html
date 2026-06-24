@@ -1,0 +1,38 @@
+<div class="row mt-4">
+
+  <!-- Due Soon -->
+  <div class="col-md-4">
+    <div class="card text-white bg-primary shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">📅 Assignments Due</h5>
+        <h2>{{ stats.due }}</h2>
+        <p class="card-text">Assignments you need to submit before deadline.</p>
+        <a href="{{ url_for('assignment_bp.student_assignments') }}" class="btn btn-light btn-sm">View</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submitted -->
+  <div class="col-md-4">
+    <div class="card text-white bg-success shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">📬 Submitted</h5>
+        <h2>{{ stats.submitted }}</h2>
+        <p class="card-text">Assignments you have already submitted.</p>
+        <a href="{{ url_for('assignment_bp.student_assignments') }}" class="btn btn-light btn-sm">View</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Graded -->
+  <div class="col-md-4">
+    <div class="card text-white bg-info shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">🎓 Graded</h5>
+        <h2>{{ stats.graded }}</h2>
+        <p class="card-text">Assignments you’ve received grades for.</p>
+        <a href="{{ url_for('assignment_bp.student_assignments') }}" class="btn btn-light btn-sm">View</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,12 @@
-from flask import Blueprint, render_template, request, flash
-from flask_login import login_required, current_user
 from datetime import datetime
+
+from flask import Blueprint, flash, render_template, request
+from flask_login import current_user, login_required
+
 from models import Attendance, Course
 
 faculty_stud_bp = Blueprint("faculty_stud_bp", __name__, template_folder="templates")
+
 
 def summarize_attendance(records):
     total = len(records)
@@ -11,6 +14,7 @@ def summarize_attendance(records):
     absent = total - present
     percentage = round((present / total) * 100, 2) if total > 0 else 0
     return total, present, absent, percentage
+
 
 # 📌 Faculty Attendance (view students in their course)
 @faculty_stud_bp.route("/attendance", methods=["GET"])

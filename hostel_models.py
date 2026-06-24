@@ -1,7 +1,9 @@
 # hostel_models.py
 from datetime import datetime
+
 from extensions import db
 from models import User
+
 
 # ==========================================================
 # 1. HOSTEL
@@ -17,7 +19,9 @@ class Hostel(db.Model):
     warden_id = db.Column(db.Integer, db.ForeignKey("users.id"))  # links to User
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
 
     # Relationships
     rooms = db.relationship("HostelRoom", back_populates="hostel", lazy="joined")
@@ -41,7 +45,9 @@ class HostelRoom(db.Model):
 
     capacity = db.Column(db.Integer, nullable=False, default=1)
     facilities = db.Column(db.String(255))  # e.g., AC, Wi-Fi, attached bath
-    status = db.Column(db.String(50), default="Vacant")  # Vacant / Occupied / Maintenance
+    status = db.Column(
+        db.String(50), default="Vacant"
+    )  # Vacant / Occupied / Maintenance
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -70,7 +76,9 @@ class HostelAllocation(db.Model):
 
     # Relationships
     room = db.relationship("HostelRoom", back_populates="allocations")
-    student = db.relationship("User", backref=db.backref("hostel_allocation", uselist=False))
+    student = db.relationship(
+        "User", backref=db.backref("hostel_allocation", uselist=False)
+    )
     hostel = db.relationship("Hostel", backref="allocations")
 
     def __repr__(self):
@@ -89,14 +97,20 @@ class HostelLeave(db.Model):
     from_date = db.Column(db.Date, nullable=False)
     to_date = db.Column(db.Date, nullable=False)
     reason = db.Column(db.String(255))
-    status = db.Column(db.String(50), default="Pending")  # Pending / Approved / Rejected
+    status = db.Column(
+        db.String(50), default="Pending"
+    )  # Pending / Approved / Rejected
     approved_by = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # ✅ Relationships
-    student = db.relationship("User", foreign_keys=[student_id], backref="leave_requests")
-    approver = db.relationship("User", foreign_keys=[approved_by], backref="approved_leaves")
+    student = db.relationship(
+        "User", foreign_keys=[student_id], backref="leave_requests"
+    )
+    approver = db.relationship(
+        "User", foreign_keys=[approved_by], backref="approved_leaves"
+    )
 
     def __repr__(self):
         return f"<HostelLeave student={self.student_id} status={self.status}>"
@@ -120,7 +134,11 @@ class HostelComplaint(db.Model):
 
     # ✅ Relationships
     student = db.relationship("User", foreign_keys=[student_id], backref="complaints")
-    resolver = db.relationship("User", foreign_keys=[resolved_by], backref="resolved_complaints")
+    resolver = db.relationship(
+        "User", foreign_keys=[resolved_by], backref="resolved_complaints"
+    )
 
     def __repr__(self):
-        return f"<Complaint id={self.id} student={self.student_id} status={self.status}>"
+        return (
+            f"<Complaint id={self.id} student={self.student_id} status={self.status}>"
+        )

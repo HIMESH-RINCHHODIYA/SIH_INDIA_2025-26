@@ -1,21 +1,29 @@
 # app.py
+import datetime
 import os
 import random
-import uuid
-import datetime
 import socket
-from flask import Flask, render_template, request, redirect, url_for, flash, session, abort, send_from_directory
-from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import secure_filename
-from flask_migrate import Migrate
+import uuid
 from functools import wraps
 
+from dotenv import load_dotenv
+from flask import (Flask, abort, flash, redirect, render_template, request,
+                   send_from_directory, session, url_for)
+from flask_login import (LoginManager, current_user, login_required,
+                         login_user, logout_user)
+from flask_migrate import Migrate
+from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
+
 from extensions import db
-from models import User, Attendance, FeePayment, FeeConfig, College
-from utils import save_uploaded_file, role_required
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 # Import models so they are registered with SQLAlchemy
-from hostel_models import Hostel, HostelRoom, HostelAllocation, HostelLeave, HostelComplaint
+from hostel_models import (Hostel, HostelAllocation, HostelComplaint,
+                           HostelLeave, HostelRoom)
+from library_models import Book, BorrowRecord, Penalty
+from models import Attendance, College, FeeConfig, FeePayment, User
+from utils import role_required, save_uploaded_file
+
+load_dotenv()
 
 # ------------------ App Setup ------------------ #
 app = Flask(__name__, template_folder="templates")
@@ -26,8 +34,8 @@ UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # ------------------ App Config ------------------ #
-app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", "supersecretkey")
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sqlite3'  # main database
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "supersecretkey")
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite3"  # main database
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB
@@ -45,9 +53,11 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "warning"
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 # ------------------ Ensure DB Tables Exist ------------------ #
 with app.app_context():
@@ -55,17 +65,21 @@ with app.app_context():
     print("✅ All tables created or already exist")
     print("✅ All database tables ensured!")
 
+from profile import profile_bp
+
+from admin_fee import admin_fee_bp
+from blueprints.library_bp import library_bp
+from blueprints.library_chatbot_bp import chatbot_bp
+from course_routes import course_bp
+from dropdowns import dropdowns_bp
+from faculty_attendance import faculty_stud_bp
+from grades_bp import grades_bp
+from hostel import hostel_bp
 # Import your blueprints
 from student_att import student_bp
-from faculty_attendance import faculty_stud_bp
 from student_fee import student_fee_bp
-from admin_fee import admin_fee_bp
-from dropdowns import dropdowns_bp
-from grades_bp import grades_bp
 from superadmin_routes import superadmin_bp
-from course_routes import course_bp
-from profile import profile_bp
-from hostel import hostel_bp
+from assignment_ import assignment_bp
 
 # Register Blueprints
 app.register_blueprint(student_bp, url_prefix="/student")
@@ -78,11 +92,18 @@ app.register_blueprint(superadmin_bp, url_prefix="/superadmin")
 app.register_blueprint(course_bp, url_prefix="/courses")
 app.register_blueprint(profile_bp, url_prefix="/profile")
 app.register_blueprint(hostel_bp)
+app.register_blueprint(library_bp)
+app.register_blueprint(chatbot_bp)
+app.register_blueprint(assignment_bp)
+
 
 # ------------------ Routes ------------------ #
 @app.route("/")
 def home():
-    return redirect(url_for("dashboard") if current_user.is_authenticated else url_for("login"))
+    return redirect(
+        url_for("dashboard") if current_user.is_authenticated else url_for("login")
+    )
+
 
 @app.route("/dashboard")
 @login_required
@@ -98,7 +119,13 @@ def dashboard():
             # college.logo stored as "uploads/filename.ext"
             college_logo = college.logo
     # Optionally, SuperAdmin might want a global logo or none.
-    return render_template("dashboard.html", name=current_user.name, role=current_user.role, college_logo=college_logo)
+    return render_template(
+        "dashboard.html",
+        name=current_user.name,
+        role=current_user.role,
+        college_logo=college_logo,
+    )
+
 
 # ------------------ Registration & OTP ------------------ #
 @app.route("/register", methods=["GET", "POST"])
@@ -138,7 +165,7 @@ def register():
             password=generate_password_hash(password, method="pbkdf2:sha256"),
             role=role,
             college_id=college.id if college else None,
-            verified=False
+            verified=False,
         )
         db.session.add(user)
         db.session.commit()
@@ -150,6 +177,7 @@ def register():
         return redirect(url_for("verify_otp"))
 
     return render_template("register.html", colleges=colleges)
+
 
 @app.route("/verify", methods=["GET", "POST"])
 def verify_otp():
@@ -169,6 +197,7 @@ def verify_otp():
             return redirect(url_for("login"))
         flash("Invalid OTP!", "danger")
     return render_template("verify.html")
+
 
 # ----------- Login -----------
 # ----------- Login -----------
@@ -214,8 +243,8 @@ def login():
             session["college_logo"] = None
             session["college_name"] = "College ERP"
         else:
-             # ✅ Always use the college assigned to the user in DB
-          college = College.query.get(user.college_id)
+            # ✅ Always use the college assigned to the user in DB
+            college = College.query.get(user.college_id)
         if college:
             session["college_logo"] = college.logo
             session["college_name"] = college.name
@@ -226,6 +255,7 @@ def login():
         return redirect(url_for("dashboard"))
 
     return render_template("login.html", colleges=colleges)
+
 
 # ----------- Logout ----------- #
 @app.route("/logout")
@@ -239,50 +269,62 @@ def logout():
     flash("Logged out.", "info")
     return redirect(url_for("login"))
 
+
 # ----------- Profile ----------- #
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
     if request.method == "POST":
-        for field in ["dob","contact","program","year","branch","roll_no","admission_date"]:
+        for field in [
+            "dob",
+            "contact",
+            "program",
+            "year",
+            "branch",
+            "roll_no",
+            "admission_date",
+        ]:
             setattr(current_user, field, request.form.get(field))
         owner = f"user{current_user.id}"
-        for field in ["photo","id_card","certificate","transcript"]:
+        for field in ["photo", "id_card", "certificate", "transcript"]:
             saved = save_uploaded_file(field, owner_prefix=owner)
-            if saved: setattr(current_user, field, saved)
+            if saved:
+                setattr(current_user, field, saved)
         db.session.commit()
         flash("Profile updated successfully!", "success")
         return redirect(url_for("profile"))
     return render_template("profile.html", user=current_user)
 
+
 # ----------- Forgot / Reset ----------- #
-@app.route("/forgot", methods=["GET","POST"])
+@app.route("/forgot", methods=["GET", "POST"])
 def forgot_password():
     if request.method == "POST":
-        email = request.form.get("email","").strip().lower()
+        email = request.form.get("email", "").strip().lower()
         user = User.query.filter_by(email=email).first()
         if not user:
             flash("No account with this email!", "danger")
             return redirect(url_for("forgot_password"))
-        otp = str(random.randint(1000,9999))
+        otp = str(random.randint(1000, 9999))
         session["reset_otp"] = otp
         session["reset_user"] = user.id
-        flash(f"Reset OTP for demo: {otp}","info")
+        flash(f"Reset OTP for demo: {otp}", "info")
         return redirect(url_for("reset_password"))
     return render_template("forgot.html")
 
-@app.route("/reset", methods=["GET","POST"])
+
+@app.route("/reset", methods=["GET", "POST"])
 def reset_password():
-    if request.method=="POST":
-        otp=request.form.get("otp")
-        pwd=request.form.get("password","")
-        if otp==session.get("reset_otp"):
-            user=User.query.get(session.get("reset_user"))
+    if request.method == "POST":
+        otp = request.form.get("otp")
+        pwd = request.form.get("password", "")
+        if otp == session.get("reset_otp"):
+            user = User.query.get(session.get("reset_user"))
             if user:
-                user.password=generate_password_hash(pwd, method="pbkdf2:sha256")
+                user.password = generate_password_hash(pwd, method="pbkdf2:sha256")
                 db.session.commit()
-            session.pop("reset_otp",None)
-            session.pop("reset_user",None)
+            session.pop("reset_otp", None)
+            session.pop("reset_user", None)
             flash("Password reset successfully!", "success")
             return redirect(url_for("login"))
         flash("Invalid OTP!", "danger")
@@ -305,6 +347,7 @@ def reset_password():
 def coming_soon():
     return render_template("coming_soon.html")
 
+
 # ------------------ Student Dashboard Pages ------------------ #
 @app.route("/student/<string:path>")
 @login_required
@@ -314,14 +357,8 @@ def student_pages(path):
         return redirect(url_for("dashboard"))
 
     # ✅ Allowed pages
-    title_map = {
-        "grades": "📊 Student Grades",
-        "fees": "💰 Student Fees"
-    }
-    content_map = {
-        "grades": "Check academic grades",
-        "fees": "Check/pay fees"
-    }
+    title_map = {"grades": "📊 Student Grades", "fees": "💰 Student Fees"}
+    content_map = {"grades": "Check academic grades", "fees": "Check/pay fees"}
 
     # ❌ Invalid page -> 404
     if path not in title_map:
@@ -332,23 +369,24 @@ def student_pages(path):
         "dashboard_page.html",
         user=current_user,
         title=title_map[path],
-        content=content_map[path]
+        content=content_map[path],
     )
+
 
 # ------------------ Faculty Dashboard Pages ------------------ #
 @app.route("/faculty/<path>")
 @login_required
-@role_required("Faculty","Admin","SuperAdmin")
+@role_required("Faculty", "Admin", "SuperAdmin")
 def faculty_pages(path):
     title_map = {
         "courses": "📖 Faculty Courses",
         "assignments": "📝 Faculty Assignments",
-        "attendance": "🗓 Faculty Attendance"
+        "attendance": "🗓 Faculty Attendance",
     }
     content_map = {
         "courses": "Manage courses",
         "assignments": "Upload/manage assignments",
-        "attendance": "Mark and manage student attendance"
+        "attendance": "Mark and manage student attendance",
     }
 
     if path not in title_map:
@@ -358,23 +396,32 @@ def faculty_pages(path):
         "dashboard_page.html",
         user=current_user,
         title=title_map[path],
-        content=content_map[path]
+        content=content_map[path],
     )
 
+
 # ------------------ Faculty Attendance (core feature) ------------------ #
-@app.route("/faculty/attendance", methods=["GET","POST"])
+@app.route("/faculty/attendance", methods=["GET", "POST"])
 @login_required
-@role_required("Faculty","Admin","SuperAdmin")
+@role_required("Faculty", "Admin", "SuperAdmin")
 def faculty_attendance():
     students = []
-    selected_class = request.args.get("class") or request.args.get("class_")  # support both query keys
+    selected_class = request.args.get("class") or request.args.get(
+        "class_"
+    )  # support both query keys
     selected_branch = request.args.get("branch")
-    selected_date = request.args.get("date", datetime.datetime.today().strftime("%Y-%m-%d"))
+    selected_date = request.args.get(
+        "date", datetime.datetime.today().strftime("%Y-%m-%d")
+    )
 
     # Build lists for dropdowns
-    classes_query = db.session.query(User.year).filter_by(role="Student").distinct().all()
+    classes_query = (
+        db.session.query(User.year).filter_by(role="Student").distinct().all()
+    )
     classes = [c[0] for c in classes_query if c[0]]
-    branches_query = db.session.query(User.branch).filter_by(role="Student").distinct().all()
+    branches_query = (
+        db.session.query(User.branch).filter_by(role="Student").distinct().all()
+    )
     branches = [b[0] for b in branches_query if b[0]]
 
     if request.method == "POST":
@@ -382,13 +429,21 @@ def faculty_attendance():
         selected_branch = request.form.get("branch")
         selected_date = request.form.get("date")
         try:
-            selected_date_obj = datetime.datetime.strptime(selected_date, "%Y-%m-%d").date()
+            selected_date_obj = datetime.datetime.strptime(
+                selected_date, "%Y-%m-%d"
+            ).date()
         except Exception:
             flash("Invalid date!", "danger")
             return redirect(url_for("faculty_attendance"))
 
         # fetch students for the chosen class+branch
-        students = User.query.filter_by(role="Student", year=selected_class, branch=selected_branch).order_by(User.roll_no).all()
+        students = (
+            User.query.filter_by(
+                role="Student", year=selected_class, branch=selected_branch
+            )
+            .order_by(User.roll_no)
+            .all()
+        )
 
         # remove existing attendance rows for same date/class/branch (for those students) to avoid duplicates
         student_ids = [s.id for s in students]
@@ -397,7 +452,7 @@ def faculty_attendance():
                 Attendance.student_id.in_(student_ids),
                 Attendance.date == selected_date_obj,
                 Attendance.branch == selected_branch,
-                Attendance.class_name == selected_class
+                Attendance.class_name == selected_class,
             ).delete(synchronize_session=False)
 
         # create records from submitted form
@@ -408,18 +463,31 @@ def faculty_attendance():
                 date=selected_date_obj,
                 branch=selected_branch,
                 class_name=selected_class,
-                status="Present" if present else "Absent"
+                status="Present" if present else "Absent",
             )
             db.session.add(rec)
 
         db.session.commit()
         flash("Attendance saved!", "success")
         # redirect with query params to show the selected list
-        return redirect(url_for("faculty_attendance", branch=selected_branch, class_=selected_class, date=selected_date))
+        return redirect(
+            url_for(
+                "faculty_attendance",
+                branch=selected_branch,
+                class_=selected_class,
+                date=selected_date,
+            )
+        )
 
     # if it's a GET with query params, show students for the selected class/branch
     if selected_class and selected_branch:
-        students = User.query.filter_by(role="Student", year=selected_class, branch=selected_branch).order_by(User.roll_no).all()
+        students = (
+            User.query.filter_by(
+                role="Student", year=selected_class, branch=selected_branch
+            )
+            .order_by(User.roll_no)
+            .all()
+        )
 
     # fetch existing attendance for display (if any)
     existing_attendance = []
@@ -430,7 +498,7 @@ def faculty_attendance():
                 Attendance.student_id.in_([s.id for s in students]),
                 Attendance.date == date_obj,
                 Attendance.branch == selected_branch,
-                Attendance.class_name == selected_class
+                Attendance.class_name == selected_class,
             ).all()
     except Exception:
         existing_attendance = []
@@ -447,8 +515,9 @@ def faculty_attendance():
         selected_class=selected_class,
         selected_branch=selected_branch,
         selected_date=selected_date,
-        attendance_map=attendance_map
+        attendance_map=attendance_map,
     )
+
 
 # ------------------ SuperAdmin: College Management (CRUD) ------------------ #
 @app.route("/superadmin/colleges", methods=["GET", "POST"])
@@ -466,12 +535,16 @@ def superadmin_colleges():
             flash("Name and domain are required.", "danger")
             return redirect(url_for("superadmin_colleges"))
 
-        if College.query.filter(db.or_(College.name == name, College.domain == domain)).first():
+        if College.query.filter(
+            db.or_(College.name == name, College.domain == domain)
+        ).first():
             flash("College with same name or domain exists.", "danger")
             return redirect(url_for("superadmin_colleges"))
 
         # handle logo upload
-        logo_saved = save_uploaded_file("logo", owner_prefix=f"college_{secure_filename(name)}")
+        logo_saved = save_uploaded_file(
+            "logo", owner_prefix=f"college_{secure_filename(name)}"
+        )
         logo_db_path = None
         if logo_saved:
             # stored as "uploads/filename" — map to "uploads/filename" for DB and url_for('static', filename=...)
@@ -485,6 +558,7 @@ def superadmin_colleges():
 
     colleges = College.query.order_by(College.name).all()
     return render_template("superadmin/manage_colleges.html", colleges=colleges)
+
 
 @app.route("/superadmin/colleges/<int:college_id>/edit", methods=["GET", "POST"])
 @login_required
@@ -501,7 +575,11 @@ def edit_college(college_id):
             return redirect(url_for("edit_college", college_id=college_id))
 
         # check uniqueness excluding current
-        exists = College.query.filter(db.or_(College.name == name, College.domain == domain)).filter(College.id != college.id).first()
+        exists = (
+            College.query.filter(db.or_(College.name == name, College.domain == domain))
+            .filter(College.id != college.id)
+            .first()
+        )
         if exists:
             flash("Another college with same name or domain exists.", "danger")
             return redirect(url_for("edit_college", college_id=college_id))
@@ -510,7 +588,9 @@ def edit_college(college_id):
         college.domain = domain
 
         # handle logo file
-        logo_saved = save_uploaded_file("logo", owner_prefix=f"college_{secure_filename(name)}")
+        logo_saved = save_uploaded_file(
+            "logo", owner_prefix=f"college_{secure_filename(name)}"
+        )
         if logo_saved:
             college.logo = logo_saved
         elif remove_logo:
@@ -521,6 +601,7 @@ def edit_college(college_id):
         return redirect(url_for("superadmin_colleges"))
     return render_template("superadmin/edit_college.html", college=college)
 
+
 @app.route("/superadmin/colleges/<int:college_id>/delete", methods=["POST"])
 @login_required
 @role_required("SuperAdmin")
@@ -529,7 +610,9 @@ def delete_college(college_id):
     # Optional: unlink logo file from disk if you want to remove physical file
     if college.logo:
         try:
-            logo_full_path = os.path.join(app.static_folder, college.logo)  # static/uploads/...
+            logo_full_path = os.path.join(
+                app.static_folder, college.logo
+            )  # static/uploads/...
             if os.path.exists(logo_full_path):
                 os.remove(logo_full_path)
         except Exception:
@@ -541,13 +624,22 @@ def delete_college(college_id):
     flash("College deleted.", "info")
     return redirect(url_for("superadmin_colleges"))
 
+
 # ------------------ Error Handlers ------------------ #
 @app.errorhandler(403)
-def forbidden(error): return render_template("coming_soon.html", message="403 Forbidden"),403
+def forbidden(error):
+    return render_template("coming_soon.html", message="403 Forbidden"), 403
+
+
 @app.errorhandler(404)
-def not_found(error): return render_template("coming_soon.html", message="404 Not Found"),404
+def not_found(error):
+    return render_template("coming_soon.html", message="404 Not Found"), 404
+
+
 @app.errorhandler(500)
-def server_error(error): return render_template("coming_soon.html", message="500 Server Error"),500
+def server_error(error):
+    return render_template("coming_soon.html", message="500 Server Error"), 500
+
 
 # ------------------ Run App ------------------ #
 def find_free_port(default=5000):
@@ -557,6 +649,7 @@ def find_free_port(default=5000):
             if s.connect_ex(("127.0.0.1", port)) != 0:
                 return port
             port += 1
+
 
 if __name__ == "__main__":
     free_port = find_free_port(5000)

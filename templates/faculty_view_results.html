@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">📊 Faculty – Uploaded Results</h2>
+        <a href="{{ url_for('grades_bp.faculty_upload_grades') }}" class="btn btn-success btn-sm">
+            ➕ Upload New Grades
+        </a>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-dark text-white fw-semibold">🔍 Filter Results</div>
+        <div class="card-body">
+            <form method="GET" class="row g-3">
+                <div class="col-md-5">
+                    <label class="form-label fw-semibold">Course</label>
+                    <select name="course_id" class="form-select">
+                        <option value="">-- All Courses --</option>
+                        {% for c in courses %}
+                          <option value="{{ c.id }}" {% if selected_course == c.id|string %}selected{% endif %}>
+                            {{ c.course_code }} - {{ c.course_name }}
+                          </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Semester</label>
+                    <select name="semester" class="form-select">
+                        <option value="">-- All Semesters --</option>
+                        {% for sem in semesters %}
+                          <option value="{{ sem }}" {% if selected_semester == sem %}selected{% endif %}>
+                            {{ sem }}
+                          </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button class="btn btn-primary w-100">🔄 Apply Filters</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Table -->
+    {% if results %}
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white fw-semibold">📋 Uploaded Results</div>
+        <div class="card-body table-responsive">
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th>👨‍🎓 Student</th>
+                        <th>📘 Course Code</th>
+                        <th>📖 Course Name</th>
+                        <th>📅 Semester</th>
+                        <th>🧾 Marks</th>
+                        <th>🎯 Out Of</th>
+                        <th>🎓 Credits</th>
+                        <th>🏷 Grade</th>
+                        <th>⭐ Grade Point</th>
+                        <th>✅ Status</th>
+                        <th>✏️ Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for r in results %}
+                    <tr>
+                        <form method="POST">
+                            <td class="text-start">
+                                <strong>{{ r.student.name }}</strong>
+                                <small class="text-muted d-block">({{ r.student.roll_no }})</small>
+                            </td>
+                            <td><span class="badge bg-dark">{{ r.course.course_code }}</span></td>
+                            <td>{{ r.course.course_name }}</td>
+                            <td><span class="badge bg-secondary">{{ r.semester }}</span></td>
+
+                            {% if not r.approved_by_admin %}
+                                <td><input type="number" class="form-control form-control-sm" name="marks" value="{{ r.marks }}" required></td>
+                                <td><input type="number" class="form-control form-control-sm" name="out_of" value="{{ r.out_of }}" required></td>
+                                <td><input type="number" class="form-control form-control-sm" name="credits" value="{{ r.credits }}" required></td>
+                            {% else %}
+                                <td><strong>{{ r.marks }}</strong></td>
+                                <td>{{ r.out_of }}</td>
+                                <td>{{ r.credits }}</td>
+                            {% endif %}
+
+                            <td>
+                                <span class="badge 
+                                    {% if r.grade in ['A+','A'] %} bg-success
+                                    {% elif r.grade in ['B+','B'] %} bg-info text-dark
+                                    {% elif r.grade in ['C','D'] %} bg-warning text-dark
+                                    {% else %} bg-danger {% endif %}">
+                                    {{ r.grade }}
+                                </span>
+                            </td>
+                            <td>{{ "%.2f"|format(r.grade_point) }}</td>
+                            <td>
+                                {% if r.approved_by_admin %}
+                                    <span class="badge bg-success">✔ Approved</span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark">⏳ Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if not r.approved_by_admin %}
+                                    <button type="submit" name="result_id" value="{{ r.id }}" class="btn btn-sm btn-outline-primary">
+                                        💾 Save
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-sm btn-secondary" disabled>Locked 🔒</button>
+                                {% endif %}
+                            </td>
+                        </form>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Export Buttons -->
+            <div class="d-flex gap-2 mt-3">
+                <a href="{{ url_for('grades_bp.export_grades_csv', course_id=selected_course, semester=selected_semester) }}"
+                   class="btn btn-outline-primary btn-sm">📊 Export CSV</a>
+                <a href="{{ url_for('grades_bp.export_grades_xlsx', course_id=selected_course, semester=selected_semester) }}"
+                   class="btn btn-outline-success btn-sm">📑 Export Excel</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+      <div class="alert alert-info mt-3 shadow-sm">
+        ℹ No results uploaded yet. <a href="{{ url_for('grades_bp.faculty_upload_grades') }}">Upload some here.</a>
+      </div>
+    {% endif %}
+</div>
+{% endblock %}

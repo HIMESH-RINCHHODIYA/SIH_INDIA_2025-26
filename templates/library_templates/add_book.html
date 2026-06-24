@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.hero-header {
+  background: linear-gradient(135deg,#5ee7df,#b490ca);
+  color:white;
+  padding:40px 20px;
+  text-align:center;
+  border-radius:15px;
+  margin-bottom:30px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+.form-card {
+  max-width:700px;
+  margin:auto;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(10px);
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+</style>
+
+<div class="hero-header">
+  <h2>➕ Add New Book</h2>
+  <p>Insert a new book into the library catalog</p>
+</div>
+
+<div class="container">
+  <div class="form-card">
+    <form method="POST">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Title *</label>
+          <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Author *</label>
+          <input type="text" name="author" class="form-control" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">ISBN</label>
+          <input type="text" name="isbn" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Category</label>
+          <input type="text" name="category" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Year</label>
+          <input type="number" name="year" class="form-control">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Total Copies *</label>
+        <input type="number" name="copies_total" min="1" value="1" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100">💾 Save Book</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

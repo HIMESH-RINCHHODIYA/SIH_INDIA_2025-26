@@ -1,12 +1,15 @@
 # student_att.py
 
-from flask import Blueprint, render_template, request, flash
-from flask_login import login_required, current_user
 from datetime import datetime
+
+from flask import Blueprint, flash, render_template, request
+from flask_login import current_user, login_required
+
 # ✅ ADDED Course and StudentCourse models to the import
 from models import Attendance, Course, StudentCourse
 
 student_bp = Blueprint("student_bp", __name__, template_folder="templates")
+
 
 def summarize_attendance(records):
     total = len(records)
@@ -14,6 +17,7 @@ def summarize_attendance(records):
     absent = total - present
     percentage = round((present / total) * 100, 2) if total > 0 else 0
     return total, present, absent, percentage
+
 
 # 📌 Student Attendance
 @student_bp.route("/attendance", methods=["GET"])
@@ -23,9 +27,12 @@ def student_attendance():
         return "Unauthorized", 403
 
     # ✅ STEP 1: Fetch ONLY the courses the student is enrolled in.
-    enrolled_courses = Course.query.join(StudentCourse).filter(
-        StudentCourse.student_id == current_user.id
-    ).order_by(Course.course_name).all()
+    enrolled_courses = (
+        Course.query.join(StudentCourse)
+        .filter(StudentCourse.student_id == current_user.id)
+        .order_by(Course.course_name)
+        .all()
+    )
 
     # Filters
     # ✅ ADDED course_id filter
@@ -50,7 +57,7 @@ def student_attendance():
 
     # Query only this student's attendance
     query = Attendance.query.filter_by(student_id=current_user.id)
-    
+
     # ✅ ADDED filter for selected course
     if selected_course_id:
         query = query.filter(Attendance.course_id == selected_course_id)
@@ -69,18 +76,21 @@ def student_attendance():
 
     for course in enrolled_courses:
         # Filter records for the current course from the full list
-        records_for_course = [r for r in all_student_records if r.course_id == course.id]
+        records_for_course = [
+            r for r in all_student_records if r.course_id == course.id
+        ]
         total_c, present_c, _, percentage_c = summarize_attendance(records_for_course)
-        
-        if total_c > 0: # Only add courses with attendance records to the summary
-            course_summary.append({
-                'course': course,
-                'total': total_c,
-                'present': present_c,
-                'absent': total_c - present_c,
-                'percentage': percentage_c
-            })
 
+        if total_c > 0:  # Only add courses with attendance records to the summary
+            course_summary.append(
+                {
+                    "course": course,
+                    "total": total_c,
+                    "present": present_c,
+                    "absent": total_c - present_c,
+                    "percentage": percentage_c,
+                }
+            )
 
     return render_template(
         "student_attendance.html",
@@ -95,12 +105,12 @@ def student_attendance():
         student_program=current_user.program or "",
         student_branch=current_user.branch or "",
         student_year=current_user.year or "",
-        student_section=current_user.section or "", # Note: HTML uses student_sem
+        student_section=current_user.section or "",  # Note: HTML uses student_sem
         # ✅ STEP 3: Pass new data to the template
         courses=enrolled_courses,
         course_summary=course_summary,
         # Pass filter values back to keep them selected
         start_date=start_date,
         end_date=end_date,
-        selected_course_id=selected_course_id
+        selected_course_id=selected_course_id,
     )

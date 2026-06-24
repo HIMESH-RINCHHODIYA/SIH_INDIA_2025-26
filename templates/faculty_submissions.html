@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+
+  <h3>📥 Submissions for {{ assignment.title }}</h3>
+  <p class="text-muted">Course: {{ assignment.course.course_name }}</p>
+
+  {% if submissions %}
+  <!-- Global Tools -->
+  <div class="mb-3 d-flex gap-2">
+    <a class="btn btn-outline-primary btn-sm"
+       href="{{ url_for('assignment_bp.download_submissions_zip', assignment_id=assignment.id) }}">
+      ⬇ Download All (ZIP)
+    </a>
+    <a class="btn btn-outline-success btn-sm"
+       href="{{ url_for('assignment_bp.export_grades_csv', assignment_id=assignment.id) }}">
+      📊 Export Grades (CSV)
+    </a>
+     <a class="btn btn-outline-warning btn-sm"
+     href="{{ url_for('assignment_bp.export_grades_xlsx', assignment_id=assignment.id) }}">
+    📑 Export Grades (Excel)
+  </a>
+  </div>
+
+  <!-- Analytics -->
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h5 class="card-title">📊 Analytics</h5>
+      <canvas id="scoreChart"></canvas>
+      <p class="mt-3"><b>Average Score:</b> {{ avg_score or '—' }}</p>
+      <p><b>Total Submissions:</b> {{ submissions|length }}</p>
+    </div>
+  </div>
+
+  <!-- Submissions per Student -->
+  <div class="accordion" id="subsAccordion">
+    {% for s in submissions %}
+    <div class="accordion-item mb-2">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#sub{{ s.id }}">
+          {{ loop.index }}. {{ s.student.name }} ({{ s.submitted_at.strftime('%d-%b-%Y %H:%M') }})
+          {% if s.grade %}
+            | Grade: {{ s.grade }}
+          {% else %}
+            | ⏳ Not graded
+          {% endif %}
+        </button>
+      </h2>
+      <div id="sub{{ s.id }}" class="accordion-collapse collapse" data-bs-parent="#subsAccordion">
+        <div class="accordion-body">
+          
+          <h6 class="fw-bold">📝 Answers</h6>
+          <ul class="list-group mb-3">
+            {% for ans in s.answers %}
+            <li class="list-group-item">
+              <b>Q{{ ans.question.id }}: {{ ans.question.question_text }}</b><br>
+              
+              {% if ans.answer_text %}
+                💬 {{ ans.answer_text }}<br>
+              {% endif %}
+              
+              {% if ans.selected_option_texts %}
+                ✔️ {{ ", ".join(ans.selected_option_texts) }}<br>
+              {% endif %}
+              
+              {% if ans.file_path %}
+                📂 <a href="{{ url_for('static', filename=ans.file_path.split('static/')[-1]) }}" target="_blank">View File</a>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          
+          <!-- Grade form -->
+          <form method="POST" action="{{ url_for('assignment_bp.grade_submission', sub_id=s.id) }}" class="row g-2 mb-2">
+            <div class="col-md-3">
+              <input type="text" class="form-control" name="grade" placeholder="Grade" value="{{ s.grade or '' }}">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" name="feedback" placeholder="Feedback" value="{{ s.feedback or '' }}">
+            </div>
+            <div class="col-md-3 d-grid">
+              <button class="btn btn-success btn-sm">💾 Save</button>
+            </div>
+          </form>
+
+          <!-- Auto Grade -->
+          {% if assignment.type in ['quiz','hybrid'] %}
+          <form method="POST" action="{{ url_for('assignment_bp.auto_grade_submission', sub_id=s.id) }}" class="mb-2">
+            <button class="btn btn-primary btn-sm">⚡ Auto Grade</button>
+          </form>
+          {% endif %}
+
+          <!-- Download This Student -->
+          <a href="{{ url_for('assignment_bp.download_student_submission', assignment_id=assignment.id, sub_id=s.id) }}"
+             class="btn btn-outline-secondary btn-sm">
+            ⬇ Download Submission (ZIP)
+          </a>
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+    <div class="alert alert-info">No submissions yet.</div>
+  {% endif %}
+</div>
+
+<!-- Chart.js -->
+{% if submissions %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('scoreChart');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: [{% for s in submissions %}"{{ s.student.name }}",{% endfor %}],
+    datasets: [{
+      label: 'Scores',
+      data: [
+        {% for s in submissions %}
+          {{ s.score or (s.grade.split('/')[0] if s.grade and '/' in s.grade else 0) }},
+        {% endfor %}
+      ],
+      backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false }},
+    scales: { y: { beginAtZero: true }}
+  }
+});
+</script>
+{% endif %}
+{% endblock %}

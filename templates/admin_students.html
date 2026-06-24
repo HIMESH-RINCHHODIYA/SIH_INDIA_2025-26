@@ -1,4 +1,4 @@
-// {% extends "base.html" %}
+{% extends "base.html" %}
 {% block content %}
 <style>
   .student-list-container {
@@ -28,36 +28,9 @@
     background: linear-gradient(135deg, #185a9d, #43cea2);
     transform: scale(1.05);
   }
-  .btn-allocation {
-    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-    color: white;
-    font-weight: bold;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: 0.3s;
-  }
-  .btn-allocation:hover {
-    background: linear-gradient(135deg, #FF8E53, #FF6B6B);
-    transform: scale(1.05);
-  }
-  .hostel-status {
-    font-size: 0.9em;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-weight: bold;
-  }
-  .status-allocated {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  .status-not-allocated {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
   .action-buttons {
     display: flex;
-       gap: 8px;
+    gap: 8px;
     flex-wrap: wrap;
   }
   @keyframes fadeIn {
@@ -80,37 +53,22 @@
             <th>Roll No</th>
             <th>Program</th>
             <th>Branch</th>
-            <th>Hostel Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {% for student in students %}
-            {% set allocation = hostel_allocations.get(student.id) %}
             <tr>
               <td>{{ student.id }}</td>
-              <td>{{ student.name }}</td>
-              <td>{{ student.email }}</td>
+              <td>{{ student.name or '-' }}</td>
+              <td>{{ student.email or '-' }}</td>
               <td>{{ student.roll_no or '-' }}</td>
               <td>{{ student.program or '-' }}</td>
               <td>{{ student.branch or '-' }}</td>
               <td>
-                {% if allocation %}
-                  <span class="hostel-status status-allocated">
-                    {{ allocation.room.number }} ({{ allocation.hostel.name }})
-                  </span>
-                {% else %}
-                  <span class="hostel-status status-not-allocated">
-                    Not Allocated
-                  </span>
-                {% endif %}
-              </td>
-              <td>
                 <div class="action-buttons">
                   <a href="{{ url_for('profile_bp.set_student_profile', student_id=student.id) }}" 
                      class="btn-edit">✏️ Edit</a>
-                  <a href="{{ url_for('hostel.allocate_room', student_id=student.id) }}" 
-                     class="btn-allocation">🏠 Allocate</a>
                 </div>
               </td>
             </tr>

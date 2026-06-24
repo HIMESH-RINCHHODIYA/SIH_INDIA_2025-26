@@ -1,12 +1,16 @@
 import os
-from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
+
+from flask import (Blueprint, current_app, flash, redirect, render_template,
+                   request, url_for)
+from flask_login import login_required
+
 from extensions import db
 from models import College
-from utils import save_uploaded_file, role_required
-from flask_login import login_required
+from utils import role_required, save_uploaded_file
 
 # Blueprint
 superadmin_bp = Blueprint("superadmin", __name__, url_prefix="/superadmin")
+
 
 # ------------------ Manage Colleges ------------------ #
 @superadmin_bp.route("/colleges", methods=["GET", "POST"])
@@ -17,7 +21,11 @@ def colleges():
     if request.method == "POST":
         name = request.form.get("name", "").strip()
         domain = request.form.get("domain", "").strip().lower()
-        logo = save_uploaded_file("logo", owner_prefix="college", upload_folder=current_app.config["UPLOAD_FOLDER"])
+        logo = save_uploaded_file(
+            "logo",
+            owner_prefix="college",
+            upload_folder=current_app.config["UPLOAD_FOLDER"],
+        )
 
         if not name or not domain:
             flash("❌ Name and domain are required!", "danger")
@@ -50,11 +58,17 @@ def update_college(college_id):
         college.name = request.form.get("name", college.name).strip()
         college.domain = request.form.get("domain", college.domain).strip().lower()
 
-        new_logo = save_uploaded_file("logo", owner_prefix=f"college{college.id}", upload_folder=current_app.config["UPLOAD_FOLDER"])
+        new_logo = save_uploaded_file(
+            "logo",
+            owner_prefix=f"college{college.id}",
+            upload_folder=current_app.config["UPLOAD_FOLDER"],
+        )
         if new_logo:
             # ✅ Delete old logo file if exists
             if college.logo:
-                old_logo_path = os.path.join(current_app.config["UPLOAD_FOLDER"], os.path.basename(college.logo))
+                old_logo_path = os.path.join(
+                    current_app.config["UPLOAD_FOLDER"], os.path.basename(college.logo)
+                )
                 if os.path.exists(old_logo_path):
                     try:
                         os.remove(old_logo_path)
@@ -79,7 +93,9 @@ def delete_college(college_id):
 
     # ✅ Remove logo file if exists
     if college.logo:
-        logo_path = os.path.join(current_app.config["UPLOAD_FOLDER"], os.path.basename(college.logo))
+        logo_path = os.path.join(
+            current_app.config["UPLOAD_FOLDER"], os.path.basename(college.logo)
+        )
         if os.path.exists(logo_path):
             try:
                 os.remove(logo_path)

@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import login_required, current_user
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
+
 from extensions import db
 from models import User
-from utils import save_uploaded_file, parse_string, parse_date, parse_decimal
+from utils import parse_date, parse_decimal, parse_string, save_uploaded_file
 
 profile_bp = Blueprint("profile_bp", __name__)
 
@@ -24,7 +25,9 @@ def admin_students():
 # ===========================
 # Admin → Set Student Profile
 # ===========================
-@profile_bp.route("/profile/admin/set_student_profile/<int:student_id>", methods=["GET", "POST"])
+@profile_bp.route(
+    "/profile/admin/set_student_profile/<int:student_id>", methods=["GET", "POST"]
+)
 @login_required
 def set_student_profile(student_id):
     if current_user.role != "Admin":
@@ -43,7 +46,9 @@ def set_student_profile(student_id):
         student.program = parse_string(request.form.get("program"))
         student.branch = parse_string(request.form.get("branch"))
         student.year = parse_string(request.form.get("year"))
-        student.semester = parse_string(request.form.get("semester")) # ✅ ADDED SEMESTER
+        student.semester = parse_string(
+            request.form.get("semester")
+        )  # ✅ ADDED SEMESTER
 
         # Date of Birth
         student.dob = parse_date(request.form.get("dob"))
@@ -101,7 +106,9 @@ def set_student_profile(student_id):
         # Save to DB
         db.session.commit()
         flash("✅ Student profile updated successfully!", "success")
-        return redirect(url_for("profile_bp.set_student_profile", student_id=student.id))
+        return redirect(
+            url_for("profile_bp.set_student_profile", student_id=student.id)
+        )
 
     return render_template("admin_setprofile.html", student=student)
 

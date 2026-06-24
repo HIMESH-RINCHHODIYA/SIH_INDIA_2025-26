@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.hero-header { background:linear-gradient(135deg,#36d1dc,#5b86e5); color:white; padding:30px 20px; border-radius:15px; text-align:center; margin-bottom:25px; }
+.table thead { background:#36d1dc; color:#fff;}
+</style>
+
+<div class="hero-header">
+  <h2>🔎 Library Catalog</h2>
+  <p>Search and discover books across departments</p>
+</div>
+
+<div class="container">
+  <form method="get" class="input-group mb-4">
+    <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Search by title, author, ISBN, category">
+    <button class="btn btn-primary">🔍 Search</button>
+  </form>
+
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr><th>Title</th><th>Author</th><th>Category</th><th>Availability</th></tr>
+    </thead>
+    <tbody>
+      {% for b in books %}
+      <tr>
+        <td>{{ b.title }}</td>
+        <td>{{ b.author }}</td>
+        <td>{{ b.category }}</td>
+        <td>
+          {% if b.copies_available > 0 %}
+            ✅ Available ({{ b.copies_available }})
+          {% else %}
+            ❌ Not Available
+          {% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4" class="text-center text-muted">No results found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

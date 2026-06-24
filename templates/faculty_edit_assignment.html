@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+
+  <h3>✏️ Edit Assignment: {{ assignment.title }}</h3>
+  <p class="text-muted">
+    Course: {{ assignment.course.course_name }} | 
+    Due: {{ assignment.deadline.strftime('%d-%b-%Y') }}
+  </p>
+
+  <!-- Question Creation Form -->
+  <div class="card shadow-sm mt-3">
+    <div class="card-body">
+      <h5 class="card-title">➕ Add New Question</h5>
+      <form method="POST">
+        <!-- Question Text -->
+        <div class="mb-3">
+          <label class="form-label">Question Text</label>
+          <textarea class="form-control" name="question_text" rows="2" required></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 mb-3">
+            <label class="form-label">Question Type</label>
+            <select class="form-select" name="question_type" id="questionType" required onchange="toggleOptionsBox()">
+              <option value="">-- Select Type --</option>
+              <option value="short">Short Answer</option>
+              <option value="long">Long Answer</option>
+              <option value="truefalse">True / False</option>
+              <option value="mcq">MCQ (Single Choice)</option>
+              <option value="multi">MCQ (Multiple Choice)</option>
+              <option value="file">File Upload</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Points</label>
+            <input type="number" name="points" value="1" min="1" class="form-control">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Required</label><br>
+            <input type="checkbox" name="required" class="form-check-input">
+          </div>
+        </div>
+
+        <!-- MCQ/Multi/TrueFalse Options -->
+        <div id="optionsBox" class="mb-3" style="display:none;">
+          <label class="form-label">Options</label>
+          <div id="options-container"></div>
+          <button type="button" class="btn btn-sm btn-outline-secondary mt-2" onclick="addOption()">➕ Add Option</button>
+        </div>
+
+        <button class="btn btn-success">💾 Save Question</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Assignment Question List -->
+  <h5 class="mt-4">📋 Existing Questions</h5>
+  <div class="list-group">
+    {% for q in questions %}
+      <div class="list-group-item d-flex justify-content-between align-items-start">
+        <div>
+          <b>{{ loop.index }}. {{ q.question_text }}</b>
+          <span class="badge bg-info">{{ q.points }} pts</span><br>
+          <small class="text-muted">Type: {{ q.question_type|capitalize }}</small>
+
+          {% if q.options %}
+            <ul class="mt-2 mb-0">
+              {% for opt in q.options %}
+                <li {% if opt.is_correct %}class="text-success fw-bold"{% endif %}>
+                  {{ opt.option_text }} {% if opt.is_correct %}✔{% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <!-- Delete Question -->
+        <form method="POST" action="{{ url_for('assignment_bp.delete_question', assignment_id=assignment.id, qid=q.id) }}" 
+              onsubmit="return confirm('Delete this question permanently?');">
+          <button type="submit" class="btn btn-sm btn-danger">🗑 Delete</button>
+        </form>
+      </div>
+    {% else %}
+      <div class="list-group-item text-muted">No questions yet.</div>
+    {% endfor %}
+  </div>
+
+  <!-- Additional Faculty Tools -->
+  <div class="mt-4">
+    <h5>📂 Manage Submissions</h5>
+    <a class="btn btn-outline-primary btn-sm"
+       href="{{ url_for('assignment_bp.download_submissions_zip', assignment_id=assignment.id) }}">
+      ⬇ Download All Submissions (ZIP)
+    </a>
+
+    <a class="btn btn-outline-success btn-sm"
+       href="{{ url_for('assignment_bp.export_grades_csv', assignment_id=assignment.id) }}">
+      📊 Export Grades (CSV)
+    </a>
+  </div>
+</div>
+
+<!-- JS for dynamic options -->
+<script>
+function toggleOptionsBox() {
+  const type = document.getElementById("questionType").value;
+  document.getElementById("optionsBox").style.display =
+    (type === "mcq" || type === "multi" || type === "truefalse") ? "block" : "none";
+}
+let optIndex = 0;
+function addOption() {
+  document.getElementById("options-container").insertAdjacentHTML("beforeend", `
+    <div class="input-group mb-2">
+      <input type="text" name="options[]" class="form-control" placeholder="Option text" required>
+      <span class="input-group-text">
+        <input type="checkbox" name="correct[]" value="${optIndex}"> Correct
+      </span>
+    </div>
+  `);
+  optIndex++;
+}
+</script>
+{% endblock %}
