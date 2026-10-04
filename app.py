@@ -653,5 +653,7 @@ def find_free_port(default=5000):
 
 if __name__ == "__main__":
     free_port = find_free_port(5000)
-    print(f"Starting Flask on port {free_port}")
-    app.run(debug=True, port=free_port)
+    host = os.getenv("FLASK_RUN_HOST", "0.0.0.0")
+    port = int(os.getenv("PORT", free_port))
+    print(f"Starting Flask on {host}:{port}")
+    app.run(debug=True, host=host, port=port, use_reloader=False)
