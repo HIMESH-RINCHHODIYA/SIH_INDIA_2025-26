@@ -84,8 +84,8 @@
       <!-- Sidebar -->
       <aside class="resume-sidebar">
         <div class="sidebar-profile-card">
-          {% if student.photo %}
-            <img src="{{ url_for('static', filename=student.photo.replace('static/','')) }}" alt="Student Photo" class="passport-photo">
+          {% if photo_url %}
+            <img src="{{ photo_url }}" alt="Student Photo" class="passport-photo">
           {% else %}
             <div class="passport-photo d-flex align-items-center justify-content-center bg-light text-muted"><span>Photo</span></div>
           {% endif %}
@@ -94,8 +94,8 @@
           <hr>
           <div class="mt-3 text-center">
             <label class="form-label d-block">Signature</label>
-            {% if student.signature %}
-              <img src="{{ url_for('static', filename=student.signature.replace('static/','')) }}" alt="Signature" class="signature-image">
+            {% if signature_url %}
+              <img src="{{ signature_url }}" alt="Signature" class="signature-image">
             {% else %}
               <p class="text-muted small mt-2">⚠️ Not Uploaded</p>
             {% endif %}

@@ -145,6 +145,7 @@ class User(UserMixin, db.Model):
 
     # Personal Info
     dob = db.Column(db.Date)
+    name_hindi = db.Column(db.String(150))
     gender = db.Column(db.String(20))
     nationality = db.Column(db.String(50))
     religion = db.Column(db.String(50))
@@ -161,10 +162,12 @@ class User(UserMixin, db.Model):
     father_name = db.Column(db.String(150))
     father_name_hindi = db.Column(db.String(150))
     father_mobile = db.Column(db.String(20))
+    father_occupation = db.Column(db.String(100))
     father_income = db.Column(db.Numeric(12, 2))
     mother_name = db.Column(db.String(150))
     mother_name_hindi = db.Column(db.String(150))
     mother_mobile = db.Column(db.String(20))
+    mother_occupation = db.Column(db.String(100))
     mother_income = db.Column(db.Numeric(12, 2))
 
     # Address

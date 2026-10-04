@@ -86,7 +86,7 @@ label.required::after { content:" *"; color:#dc3545; }
         </div>
         <div class="col-md-3">
           <label class="form-label required">Mobile</label>
-          <input class="form-control" name="mobile" value="{{ student.mobile or '' }}" required>
+          <input class="form-control" name="mobile" value="{{ student.contact or '' }}" required>
         </div>
         <div class="col-md-3">
           <label class="form-label">Aadhaar No.</label>
@@ -130,6 +130,10 @@ label.required::after { content:" *"; color:#dc3545; }
           <input class="form-control" name="mother_name_hindi" value="{{ student.mother_name_hindi or '' }}">
         </div>
         <div class="col-md-4">
+          <label class="form-label">Mobile</label>
+          <input class="form-control" name="mother_mobile" value="{{ student.mother_mobile or '' }}">
+        </div>
+        <div class="col-md-4">
           <label class="form-label">Occupation</label>
           <input class="form-control" name="mother_occupation" value="{{ student.mother_occupation or '' }}">
         </div>
@@ -161,10 +165,16 @@ label.required::after { content:" *"; color:#dc3545; }
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label">Photo</label>
+          {% if photo_url %}
+            <div class="mb-2"><img src="{{ photo_url }}" alt="Current student photo" style="max-width: 150px; max-height: 150px; object-fit: contain;"></div>
+          {% endif %}
           <input type="file" class="form-control" name="photo" accept="image/jpeg,image/png">
         </div>
         <div class="col-md-6">
           <label class="form-label">Signature</label>
+          {% if signature_url %}
+            <div class="mb-2"><img src="{{ signature_url }}" alt="Current student signature" style="max-width: 180px; max-height: 80px; object-fit: contain;"></div>
+          {% endif %}
           <input type="file" class="form-control" name="signature" accept="image/jpeg,image/png">
         </div>
       </div>
@@ -181,6 +191,9 @@ label.required::after { content:" *"; color:#dc3545; }
 function fillSelect(id, arr, current) {
   const sel = document.getElementById(id);
   sel.innerHTML = "";
+  if (current && !arr.some(v => current.toString() === v.toString())) {
+    arr = [current, ...arr];
+  }
   arr.forEach(v => {
     const o = document.createElement('option');
     o.value = v;
@@ -195,15 +208,15 @@ async function loadDropdowns() {
     const res = await fetch("/api/dropdowns"); // ✅ fetch from backend
     const data = await res.json();
 
-    fillSelect("gender", data.gender || [], "{{ student.gender }}");
-    fillSelect("blood_group", data.blood_group || [], "{{ student.blood_group }}");
-    fillSelect("nationality", data.nationality || [], "{{ student.nationality }}");
+    fillSelect("gender", data.gender || [], {{ student.gender|tojson }});
+    fillSelect("blood_group", data.blood_group || [], {{ student.blood_group|tojson }});
+    fillSelect("nationality", data.nationality || [], {{ student.nationality|tojson }});
 
-    fillSelect("program", data.program || [], "{{ student.program }}");
-    fillSelect("branch", data.branch || [], "{{ student.branch }}");
-    fillSelect("year", data.year || [], "{{ student.year }}");
-    fillSelect("semester", data.semester || [], "{{ student.semester }}");
-    fillSelect("section", data.section || [], "{{ student.section }}");
+    fillSelect("program", data.program || [], {{ student.program|tojson }});
+    fillSelect("branch", data.branch || [], {{ student.branch|tojson }});
+    fillSelect("year", data.year || [], {{ student.year|tojson }});
+    fillSelect("semester", data.semester || [], {{ student.semester|tojson }});
+    fillSelect("section", data.section || [], {{ student.section|tojson }});
 
     $('.select2').select2({ theme:"bootstrap-5", width:"100%" });
   } catch (err) {
