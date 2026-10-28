@@ -1,4 +1,4 @@
-import os, uuid, io
+import os, uuid
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from functools import wraps
@@ -77,8 +77,12 @@ def parse_date(value):
 # -----------------------------
 def calculate_grade(marks, out_of=100):
     try:
-        percent = (int(marks) / out_of) * 100
-    except (TypeError, ZeroDivisionError):
+        marks = int(marks)
+        out_of = int(out_of)
+        if out_of <= 0:
+            return "N/A", 0
+        percent = (marks / out_of) * 100
+    except (TypeError, ValueError, ZeroDivisionError):
         return "N/A", 0
     if percent >= 90: return "A+", 10
     elif percent >= 80: return "A", 9

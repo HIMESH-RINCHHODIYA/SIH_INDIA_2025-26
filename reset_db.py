@@ -1,22 +1,17 @@
 import os
 
-from app import app, db  # Make sure your app imports SQLAlchemy db
+from app import app, db
 
-# ---------- Path to SQLite DB ----------
-DB_PATH = os.path.join(app.instance_path, "sqlite3.db")
-
-# ---------- Delete old DB ----------
-if os.path.exists(DB_PATH):
-    print(f"Removing old database: {DB_PATH}")
-    os.remove(DB_PATH)
-else:
-    print(f"No existing database found at {DB_PATH}")
-
-# ---------- Ensure instance folder exists ----------
-os.makedirs(app.instance_path, exist_ok=True)
-
-# ---------- Recreate all tables ----------
 with app.app_context():
+    DB_PATH = db.engine.url.database
+    db.engine.dispose()
+    if os.path.exists(DB_PATH):
+        print(f"Removing old database: {DB_PATH}")
+        os.remove(DB_PATH)
+    else:
+        print(f"No existing database found at {DB_PATH}")
+
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     print("Creating tables...")
     db.create_all()
     print("✅ All tables created successfully!")

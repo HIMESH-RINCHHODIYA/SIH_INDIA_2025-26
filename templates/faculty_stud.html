@@ -22,6 +22,16 @@
         </select>
       </div>
 
+      <div class="col-md-2">
+        <label class="form-label">Course</label>
+        <select name="course_id" class="form-select" required>
+          <option value="">-- Course --</option>
+          {% for course in courses %}
+            <option value="{{ course.id }}" {% if selected_course_id == course.id %}selected{% endif %}>{{ course.course_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
       <div class="col-md-1">
         <label class="form-label">Year</label>
         <select name="year" class="form-select" required>
@@ -62,9 +72,13 @@
   <form method="POST" action="{{ url_for('faculty_stud_bp.save_attendance') }}">
     
     {# Hidden filters passed back #}
-    {% for hid in ['program','branch','year','semester','section','date'] %}
-      <input type="hidden" name="{{ hid }}" value="{{ request.form.get(hid) or globals()['selected_' + hid] }}">
-    {% endfor %}
+      <input type="hidden" name="program" value="{{ selected_program }}">
+      <input type="hidden" name="branch" value="{{ selected_branch }}">
+      <input type="hidden" name="year" value="{{ selected_year }}">
+      <input type="hidden" name="semester" value="{{ selected_semester }}">
+      <input type="hidden" name="section" value="{{ selected_section }}">
+      <input type="hidden" name="course_id" value="{{ selected_course_id }}">
+      <input type="hidden" name="date" value="{{ selected_date }}">
 
     <!-- 🔹 Summary Cards -->
     <div id="attendance-summary" class="row text-center mb-3">
@@ -106,7 +120,7 @@
         </thead>
         <tbody>
         {% for student in students %}
-          <tr class="text-center {% if student.attendance_today %}table-success{% endif %}">
+          <tr class="text-center {% if attendance_map.get(student.id) == 'Present' %}table-success{% endif %}">
             <td>{{ student.roll_no }}</td>
             <td class="text-start">{{ student.name }}</td>
             <td>
@@ -116,16 +130,16 @@
                        role="switch"
                        id="att_{{ student.id }}"
                        name="attendance_{{ student.id }}"
-                       {% if student.attendance_today %}checked{% endif %}>
+                       {% if attendance_map.get(student.id) == 'Present' %}checked{% endif %}>
               </div>
             </td>
             <td>
-              <select name="remark_{{ student.id }}" class="form-select remark-select" {% if student.attendance_today %}disabled{% endif %}>
+              <select name="remark_{{ student.id }}" class="form-select remark-select" {% if attendance_map.get(student.id) == 'Present' %}disabled{% endif %}>
                 <option value="">-- Remark --</option>
-                <option>Misbehaviour / Indiscipline</option>
-                <option>Leave (Health)</option>
-                <option>Leave (Personal)</option>
-                <option>Others</option>
+                <option {% if remarks_map.get(student.id) == 'Misbehaviour / Indiscipline' %}selected{% endif %}>Misbehaviour / Indiscipline</option>
+                <option {% if remarks_map.get(student.id) == 'Leave (Health)' %}selected{% endif %}>Leave (Health)</option>
+                <option {% if remarks_map.get(student.id) == 'Leave (Personal)' %}selected{% endif %}>Leave (Personal)</option>
+                <option {% if remarks_map.get(student.id) == 'Others' %}selected{% endif %}>Others</option>
               </select>
             </td>
           </tr>
@@ -145,8 +159,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   // 🔹 Dropdown Loader
   const apiUrl = "{{ url_for('dropdowns_bp.get_dropdowns') }}";
+  const coursesUrl = "{{ url_for('faculty_stud_bp.attendance_courses') }}";
 
-  function populateDropdown(selectElement, options, placeholder) {
+  function populateDropdown(selectElement, options, placeholder, selectedValue) {
     if (!selectElement) return;
     selectElement.innerHTML = "";
     const placeholderOption = document.createElement("option");
@@ -160,18 +175,46 @@ document.addEventListener('DOMContentLoaded', function() {
       option.textContent = val;
       selectElement.appendChild(option);
     });
+    selectElement.value = selectedValue || "";
+  }
+
+  function loadCourses() {
+    const params = new URLSearchParams();
+    ["program", "branch", "year", "semester"].forEach(field => {
+      params.set(field, document.querySelector(`[name="${field}"]`).value);
+    });
+    fetch(`${coursesUrl}?${params}`)
+      .then(res => res.json())
+      .then(courses => {
+        const select = document.querySelector('[name="course_id"]');
+        const selectedCourse = {{ selected_course_id|tojson }};
+        select.innerHTML = "<option value=\"\">-- Course --</option>";
+        courses.forEach(course => {
+          const option = document.createElement("option");
+          option.value = course.id;
+          option.textContent = course.name;
+          select.appendChild(option);
+        });
+        select.value = selectedCourse || "";
+      })
+      .catch(err => console.error("Course fetch failed:", err));
   }
 
   fetch(apiUrl)
     .then(res => res.json())
     .then(data => {
-      populateDropdown(document.querySelector('[name="program"]'), data.program, "-- Program --");
-      populateDropdown(document.querySelector('[name="branch"]'), data.branch, "-- Branch --");
-      populateDropdown(document.querySelector('[name="year"]'), data.year, "-- Year --");
-      populateDropdown(document.querySelector('[name="semester"]'), data.semester, "-- Sem --");
-      populateDropdown(document.querySelector('[name="section"]'), data.section, "-- Section --");
+      populateDropdown(document.querySelector('[name="program"]'), data.program, "-- Program --", {{ selected_program|tojson }});
+      populateDropdown(document.querySelector('[name="branch"]'), data.branch, "-- Branch --", {{ selected_branch|tojson }});
+      populateDropdown(document.querySelector('[name="year"]'), data.year, "-- Year --", {{ selected_year|tojson }});
+      populateDropdown(document.querySelector('[name="semester"]'), data.semester, "-- Sem --", {{ selected_semester|tojson }});
+      populateDropdown(document.querySelector('[name="section"]'), data.section, "-- Section --", {{ selected_section|tojson }});
+      loadCourses();
     })
     .catch(err => console.error("Dropdown fetch failed:", err));
+
+  ["program", "branch", "year", "semester"].forEach(field => {
+    document.querySelector(`[name="${field}"]`).addEventListener("change", loadCourses);
+  });
 
   // 🔹 Toggle Attendance Rows + Summary Update
   function updateSummary() {

@@ -54,7 +54,7 @@
       <div><strong>Program:</strong> {{ student_program or "N/A" }}</div>
       <div><strong>Branch:</strong> {{ student_branch or "N/A" }}</div>
       <div><strong>Year:</strong> {{ student_year or "N/A" }}</div>
-      <div><strong>Section:</strong> {{ student_sem or "N/A" }}</div>
+      <div><strong>Section:</strong> {{ student_section or "N/A" }}</div>
     </div>
 
     <!-- Filters -->
@@ -128,7 +128,7 @@
           {% for a in attendance_records or [] %}
             <tr title="{{ a.remarks if a.remarks else '' }}">
               <td>{{ a.date.strftime("%Y-%m-%d") }}</td>
-              <td>{{ a.course.course_name }} ({{ a.course.course_code }})</td>
+              <td>{% if a.course %}{{ a.course.course_name }} ({{ a.course.course_code }}){% else %}Unassigned course{% endif %}</td>
               <td><span class="status {{ a.status }}">{{ a.status }}</span></td>
               <td>{{ a.remarks if a.remarks else '-' }}</td>
             </tr>

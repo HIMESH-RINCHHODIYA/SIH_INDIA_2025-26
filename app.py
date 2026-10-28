@@ -1,27 +1,23 @@
 # app.py
-import datetime
 import os
 import random
 import socket
-import uuid
-from functools import wraps
 
 from dotenv import load_dotenv
 from flask import (Flask, abort, flash, redirect, render_template, request,
-                   send_from_directory, session, url_for)
+                   session, url_for)
 from flask_login import (LoginManager, current_user, login_required,
                          login_user, logout_user)
 from flask_migrate import Migrate
 from werkzeug.security import check_password_hash, generate_password_hash
-from werkzeug.utils import secure_filename
 
 from extensions import db
 # Import models so they are registered with SQLAlchemy
 from hostel_models import (Hostel, HostelAllocation, HostelComplaint,
                            HostelLeave, HostelRoom)
 from library_models import Book, BorrowRecord, Penalty
-from models import Attendance, College, FeeConfig, FeePayment, User
-from utils import role_required, save_uploaded_file
+from models import College, User
+from utils import role_required
 
 load_dotenv()
 
@@ -274,26 +270,13 @@ def logout():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    if request.method == "POST":
-        for field in [
-            "dob",
-            "contact",
-            "program",
-            "year",
-            "branch",
-            "roll_no",
-            "admission_date",
-        ]:
-            setattr(current_user, field, request.form.get(field))
-        owner = f"user{current_user.id}"
-        for field in ["photo", "id_card", "certificate", "transcript"]:
-            saved = save_uploaded_file(field, owner_prefix=owner)
-            if saved:
-                setattr(current_user, field, saved)
-        db.session.commit()
-        flash("Profile updated successfully!", "success")
-        return redirect(url_for("profile"))
-    return render_template("profile.html", user=current_user)
+    if current_user.role == "Student":
+        return redirect(
+            url_for("profile_bp.student_profile", student_id=current_user.id)
+        )
+    if current_user.role == "Admin":
+        return redirect(url_for("profile_bp.admin_students"))
+    return redirect(url_for("dashboard"))
 
 
 # ----------- Forgot / Reset ----------- #
@@ -398,231 +381,6 @@ def faculty_pages(path):
         title=title_map[path],
         content=content_map[path],
     )
-
-
-# ------------------ Faculty Attendance (core feature) ------------------ #
-@app.route("/faculty/attendance", methods=["GET", "POST"])
-@login_required
-@role_required("Faculty", "Admin", "SuperAdmin")
-def faculty_attendance():
-    students = []
-    selected_class = request.args.get("class") or request.args.get(
-        "class_"
-    )  # support both query keys
-    selected_branch = request.args.get("branch")
-    selected_date = request.args.get(
-        "date", datetime.datetime.today().strftime("%Y-%m-%d")
-    )
-
-    # Build lists for dropdowns
-    classes_query = (
-        db.session.query(User.year).filter_by(role="Student").distinct().all()
-    )
-    classes = [c[0] for c in classes_query if c[0]]
-    branches_query = (
-        db.session.query(User.branch).filter_by(role="Student").distinct().all()
-    )
-    branches = [b[0] for b in branches_query if b[0]]
-
-    if request.method == "POST":
-        selected_class = request.form.get("class")
-        selected_branch = request.form.get("branch")
-        selected_date = request.form.get("date")
-        try:
-            selected_date_obj = datetime.datetime.strptime(
-                selected_date, "%Y-%m-%d"
-            ).date()
-        except Exception:
-            flash("Invalid date!", "danger")
-            return redirect(url_for("faculty_attendance"))
-
-        # fetch students for the chosen class+branch
-        students = (
-            User.query.filter_by(
-                role="Student", year=selected_class, branch=selected_branch
-            )
-            .order_by(User.roll_no)
-            .all()
-        )
-
-        # remove existing attendance rows for same date/class/branch (for those students) to avoid duplicates
-        student_ids = [s.id for s in students]
-        if student_ids:
-            db.session.query(Attendance).filter(
-                Attendance.student_id.in_(student_ids),
-                Attendance.date == selected_date_obj,
-                Attendance.branch == selected_branch,
-                Attendance.class_name == selected_class,
-            ).delete(synchronize_session=False)
-
-        # create records from submitted form
-        for s in students:
-            present = request.form.get(f"attendance_{s.id}") == "on"
-            rec = Attendance(
-                student_id=s.id,
-                date=selected_date_obj,
-                branch=selected_branch,
-                class_name=selected_class,
-                status="Present" if present else "Absent",
-            )
-            db.session.add(rec)
-
-        db.session.commit()
-        flash("Attendance saved!", "success")
-        # redirect with query params to show the selected list
-        return redirect(
-            url_for(
-                "faculty_attendance",
-                branch=selected_branch,
-                class_=selected_class,
-                date=selected_date,
-            )
-        )
-
-    # if it's a GET with query params, show students for the selected class/branch
-    if selected_class and selected_branch:
-        students = (
-            User.query.filter_by(
-                role="Student", year=selected_class, branch=selected_branch
-            )
-            .order_by(User.roll_no)
-            .all()
-        )
-
-    # fetch existing attendance for display (if any)
-    existing_attendance = []
-    try:
-        date_obj = datetime.datetime.strptime(selected_date, "%Y-%m-%d").date()
-        if students:
-            existing_attendance = Attendance.query.filter(
-                Attendance.student_id.in_([s.id for s in students]),
-                Attendance.date == date_obj,
-                Attendance.branch == selected_branch,
-                Attendance.class_name == selected_class,
-            ).all()
-    except Exception:
-        existing_attendance = []
-
-    # build a quick lookup for status per student
-    attendance_map = {a.student_id: a.status for a in existing_attendance}
-
-    return render_template(
-        "faculty_stud.html",
-        user=current_user,
-        classes=classes,
-        branches=branches,
-        students=students,
-        selected_class=selected_class,
-        selected_branch=selected_branch,
-        selected_date=selected_date,
-        attendance_map=attendance_map,
-    )
-
-
-# ------------------ SuperAdmin: College Management (CRUD) ------------------ #
-@app.route("/superadmin/colleges", methods=["GET", "POST"])
-@login_required
-@role_required("SuperAdmin")
-def superadmin_colleges():
-    """
-    List all colleges and allow creation via POST.
-    POST params: name, domain, logo (file)
-    """
-    if request.method == "POST":
-        name = request.form.get("name", "").strip()
-        domain = request.form.get("domain", "").strip().lower()
-        if not name or not domain:
-            flash("Name and domain are required.", "danger")
-            return redirect(url_for("superadmin_colleges"))
-
-        if College.query.filter(
-            db.or_(College.name == name, College.domain == domain)
-        ).first():
-            flash("College with same name or domain exists.", "danger")
-            return redirect(url_for("superadmin_colleges"))
-
-        # handle logo upload
-        logo_saved = save_uploaded_file(
-            "logo", owner_prefix=f"college_{secure_filename(name)}"
-        )
-        logo_db_path = None
-        if logo_saved:
-            # stored as "uploads/filename" — map to "uploads/filename" for DB and url_for('static', filename=...)
-            logo_db_path = logo_saved
-
-        new_college = College(name=name, domain=domain, logo=logo_db_path)
-        db.session.add(new_college)
-        db.session.commit()
-        flash("College added successfully.", "success")
-        return redirect(url_for("superadmin_colleges"))
-
-    colleges = College.query.order_by(College.name).all()
-    return render_template("superadmin/manage_colleges.html", colleges=colleges)
-
-
-@app.route("/superadmin/colleges/<int:college_id>/edit", methods=["GET", "POST"])
-@login_required
-@role_required("SuperAdmin")
-def edit_college(college_id):
-    college = College.query.get_or_404(college_id)
-    if request.method == "POST":
-        name = request.form.get("name", "").strip()
-        domain = request.form.get("domain", "").strip().lower()
-        remove_logo = request.form.get("remove_logo") == "on"
-
-        if not name or not domain:
-            flash("Name and domain are required.", "danger")
-            return redirect(url_for("edit_college", college_id=college_id))
-
-        # check uniqueness excluding current
-        exists = (
-            College.query.filter(db.or_(College.name == name, College.domain == domain))
-            .filter(College.id != college.id)
-            .first()
-        )
-        if exists:
-            flash("Another college with same name or domain exists.", "danger")
-            return redirect(url_for("edit_college", college_id=college_id))
-
-        college.name = name
-        college.domain = domain
-
-        # handle logo file
-        logo_saved = save_uploaded_file(
-            "logo", owner_prefix=f"college_{secure_filename(name)}"
-        )
-        if logo_saved:
-            college.logo = logo_saved
-        elif remove_logo:
-            college.logo = None
-
-        db.session.commit()
-        flash("College updated successfully.", "success")
-        return redirect(url_for("superadmin_colleges"))
-    return render_template("superadmin/edit_college.html", college=college)
-
-
-@app.route("/superadmin/colleges/<int:college_id>/delete", methods=["POST"])
-@login_required
-@role_required("SuperAdmin")
-def delete_college(college_id):
-    college = College.query.get_or_404(college_id)
-    # Optional: unlink logo file from disk if you want to remove physical file
-    if college.logo:
-        try:
-            logo_full_path = os.path.join(
-                app.static_folder, college.logo
-            )  # static/uploads/...
-            if os.path.exists(logo_full_path):
-                os.remove(logo_full_path)
-        except Exception:
-            # fail silently for file deletion; DB deletion will still proceed
-            pass
-    # If there are dependent users, you might want to reassign or block deletion — currently this will attempt to delete
-    db.session.delete(college)
-    db.session.commit()
-    flash("College deleted.", "info")
-    return redirect(url_for("superadmin_colleges"))
 
 
 # ------------------ Error Handlers ------------------ #

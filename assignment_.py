@@ -15,7 +15,7 @@ from assignment_models import (
     Assignment, AssignmentSubmission, AssignmentQuestion,
     AssignmentOption, AssignmentAnswer, AssignmentAttachment
 )
-from models import Course, Program, Branch, Year, Semester, StudentCourse
+from models import Program, Branch, Year, Semester
 
 
 # ========================================================
@@ -312,6 +312,61 @@ def take_assignment(assignment_id):
 # EXPORTS / DOWNLOADS
 # ========================================================
 
+GRADE_EXPORT_HEADERS = [
+    "Student", "Submitted At", "Grade", "Feedback", "Question ID",
+    "Question Text", "Answer", "Selected", "File",
+]
+
+
+def _add_submission_to_zip(zip_file, submission):
+    student_folder = f"{secure_filename(submission.student.name) or 'student'}_{submission.student_id}"
+    for answer in submission.answers:
+        if answer.file_path and os.path.exists(answer.file_path):
+            archive_name = (
+                f"{student_folder}/Q{answer.question_id}_"
+                f"{os.path.basename(answer.file_path)}"
+            )
+            zip_file.write(answer.file_path, archive_name)
+
+    summary_lines = [
+        f"Student: {submission.student.name}",
+        f"Submitted: {submission.submitted_at}",
+        f"Grade: {submission.grade or 'Pending'}",
+        f"Feedback: {submission.feedback or ''}",
+        "",
+    ]
+    for answer in submission.answers:
+        summary_lines.append(
+            f"Q{answer.question_id}: {answer.question.question_text}"
+        )
+        if answer.answer_text:
+            summary_lines.append(f"  Answer: {answer.answer_text}")
+        if answer.selected_option_texts:
+            summary_lines.append(
+                f"  Selected: {', '.join(answer.selected_option_texts)}"
+            )
+        if answer.file_path:
+            summary_lines.append(f"  File: {os.path.basename(answer.file_path)}")
+        summary_lines.append("")
+
+    zip_file.writestr(f"{student_folder}/SUMMARY.txt", "\n".join(summary_lines))
+
+
+def _grade_export_rows(submissions):
+    for submission in submissions:
+        for answer in submission.answers:
+            yield [
+                submission.student.name,
+                submission.submitted_at.strftime("%Y-%m-%d %H:%M"),
+                submission.grade or "",
+                submission.feedback or "",
+                answer.question.id,
+                answer.question.question_text,
+                answer.answer_text or "",
+                ", ".join(answer.selected_option_texts),
+                os.path.basename(answer.file_path) if answer.file_path else "",
+            ]
+
 @assignment_bp.route("/assignments/<int:assignment_id>/download_zip")
 @login_required
 @faculty_required
@@ -321,22 +376,7 @@ def download_submissions_zip(assignment_id):
     memory_file = io.BytesIO()
     with zipfile.ZipFile(memory_file, 'w') as zf:
         for sub in submissions:
-            student_folder = sub.student.name.replace(" ", "_")
-
-            # Files
-            for ans in sub.answers:
-                if ans.file_path and os.path.exists(ans.file_path):
-                    zf.write(ans.file_path, f"{student_folder}/Q{ans.question_id}_{os.path.basename(ans.file_path)}")
-
-            # Summary
-            summary = f"Student: {sub.student.name}\nSubmitted: {sub.submitted_at}\nGrade: {sub.grade or 'Pending'}\nFeedback: {sub.feedback or '—'}\n\n"
-            for ans in sub.answers:
-                summary += f"Q{ans.question_id}: {ans.question.question_text}\n"
-                if ans.answer_text: summary += f"  Answer: {ans.answer_text}\n"
-                if ans.selected_option_texts: summary += f"  Selected: {', '.join(ans.selected_option_texts)}\n"
-                if ans.file_path: summary += f"  File: {os.path.basename(ans.file_path)}\n"
-                summary += "\n"
-            zf.writestr(f"{student_folder}/SUMMARY.txt", summary)
+            _add_submission_to_zip(zf, sub)
 
     memory_file.seek(0)
     return send_file(memory_file, download_name="submissions.zip", as_attachment=True)
@@ -350,18 +390,8 @@ def export_grades_csv(assignment_id):
     submissions = AssignmentSubmission.query.filter_by(assignment_id=assignment_id).all()
     output = io.StringIO()
     writer = csv.writer(output)
-    writer.writerow(["Student","Submitted At","Grade","Feedback","Question ID","Question Text","Answer","Selected","File"])
-    for sub in submissions:
-        for ans in sub.answers:
-            writer.writerow([
-                sub.student.name,
-                sub.submitted_at.strftime('%Y-%m-%d %H:%M'),
-                sub.grade or "", sub.feedback or "",
-                ans.question.id, ans.question.question_text,
-                ans.answer_text or "",
-                ", ".join(ans.selected_option_texts) if ans.selected_option_texts else "",
-                ans.file_path or ""
-            ])
+    writer.writerow(GRADE_EXPORT_HEADERS)
+    writer.writerows(_grade_export_rows(submissions))
     return Response(output.getvalue(), mimetype="text/csv", headers={"Content-Disposition": f"attachment;filename=grades_{assignment_id}.csv"})
 
 
@@ -373,22 +403,12 @@ def export_grades_xlsx(assignment_id):
     submissions = AssignmentSubmission.query.filter_by(assignment_id=assignment_id).all()
     wb = openpyxl.Workbook(); ws = wb.active; ws.title="Results"
 
-    headers = ["Student","Submitted At","Grade","Feedback","Question ID","Question Text","Answer","Selected","File"]
-    ws.append(headers)
+    ws.append(GRADE_EXPORT_HEADERS)
     for col in ws[1]:
         col.font = Font(bold=True); col.alignment = Alignment(horizontal="center")
 
-    for sub in submissions:
-        for ans in sub.answers:
-            ws.append([
-                sub.student.name,
-                sub.submitted_at.strftime('%Y-%m-%d %H:%M'),
-                sub.grade or "", sub.feedback or "",
-                ans.question.id, ans.question.question_text,
-                ans.answer_text or "",
-                ", ".join(ans.selected_option_texts) if ans.selected_option_texts else "",
-                os.path.basename(ans.file_path) if ans.file_path else ""
-            ])
+    for row in _grade_export_rows(submissions):
+        ws.append(row)
 
     for col in ws.columns:
         max_len = max((len(str(cell.value)) for cell in col if cell.value), default=10)
@@ -411,30 +431,7 @@ def download_student_submission(assignment_id, sub_id):
 
     memory_file = io.BytesIO()
     with zipfile.ZipFile(memory_file, 'w') as zf:
-        student_folder = submission.student.name.replace(" ", "_")
-
-        # files
-        for ans in submission.answers:
-            if ans.file_path and os.path.exists(ans.file_path):
-                arcname = f"{student_folder}/Q{ans.question_id}_{os.path.basename(ans.file_path)}"
-                zf.write(ans.file_path, arcname)
-
-        # summary text
-        summary = f"Student: {submission.student.name}\n"
-        summary += f"Submitted At: {submission.submitted_at}\n"
-        summary += f"Grade: {submission.grade or 'Not graded'}\n"
-        summary += f"Feedback: {submission.feedback or '—'}\n\n"
-        for ans in submission.answers:
-            summary += f"Q{ans.question_id}: {ans.question.question_text}\n"
-            if ans.answer_text:
-                summary += f"  Answer: {ans.answer_text}\n"
-            if ans.selected_option_texts:
-                summary += f"  Selected Options: {', '.join(ans.selected_option_texts)}\n"
-            if ans.file_path:
-                summary += f"  File: {os.path.basename(ans.file_path)}\n"
-            summary += "\n"
-
-        zf.writestr(f"{student_folder}/SUMMARY.txt", summary)
+        _add_submission_to_zip(zf, submission)
 
     memory_file.seek(0)
     return send_file(

@@ -3,26 +3,28 @@ import os
 from alembic import command
 from alembic.config import Config
 
-from app import app
+from app import app, db
 
-# ---------- Path to SQLite DB ----------
-DB_PATH = os.path.join(app.instance_path, "sqlite3.db")
-
-# ---------- Delete old DB ----------
-if os.path.exists(DB_PATH):
-    print(f"Removing old database: {DB_PATH}")
-    os.remove(DB_PATH)
-else:
-    print(f"No existing database found at {DB_PATH}")
-
-# ---------- Ensure instance folder exists ----------
-os.makedirs(app.instance_path, exist_ok=True)
-
-# ---------- Run Alembic migrations ----------
+# ---------- Recreate the current schema and align Alembic history ----------
 with app.app_context():
-    alembic_cfg = Config("migrations/alembic.ini")
-    alembic_cfg.set_main_option("sqlalchemy.url", f"sqlite:///{DB_PATH}")
+    db_path = db.engine.url.database
+    db.engine.dispose()
+    if db_path and os.path.isfile(db_path):
+        print(f"Removing old database: {db_path}")
+        os.remove(db_path)
+    elif db_path:
+        print(f"No existing database found at {db_path}")
 
-    print("Running Alembic migrations...")
-    command.upgrade(alembic_cfg, "head")
-    print("✅ Database migrated successfully!")
+    if db_path:
+        os.makedirs(os.path.dirname(db_path), exist_ok=True)
+
+    print("Creating the current schema from registered models...")
+    db.create_all()
+
+    alembic_cfg = Config("migrations/alembic.ini")
+    alembic_cfg.set_main_option(
+        "sqlalchemy.url", db.engine.url.render_as_string(hide_password=False)
+    )
+    print("Stamping the database at the current Alembic head...")
+    command.stamp(alembic_cfg, "head")
+    print("✅ Database recreated and migration history aligned!")

@@ -39,7 +39,7 @@ def _student_file_url(student, path):
 # ===========================
 # Admin → Student List
 # ===========================
-@profile_bp.route("/profile/admin/students")
+@profile_bp.route("/admin/students")
 @login_required
 def admin_students():
     if current_user.role != "Admin":
@@ -54,7 +54,7 @@ def admin_students():
 # Admin → Set Student Profile
 # ===========================
 @profile_bp.route(
-    "/profile/admin/set_student_profile/<int:student_id>", methods=["GET", "POST"]
+    "/admin/set_student_profile/<int:student_id>", methods=["GET", "POST"]
 )
 @login_required
 def set_student_profile(student_id):
@@ -152,7 +152,7 @@ def set_student_profile(student_id):
 
 
 @profile_bp.route(
-    "/profile/student/<int:student_id>/legacy-uploads/<path:filename>"
+    "/student/<int:student_id>/legacy-uploads/<path:filename>"
 )
 @login_required
 def legacy_student_upload(student_id, filename):
@@ -174,7 +174,7 @@ def legacy_student_upload(student_id, filename):
 # ===========================
 # Student → Profile View/Edit
 # ===========================
-@profile_bp.route("/profile/student-profile/<int:student_id>", methods=["GET", "POST"])
+@profile_bp.route("/student-profile/<int:student_id>", methods=["GET", "POST"])
 @login_required
 def student_profile(student_id):
     student = User.query.get_or_404(student_id)

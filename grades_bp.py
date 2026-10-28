@@ -12,33 +12,10 @@ from sqlalchemy import distinct
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 
-from models import College, Course, Result, User, db
+from models import Course, Result, User, db
+from utils import calculate_grade
 
 grades_bp = Blueprint("grades_bp", __name__, template_folder="templates")
-
-# ===========================
-# Helper - Calculate Grade
-# ===========================
-def calculate_grade(marks, out_of=100):
-    try:
-        marks = int(marks)
-        percent = (marks / int(out_of)) * 100 if out_of else 0
-        if percent >= 90:
-            return "A+", 10.0
-        elif percent >= 80:
-            return "A", 9.0
-        elif percent >= 70:
-            return "B+", 8.0
-        elif percent >= 60:
-            return "B", 7.0
-        elif percent >= 50:
-            return "C", 6.0
-        elif percent >= 40:
-            return "D", 5.0
-        else:
-            return "F", 0.0
-    except (ValueError, TypeError):
-        return "N/A", 0.0
 
 # ===========================
 # Student View - See Own Results
