@@ -7,10 +7,9 @@
 
             <!-- College name & Logo -->
             <h2 class="fw-bold">{{ current_user.college.name if current_user.college else "My College" }}</h2>
-            {% if current_user.college and current_user.college.logo %}
-              <img src="{{ url_for('static', filename=current_user.college.logo.split('static/')[-1]) }}" 
-                   alt="College Logo" height="80" class="mb-2"/>
-            {% endif %}
+            <img src="{{ url_for('static', filename=current_user.college.logo.split('static/')[-1]) if current_user.college and current_user.college.logo else '/default-logo' }}"
+                 alt="College Logo" height="80" class="mb-2"
+                 onerror="this.onerror=null;this.src='/default-logo';">
             <p class="text-muted">Official Student Result</p>
             <hr>
 

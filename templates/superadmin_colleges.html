@@ -2,6 +2,28 @@
 {% block content %}
 <h2 class="mb-4">🌍 Manage Colleges</h2>
 
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h3 class="h5 card-title">Default Logo</h3>
+    <p class="text-muted">Shown when a college logo is missing or cannot be loaded.</p>
+    <img src="/default-logo" alt="Current default logo"
+         style="max-width: 180px; max-height: 80px; object-fit: contain;" class="mb-3">
+    <form method="POST" action="{{ url_for('superadmin.colleges') }}"
+          enctype="multipart/form-data">
+      <input type="hidden" name="form_type" value="default_logo">
+      <div class="input-group">
+        <input type="file" name="default_logo" class="form-control"
+               accept=".png,.jpg,.jpeg,.gif,.webp" aria-label="Choose default logo">
+        <button type="submit" class="btn btn-primary">Upload Default Logo</button>
+        <button type="submit" name="action" value="remove" class="btn btn-outline-secondary">
+          Use Built-in Logo
+        </button>
+      </div>
+      <div class="form-text">PNG, JPG, GIF, or WEBP; maximum 5 MB.</div>
+    </form>
+  </div>
+</div>
+
 <!-- Add College Form -->
 <form method="POST" action="{{ url_for('superadmin.colleges') }}" enctype="multipart/form-data" class="mb-4">
   <div class="mb-3">
@@ -35,12 +57,9 @@
     {% for college in colleges %}
       <tr>
         <td>
-          {% if college.logo %}
-            <img src="{{ url_for('static', filename=college.logo) }}" 
-                 alt="Logo" width="50">
-          {% else %}
-            ❌
-          {% endif %}
+          <img src="{{ url_for('static', filename=college.logo) if college.logo else '/default-logo' }}"
+               alt="{{ college.name }} logo" width="50"
+               onerror="this.onerror=null;this.src='/default-logo';">
         </td>
         <td>{{ college.name }}</td>
         <td>{{ college.domain }}</td>

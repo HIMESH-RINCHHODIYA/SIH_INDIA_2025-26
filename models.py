@@ -41,6 +41,14 @@ class College(db.Model):
         return f"<College id={self.id} name={self.name}>"
 
 
+class SiteBranding(db.Model):
+    __tablename__ = "site_branding"
+
+    id = db.Column(db.Integer, primary_key=True)
+    default_logo = db.Column(db.LargeBinary)
+    default_logo_content_type = db.Column(db.String(50))
+
+
 class Program(db.Model):
     __tablename__ = "programs"
 

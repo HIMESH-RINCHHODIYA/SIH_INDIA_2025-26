@@ -6,11 +6,21 @@ from flask_login import login_required
 from werkzeug.utils import secure_filename
 
 from extensions import db
-from models import College
+from models import College, SiteBranding
 from utils import role_required, save_uploaded_file
 
 # Blueprint
 superadmin_bp = Blueprint("superadmin", __name__, url_prefix="/superadmin")
+DEFAULT_LOGO_FORMATS = {
+    ".png": ("image/png", lambda data: data.startswith(b"\x89PNG\r\n\x1a\n")),
+    ".jpg": ("image/jpeg", lambda data: data.startswith(b"\xff\xd8\xff")),
+    ".jpeg": ("image/jpeg", lambda data: data.startswith(b"\xff\xd8\xff")),
+    ".gif": ("image/gif", lambda data: data.startswith((b"GIF87a", b"GIF89a"))),
+    ".webp": (
+        "image/webp",
+        lambda data: data.startswith(b"RIFF") and data[8:12] == b"WEBP",
+    ),
+}
 
 
 def _save_logo(owner_prefix):
@@ -32,6 +42,41 @@ def _remove_logo(logo):
         os.remove(path)
 
 
+def _update_default_logo():
+    branding = db.session.get(SiteBranding, 1)
+    if branding is None:
+        branding = SiteBranding(id=1)
+        db.session.add(branding)
+
+    if request.form.get("action") == "remove":
+        branding.default_logo = None
+        branding.default_logo_content_type = None
+        db.session.commit()
+        flash("The built-in default logo is now in use.", "success")
+        return redirect(url_for("superadmin.colleges"))
+
+    uploaded_file = request.files.get("default_logo")
+    if uploaded_file is None or not uploaded_file.filename:
+        flash("Choose an image to upload.", "warning")
+        return redirect(url_for("superadmin.colleges"))
+
+    extension = os.path.splitext(uploaded_file.filename)[1].lower()
+    image_format = DEFAULT_LOGO_FORMATS.get(extension)
+    image_data = uploaded_file.stream.read(5 * 1024 * 1024 + 1)
+    if len(image_data) > 5 * 1024 * 1024:
+        flash("The default logo must be 5 MB or smaller.", "danger")
+        return redirect(url_for("superadmin.colleges"))
+    if image_format is None or not image_format[1](image_data):
+        flash("Upload a valid PNG, JPG, GIF, or WEBP image.", "danger")
+        return redirect(url_for("superadmin.colleges"))
+
+    branding.default_logo = image_data
+    branding.default_logo_content_type = image_format[0]
+    db.session.commit()
+    flash("Default logo updated successfully.", "success")
+    return redirect(url_for("superadmin.colleges"))
+
+
 # ------------------ Manage Colleges ------------------ #
 @superadmin_bp.route("/colleges", methods=["GET", "POST"])
 @login_required
@@ -39,6 +84,9 @@ def _remove_logo(logo):
 def colleges():
     """Add new college + list all colleges"""
     if request.method == "POST":
+        if request.form.get("form_type") == "default_logo":
+            return _update_default_logo()
+
         name = request.form.get("name", "").strip()
         domain = request.form.get("domain", "").strip().lower()
 

@@ -5,8 +5,8 @@ import socket
 import tempfile
 
 from dotenv import load_dotenv
-from flask import (Flask, abort, flash, redirect, render_template, request,
-                   session, url_for)
+from flask import (Flask, Response, abort, flash, redirect, render_template,
+                   request, session, url_for)
 from flask_login import (LoginManager, current_user, login_required,
                          login_user, logout_user)
 from flask_migrate import Migrate
@@ -17,7 +17,7 @@ from extensions import db
 from hostel_models import (Hostel, HostelAllocation, HostelComplaint,
                            HostelLeave, HostelRoom)
 from library_models import Book, BorrowRecord, Penalty
-from models import College, User
+from models import College, SiteBranding, User
 from utils import role_required
 
 load_dotenv()
@@ -111,6 +111,29 @@ app.register_blueprint(hostel_bp)
 app.register_blueprint(library_bp)
 app.register_blueprint(chatbot_bp)
 app.register_blueprint(assignment_bp)
+
+
+@app.route("/default-logo")
+def default_logo():
+    branding = db.session.get(SiteBranding, 1)
+    if branding and branding.default_logo:
+        response = Response(
+            branding.default_logo,
+            mimetype=branding.default_logo_content_type or "image/png",
+        )
+    else:
+        response = Response(
+            """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="12" fill="#f8f9fa"/>
+              <path d="M8 24 32 10l24 14-24 14z" fill="#0d6efd"/>
+              <path d="M16 31v16h32V31L32 40z" fill="#212529"/>
+              <path d="M25 37h14v10H25z" fill="#f8f9fa"/>
+              <path d="M5 53h54v4H5z" fill="#0d6efd"/>
+            </svg>""",
+            mimetype="image/svg+xml",
+        )
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 # ------------------ Routes ------------------ #

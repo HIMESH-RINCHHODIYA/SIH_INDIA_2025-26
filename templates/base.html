@@ -64,9 +64,10 @@
     <div class="container-fluid">
       <a class="navbar-brand d-flex align-items-center" href="{{ url_for('home') }}">
         {% if session.get('college_logo') %}
-          <img src="{{ url_for('static', filename=session['college_logo'].replace('static/', '')) }}" alt="College Logo">
+          <img src="{{ url_for('static', filename=session['college_logo'].replace('static/', '')) }}"
+               alt="College Logo" onerror="this.onerror=null;this.src='/default-logo';">
         {% else %}
-          <img src="{{ url_for('static', filename='default-logo.png') }}" alt="Default Logo">
+          <img src="/default-logo" alt="Default Logo">
         {% endif %}
         {{ session.get('college_name', 'College ERP') }}
       </a>

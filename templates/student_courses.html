@@ -100,9 +100,10 @@
     <div class="p-3 d-flex align-items-center border-bottom">
       {% if session.get('college_logo') %}
         <img src="{{ url_for('static', filename=session['college_logo'].replace('static/', '')) }}" 
-             alt="College Logo" width="80" class="me-3">
+             alt="College Logo" width="80" class="me-3"
+             onerror="this.onerror=null;this.src='/default-logo';">
       {% else %}
-        <img src="{{ url_for('static', filename='default-logo.png') }}" 
+        <img src="/default-logo"
              alt="Default Logo" width="80" class="me-3">
       {% endif %}
       <div>
