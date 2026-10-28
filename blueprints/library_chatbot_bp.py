@@ -12,9 +12,6 @@ from extensions import db
 from library_models import Book, DigitalResource
 from models import User
 
-# Initialize OpenAI client (may fail if key invalid/quota over)
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
 chatbot_bp = Blueprint(
     "chatbot_bp", __name__, template_folder="../templates/library_templates"
 )
@@ -94,6 +91,7 @@ def chatbot_ask():
     """
 
     try:
+        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         completion = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[

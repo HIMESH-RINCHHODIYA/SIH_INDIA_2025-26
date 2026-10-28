@@ -2,6 +2,7 @@
 import os
 import random
 import socket
+import tempfile
 
 from dotenv import load_dotenv
 from flask import (Flask, abort, flash, redirect, render_template, request,
@@ -28,10 +29,29 @@ app = Flask(__name__, template_folder="templates")
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+is_vercel = os.getenv("VERCEL") == "1"
+database_url = os.getenv("DATABASE_URL")
+if database_url:
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace(
+            "postgres://", "postgresql+psycopg://", 1
+        )
+    elif database_url.startswith("postgresql://"):
+        database_url = database_url.replace(
+            "postgresql://", "postgresql+psycopg://", 1
+        )
+if is_vercel and (not database_url or database_url.startswith("sqlite:")):
+    # Vercel's deployment filesystem is read-only; /tmp is writable but ephemeral.
+    database_path = os.path.join(tempfile.gettempdir(), "sih_india_erp.sqlite3")
+    database_url = f"sqlite:///{database_path}"
+elif not database_url:
+    database_url = "sqlite:///db.sqlite3"
+if not is_vercel:
+    os.makedirs(app.instance_path, exist_ok=True)
 
 # ------------------ App Config ------------------ #
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "supersecretkey")
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite3"  # main database
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB

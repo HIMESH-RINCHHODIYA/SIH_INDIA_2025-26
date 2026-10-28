@@ -21,3 +21,12 @@ A Smart Automation ERP system for colleges & universities.
 cd erp-student-management/backend
 pip install -r requirements.txt
 python app.py
+```
+
+## Vercel deployment
+
+Set `DATABASE_URL`, `SECRET_KEY`, and `OPENAI_API_KEY` in the Vercel project
+environment settings. Vercel's filesystem is temporary: without `DATABASE_URL`,
+the app uses a SQLite database under `/tmp` so the function can start, but that
+database is not persistent. Use a managed database for production data. Keep
+`.env` local and do not commit it.
